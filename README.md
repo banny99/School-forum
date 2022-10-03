@@ -12,6 +12,7 @@ The motivation behind it stems from the unorganized manner in which questions ar
 - [ ]  As a user, I want to search through posts and answers, in order to find something specific that I'm looking for.
 - [ ]  As a user, I want to sort my search results, based on different criteria (subforum, time, upvotes, etc.) , in order to have a narrower pool of results.
 - [ ]  As a user, I would like to log in for the purpose of accessing the application.
+- [ ]  As a user, I want to be able to report posts or comments, if I find them in violation of the posting rules.
 
 
 ### Medium
@@ -21,6 +22,7 @@ The motivation behind it stems from the unorganized manner in which questions ar
 - [ ]  As a user, I want to be able to have 2 types of posts, questions and discussions, if I either want exact answers or just want to debate something.
 - [ ]  As a user, I want to mark the right answer to my question , in order for others to know which answer is right.
 - [ ]  As an admin, I want to delete inappropiate/spam posts/comments, in order to keep the forum clean.
+- [ ] As an admin, I want to review reported posts/comments, in order to see if the reports are justified.
 - [ ]  As a user, I want to have a profile, where I can access an overview of the posts/comments I wrote/tracked, in order to keep track of it.
 
 ### Low
