@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/nav_home">
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="benji.and.mishku.inc.viaforum.Home"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_home"/>
+    <fragment
+        android:id="@+id/nav_sub_forums"
+        android:name="benji.and.mishku.inc.viaforum.Subforums"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_subforums"/>
+
+    <fragment
+        android:id="@+id/nav_saved_posts"
+        android:name="benji.and.mishku.inc.viaforum.SavedPosts"
+        android:label="@string/app_name"
+        tools:layout="@layout/saved_posts_fragment"/>
+    <fragment
+        android:id="@+id/nav_your_posts"
+        android:name="benji.and.mishku.inc.viaforum.YourPosts"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_your_posts"/>
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="benji.and.mishku.inc.viaforum.Profile"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_profile"/>
+    <fragment
+        android:id="@+id/nav_help"
+        android:name="benji.and.mishku.inc.viaforum.Help"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_help"/>
+</navigation>
