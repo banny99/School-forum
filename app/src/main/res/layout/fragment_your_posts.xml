@@ -5,10 +5,18 @@
     android:layout_height="match_parent"
     tools:context=".YourPostsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/your_posts_header"
+        android:text="Your posts"
+        android:textSize="20dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="hello your posts" />
+        android:layout_height="wrap_content"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="match_parent"
+        android:layout_height="650dp"
+        android:background="@color/teal_700"
+        android:layout_marginTop="50dp"/>
 
 </FrameLayout>

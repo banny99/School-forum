@@ -1,20 +1,31 @@
 package benji.and.mishku.inc.viaforum;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class Post {
+    private String title;
     private String postText;
     private User author;
     private PostCategory category;
     private SubForum subForum;
-    private Timestamp timestamp;
+    private LocalDateTime timestamp;
 
-    public Post(String postText, User author, PostCategory category, SubForum subForum, Timestamp timestamp) {
+    public Post(String title, String postText, User author, PostCategory category, SubForum subForum, LocalDateTime timestamp) {
+        this.title = title;
         this.postText = postText;
         this.author = author;
         this.category = category;
         this.subForum = subForum;
         this.timestamp = timestamp;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getPostText() {
@@ -49,11 +60,11 @@ public class Post {
         this.subForum = subForum;
     }
 
-    public Timestamp getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 }

@@ -3,10 +3,18 @@ package benji.and.mishku.inc.viaforum;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,9 +64,33 @@ public class YourPostsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_your_posts, container, false);
+        View inflatedView = inflater.inflate(R.layout.fragment_your_posts, container, false);
+
+        //Initialize objects ...
+        RecyclerView postListRV = inflatedView.findViewById(R.id.rv);
+        postListRV.hasFixedSize();
+        postListRV.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        //fill with dummy posts:
+        //TODO - fill with real data later...
+        ArrayList<Post> posts = new ArrayList<>();
+        User tempUser = new User("Ben", "email", "pass");
+        SubForum tempSubForum = new SubForum();
+        for (int i=1;i<=20;i++){
+            posts.add(new Post( "title"+i,"text"+i, tempUser, PostCategory.DOCUMENTS, tempSubForum, LocalDateTime.now()));
+        }
+
+        //set onClick action for each list-item:
+        PostAdapter postAdapter = new PostAdapter(posts);
+        postAdapter.setOnClickListener(post -> {
+            Toast.makeText(getContext(), post.getTitle(), Toast.LENGTH_LONG ).show();
+        });
+
+        //assign
+        postListRV.setAdapter(postAdapter);
+
+        return inflatedView;
     }
 }
