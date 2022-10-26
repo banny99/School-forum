@@ -26,11 +26,13 @@ public class MainActivity extends AppCompatActivity {
     AppBarConfiguration appBarConfiguration;
 
     Toolbar toolbarBottom;
-    private void initViews(){
-        drawerLayout=findViewById(R.id.drawer_layout);
-        navDrawer=findViewById(R.id.navigation_drawer);
-        toolbarBottom=findViewById(R.id.bottomAppBar);
+
+    private void initViews() {
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navDrawer = findViewById(R.id.navigation_drawer);
+        toolbarBottom = findViewById(R.id.bottomAppBar);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,25 +40,30 @@ public class MainActivity extends AppCompatActivity {
         initViews();
         navSetup();
     }
-    private void navSetup(){
+
+    private void navSetup() {
         setSupportActionBar(toolbarBottom);
-        navController=Navigation.findNavController(this,R.id.nav_host_fragment);
-        appBarConfiguration=new AppBarConfiguration.Builder(navController.getGraph()).setOpenableLayout(drawerLayout).build();
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        appBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_saved_posts, R.id.nav_profile, R.id.nav_help, R.id.nav_sub_forums, R.id.nav_your_posts).setOpenableLayout(drawerLayout).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navDrawer, navController);
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.bottom_app_bar, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         return NavigationUI.onNavDestinationSelected(item, navController) || super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START))
