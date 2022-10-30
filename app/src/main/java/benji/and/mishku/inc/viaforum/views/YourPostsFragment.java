@@ -9,16 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-
-import benji.and.mishku.inc.viaforum.models.Post;
-import benji.and.mishku.inc.viaforum.models.PostCategory;
 import benji.and.mishku.inc.viaforum.R;
-import benji.and.mishku.inc.viaforum.models.SubForum;
-import benji.and.mishku.inc.viaforum.models.User;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -79,21 +71,20 @@ public class YourPostsFragment extends Fragment {
 
         //fill with dummy posts:
         //TODO - fill with real data later...
-        ArrayList<Post> posts = new ArrayList<>();
-        User tempUser = new User("Ben", "email", "pass");
-        SubForum tempSubForum = new SubForum();
-        for (int i=1;i<=20;i++){
-            posts.add(new Post( "title"+i,"text"+i, tempUser, PostCategory.DOCUMENTS, tempSubForum, LocalDateTime.now()));
-        }
-
-        //set onClick action for each list-item:
-        PostAdapter postAdapter = new PostAdapter(posts);
-        postAdapter.setOnClickListener(post -> {
-            Toast.makeText(getContext(), post.getTitle(), Toast.LENGTH_LONG ).show();
-        });
+//        ArrayList<Post> posts = new ArrayList<>();
+//        User tempUser = new User("Ben", "email", "pass",new Date(101199));
+//        for (int i=1;i<=20;i++){
+//            posts.add(new Post( "title"+i,"text"+i, tempUser, PostCategory.DOCUMENTS, LocalDateTime.now()));
+//        }
+//
+//        //set onClick action for each list-item:
+//        PostAdapter postAdapter = new PostAdapter(posts);
+//        postAdapter.setOnClickListener(post -> {
+//            Toast.makeText(getContext(), post.getTitle(), Toast.LENGTH_LONG ).show();
+//        });
 
         //assign
-        postListRV.setAdapter(postAdapter);
+//        postListRV.setAdapter(postAdapter);
 
         return inflatedView;
     }

@@ -1,22 +1,35 @@
 package benji.and.mishku.inc.viaforum.models;
 
-import java.time.LocalDateTime;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+import java.time.LocalDateTime;
+@Entity
 public class Post {
+    @PrimaryKey(autoGenerate = true)
+    private Long id;
     private String title;
     private String postText;
-    private User author;
-    private PostCategory category;
-    private SubForum subForum;
+    private Long userId;
+    private Long subForumId;
+    private boolean flag;
+    private String flagDescription;
     private LocalDateTime timestamp;
 
-    public Post(String title, String postText, User author, PostCategory category, SubForum subForum, LocalDateTime timestamp) {
+    public Post( String title, String postText, Long userId, Long subForumId,  LocalDateTime timestamp) {
         this.title = title;
         this.postText = postText;
-        this.author = author;
-        this.category = category;
-        this.subForum = subForum;
+        this.userId = userId;
+        this.subForumId = subForumId;
         this.timestamp = timestamp;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -35,28 +48,36 @@ public class Post {
         this.postText = postText;
     }
 
-    public User getAuthor() {
-        return author;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public PostCategory getCategory() {
-        return category;
+    public Long getSubForumId() {
+        return subForumId;
     }
 
-    public void setCategory(PostCategory category) {
-        this.category = category;
+    public void setSubForumId(Long subForumId) {
+        this.subForumId = subForumId;
     }
 
-    public SubForum getSubForum() {
-        return subForum;
+    public boolean isFlag() {
+        return flag;
     }
 
-    public void setSubForum(SubForum subForum) {
-        this.subForum = subForum;
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+    }
+
+    public String getFlagDescription() {
+        return flagDescription;
+    }
+
+    public void setFlagDescription(String flagDescription) {
+        this.flagDescription = flagDescription;
     }
 
     public LocalDateTime getTimestamp() {

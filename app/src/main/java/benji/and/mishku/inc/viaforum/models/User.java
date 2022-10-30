@@ -1,19 +1,33 @@
 package benji.and.mishku.inc.viaforum.models;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-
+@Entity
 public class User {
+    @PrimaryKey(autoGenerate = true)
+    private Long id;
     private String username;
     private String email;
     private String password;
-    private List<Post> myPosts;
-
-    public User(String username, String email, String password) {
+    private Date birthday;
+    private Long subForumId;
+    public User(String username, String email, String password,  Date birthday) {
         this.username = username;
         this.email = email;
         this.password = password;
-        myPosts = new ArrayList<>();
+        this.birthday = birthday;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -40,19 +54,12 @@ public class User {
         this.password = password;
     }
 
-    public List<Post> getMyPosts() {
-        return myPosts;
+
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setMyPosts(List<Post> myPosts) {
-        this.myPosts = myPosts;
-    }
-
-    public void addPost(Post p){
-        myPosts.add(p);
-    }
-
-    public void deletePost(Post p){
-        myPosts.remove(p);
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 }
