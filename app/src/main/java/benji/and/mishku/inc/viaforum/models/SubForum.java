@@ -1,4 +1,4 @@
-package benji.and.mishku.inc.viaforum;
+package benji.and.mishku.inc.viaforum.models;
 
 import java.util.List;
 

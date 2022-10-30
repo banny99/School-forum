@@ -1,4 +1,4 @@
-package benji.and.mishku.inc.viaforum;
+package benji.and.mishku.inc.viaforum.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,6 +19,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 
+import benji.and.mishku.inc.viaforum.R;
+
 public class MainActivity extends AppCompatActivity {
     NavigationView navDrawer;
     DrawerLayout drawerLayout;
@@ -28,23 +30,23 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbarBottom;
 
     private void initViews() {
-        drawerLayout = findViewById(R.id.drawer_layout);
-        navDrawer = findViewById(R.id.navigation_drawer);
-        toolbarBottom = findViewById(R.id.bottomAppBar);
+        drawerLayout = findViewById(benji.and.mishku.inc.viaforum.R.id.drawer_layout);
+        navDrawer = findViewById(benji.and.mishku.inc.viaforum.R.id.navigation_drawer);
+        toolbarBottom = findViewById(benji.and.mishku.inc.viaforum.R.id.bottomAppBar);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(benji.and.mishku.inc.viaforum.R.layout.activity_main);
         initViews();
         navSetup();
     }
 
     private void navSetup() {
         setSupportActionBar(toolbarBottom);
-        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        appBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_saved_posts, R.id.nav_profile, R.id.nav_help, R.id.nav_sub_forums, R.id.nav_your_posts).setOpenableLayout(drawerLayout).build();
+        navController = Navigation.findNavController(this, benji.and.mishku.inc.viaforum.R.id.nav_host_fragment);
+        appBarConfiguration = new AppBarConfiguration.Builder(benji.and.mishku.inc.viaforum.R.id.nav_home, benji.and.mishku.inc.viaforum.R.id.nav_saved_posts, benji.and.mishku.inc.viaforum.R.id.nav_profile, benji.and.mishku.inc.viaforum.R.id.nav_help, benji.and.mishku.inc.viaforum.R.id.nav_sub_forums, benji.and.mishku.inc.viaforum.R.id.nav_your_posts).setOpenableLayout(drawerLayout).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navDrawer, navController);
     }

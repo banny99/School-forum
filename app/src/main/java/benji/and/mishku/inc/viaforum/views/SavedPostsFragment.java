@@ -1,4 +1,4 @@
-package benji.and.mishku.inc.viaforum;
+package benji.and.mishku.inc.viaforum.views;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import benji.and.mishku.inc.viaforum.R;
 
 public class SavedPostsFragment extends Fragment {
     @Nullable

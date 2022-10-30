@@ -1,6 +1,5 @@
-package benji.and.mishku.inc.viaforum;
+package benji.and.mishku.inc.viaforum.models;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class Post {

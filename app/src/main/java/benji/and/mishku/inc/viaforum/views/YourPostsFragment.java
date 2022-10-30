@@ -1,4 +1,4 @@
-package benji.and.mishku.inc.viaforum;
+package benji.and.mishku.inc.viaforum.views;
 
 import android.os.Bundle;
 
@@ -11,10 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
+
+import benji.and.mishku.inc.viaforum.models.Post;
+import benji.and.mishku.inc.viaforum.models.PostCategory;
+import benji.and.mishku.inc.viaforum.R;
+import benji.and.mishku.inc.viaforum.models.SubForum;
+import benji.and.mishku.inc.viaforum.models.User;
 
 /**
  * A simple {@link Fragment} subclass.
