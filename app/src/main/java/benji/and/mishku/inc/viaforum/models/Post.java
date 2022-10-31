@@ -2,9 +2,13 @@ package benji.and.mishku.inc.viaforum.models;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
+
 @Entity
+
 public class Post {
     @PrimaryKey(autoGenerate = true)
     private Long id;
@@ -14,9 +18,10 @@ public class Post {
     private Long subForumId;
     private boolean flag;
     private String flagDescription;
-    private LocalDateTime timestamp;
+    @TypeConverters(Converters.class)
+    private Instant timestamp;
 
-    public Post( String title, String postText, Long userId, Long subForumId,  LocalDateTime timestamp) {
+    public Post( String title, String postText, Long userId, Long subForumId,  Instant timestamp) {
         this.title = title;
         this.postText = postText;
         this.userId = userId;
@@ -80,11 +85,11 @@ public class Post {
         this.flagDescription = flagDescription;
     }
 
-    public LocalDateTime getTimestamp() {
+    public Instant getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
+    public void setTimestamp(Instant timestamp) {
         this.timestamp = timestamp;
     }
 }

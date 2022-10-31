@@ -22,6 +22,14 @@ public class User {
         this.birthday = birthday;
     }
 
+    public Long getSubForumId() {
+        return subForumId;
+    }
+
+    public void setSubForumId(Long subForumId) {
+        this.subForumId = subForumId;
+    }
+
     public Long getId() {
         return id;
     }

@@ -6,15 +6,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import java.util.ArrayList;
+
+import java.util.List;
 
 import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.R;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
-    private ArrayList<Post> posts;
-    public PostAdapter(ArrayList<Post> posts) {
+    private List<Post> posts;
+    public PostAdapter(List<Post> posts) {
         this.posts = posts;
     }
 
@@ -34,23 +35,26 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull PostAdapter.ViewHolder viewHolder, int position) {
         viewHolder.postTitle.setText(posts.get(position).getTitle());
-//        viewHolder.postAuthor.setText(posts.get(position).getAuthor().getUsername());
+        viewHolder.postContent.setText(posts.get(position).getPostText());
     }
 
     @Override
     public int getItemCount() {
+        if(posts==null){
+            return 0;
+        }
         return posts.size();
     }
 
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView postTitle;
-        private final TextView postAuthor;
+        private final TextView postContent;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             postTitle = itemView.findViewById(R.id.postTitle);
-            postAuthor = itemView.findViewById(R.id.postAuthor);
+            postContent = itemView.findViewById(R.id.postAuthor);
 
             itemView.setOnClickListener(v -> {
                 listener.onClick(posts.get(getAdapterPosition()));
