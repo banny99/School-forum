@@ -1,14 +1,10 @@
 package benji.and.mishku.inc.viaforum.repositories;
 
 import android.content.Context;
-
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
-
-import java.util.concurrent.locks.ReentrantLock;
-
 import benji.and.mishku.inc.viaforum.models.Comment;
 import benji.and.mishku.inc.viaforum.models.Converters;
 import benji.and.mishku.inc.viaforum.models.Post;

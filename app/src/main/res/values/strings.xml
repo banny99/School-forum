@@ -31,4 +31,5 @@
 
     <!-- Temp values -->
     <string name="temp_textView">This is the home page</string>
+    <string name="menu_add_post">Add post</string>
 </resources>
