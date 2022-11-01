@@ -26,12 +26,13 @@ public class PostsRepository implements PostsService {
     private final static ReentrantLock lock=new ReentrantLock();
     private ExecutorService executorService;
     private PostsDAO dao;
+
     private PostsRepository(Application application){
         ForumDatabase forumDatabase=ForumDatabase.getInstance(application);
         dao=forumDatabase.postsDAO();
         executorService= Executors.newFixedThreadPool(5);
-
     }
+
     public static PostsRepository getInstance(Application application){
         if(instance==null){
             synchronized (lock){
@@ -86,5 +87,17 @@ public class PostsRepository implements PostsService {
         LiveData<Map<User, List<Post>>> temp=dao.getPostsByUser();
         List<Post> posts= Objects.requireNonNull(temp.getValue()).get(user);
         return new MutableLiveData<>(posts);
+    }
+
+    @Override
+    public Post getPostById(int id) {
+        return dao.getPostById(id);
+    }
+
+    @Override
+    public void removeAllPosts() {
+        executorService.execute(() -> {
+            dao.deleteAll();
+        });
     }
 }

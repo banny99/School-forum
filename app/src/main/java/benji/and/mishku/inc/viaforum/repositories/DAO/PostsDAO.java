@@ -2,21 +2,16 @@ package benji.and.mishku.inc.viaforum.repositories.DAO;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Database;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Transaction;
 import androidx.room.Update;
-
 import java.util.List;
 import java.util.Map;
-
-import benji.and.mishku.inc.viaforum.models.Comment;
 import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.models.Subforum;
 import benji.and.mishku.inc.viaforum.models.User;
-import benji.and.mishku.inc.viaforum.models.relationships.SubforumAndPost;
+
 @Dao
 public interface PostsDAO {
     @Insert
@@ -46,4 +41,12 @@ public interface PostsDAO {
                     " JOIN Subforum ON Subforum.id=Post.subForumId"
     )
     LiveData<Map<Subforum, List<Post>>> getPostsBySubforum();
+
+    @Query(
+            "SELECT * FROM Post WHERE id=:id"
+    )
+    Post getPostById(int id);
+
+    @Query("DELETE FROM Post")
+    void deleteAll();
 }

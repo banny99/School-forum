@@ -16,4 +16,7 @@ public interface PostsService {
     LiveData<List<Post>> getAllPosts();
     LiveData<List<Post>> getPostsBySubforum(Subforum subforum);
     LiveData<List<Post>> getPostsByUser(User user);
+
+    Post getPostById(int id);
+    void removeAllPosts();
 }

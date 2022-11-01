@@ -2,33 +2,19 @@ package benji.and.mishku.inc.viaforum.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.*;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
 import com.google.android.material.navigation.NavigationView;
-
-import org.w3c.dom.Text;
-
-import java.sql.Date;
-import java.time.Instant;
-import java.util.List;
-
 import benji.and.mishku.inc.viaforum.R;
-import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.models.User;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
@@ -56,11 +42,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(benji.and.mishku.inc.viaforum.R.layout.activity_main);
         initViews();
         navSetup();
-        User tempUser = new User("Ben", "email", "pass",new Date(101199));
-        userViewModel.addUser(tempUser);
-        for (int i=1;i<=20;i++){
-            postsViewModel.addPost(new Post( "title"+i,"text"+i, 1L,1L, Instant.now()));
-        }
+
+//        User tempUser = new User("Ben", "email", "pass",new Date(101199));
+//        userViewModel.addUser(tempUser);
+//        for (int i=1;i<=20;i++){
+//            postsViewModel.addPost(new Post( "title"+i,"text"+i, 1L,1L, Instant.now()));
+//        }
+
         View headerView=navDrawer.getHeaderView(0);
         TextView username=headerView.findViewById(R.id.userName);
         TextView email=headerView.findViewById(R.id.userEmail);
@@ -72,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     private void navSetup() {
         setSupportActionBar(toolbarBottom);
         navController = Navigation.findNavController(this, benji.and.mishku.inc.viaforum.R.id.nav_host_fragment);
-        appBarConfiguration = new AppBarConfiguration.Builder(benji.and.mishku.inc.viaforum.R.id.nav_home, benji.and.mishku.inc.viaforum.R.id.nav_saved_posts, benji.and.mishku.inc.viaforum.R.id.nav_profile, benji.and.mishku.inc.viaforum.R.id.nav_help, benji.and.mishku.inc.viaforum.R.id.nav_sub_forums, benji.and.mishku.inc.viaforum.R.id.nav_your_posts).setOpenableLayout(drawerLayout).build();
+        appBarConfiguration = new AppBarConfiguration.Builder(benji.and.mishku.inc.viaforum.R.id.nav_home, benji.and.mishku.inc.viaforum.R.id.nav_saved_posts, benji.and.mishku.inc.viaforum.R.id.nav_profile, benji.and.mishku.inc.viaforum.R.id.nav_help, benji.and.mishku.inc.viaforum.R.id.nav_sub_forums, R.id.nav_your_posts, R.id.nav_add_post).setOpenableLayout(drawerLayout).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navDrawer, navController);
     }
@@ -99,6 +87,4 @@ public class MainActivity extends AppCompatActivity {
         else
             super.onBackPressed();
     }
-
-
 }

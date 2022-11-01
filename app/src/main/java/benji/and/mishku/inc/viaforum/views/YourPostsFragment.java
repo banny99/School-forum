@@ -12,12 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.sql.Date;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 
 import benji.and.mishku.inc.viaforum.R;
@@ -43,7 +46,9 @@ public class YourPostsFragment extends Fragment {
     private String mParam2;
 
     private PostsViewModel postsViewModel;
-
+    private RecyclerView postListRV;
+    private PostAdapter postAdapter;
+    private Button removeAllPostsButton;
 
     public YourPostsFragment() {
         // Required empty public constructor
@@ -74,11 +79,15 @@ public class YourPostsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        postsViewModel=new ViewModelProvider(this).get(PostsViewModel.class);
-//        postsViewModel.getAllPosts().observe(this, posts -> {
-//
-//        });
 
+        postsViewModel=new ViewModelProvider(this).get(PostsViewModel.class);
+        postsViewModel.getAllPosts().observe(this, new Observer<List<Post>>() {
+            @Override
+            public void onChanged(List<Post> posts) {
+//                postAdapter.notifyDataSetChanged();
+                postListRV.setAdapter(new PostAdapter(posts));
+            }
+        });
     }
 
     @Override
@@ -87,23 +96,24 @@ public class YourPostsFragment extends Fragment {
         View inflatedView = inflater.inflate(R.layout.fragment_your_posts, container, false);
 
         //Initialize objects ...
-        RecyclerView postListRV = inflatedView.findViewById(R.id.rv);
+        postListRV = inflatedView.findViewById(R.id.rv);
         postListRV.hasFixedSize();
         postListRV.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        //fill with dummy posts:
-
-
-
-      List<Post> posts=postsViewModel.getAllPosts().getValue();
-        PostAdapter postAdapter = new PostAdapter(posts);
+        //fill:
+//        List<Post> posts=postsViewModel.getAllPosts().getValue();
+        List<Post> posts = new ArrayList<>();
+        postAdapter = new PostAdapter(posts);
         postAdapter.setOnClickListener(post -> {
             Toast.makeText(getContext(), post.getTitle(), Toast.LENGTH_LONG ).show();
         });
-
         postListRV.setAdapter(postAdapter);
+
+        removeAllPostsButton = inflatedView.findViewById(R.id.removeButton);
+        removeAllPostsButton.setOnClickListener(view -> {
+            postsViewModel.removeAllPosts();
+        });
 
         return inflatedView;
     }
-
 }
