@@ -3,8 +3,6 @@ package benji.and.mishku.inc.viaforum.views;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,26 +10,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import java.sql.Date;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.List;
 
 import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.models.Post;
-import benji.and.mishku.inc.viaforum.models.User;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
-import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link YourPostsFragment#newInstance} factory method to
+ * Use the {@link AddPostFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class YourPostsFragment extends Fragment {
+public class AddPostFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,9 +38,11 @@ public class YourPostsFragment extends Fragment {
     private String mParam2;
 
     private PostsViewModel postsViewModel;
+    private EditText postTitle;
+    private EditText postText;
+    private Button addPostBtn;
 
-
-    public YourPostsFragment() {
+    public AddPostFragment() {
         // Required empty public constructor
     }
 
@@ -55,11 +52,11 @@ public class YourPostsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment YourPosts.
+     * @return A new instance of fragment AddPostFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static YourPostsFragment newInstance(String param1, String param2) {
-        YourPostsFragment fragment = new YourPostsFragment();
+    public static AddPostFragment newInstance(String param1, String param2) {
+        AddPostFragment fragment = new AddPostFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -74,36 +71,30 @@ public class YourPostsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        postsViewModel=new ViewModelProvider(this).get(PostsViewModel.class);
-//        postsViewModel.getAllPosts().observe(this, posts -> {
-//
-//        });
 
+        postsViewModel=new ViewModelProvider(this).get(PostsViewModel.class);
+        //postTitle = getActivity().findViewById(R.id.postTitle);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View inflatedView = inflater.inflate(R.layout.fragment_your_posts, container, false);
+        View inflatedView = inflater.inflate(R.layout.fragment_add_post, container, false);
 
         //Initialize objects ...
-        RecyclerView postListRV = inflatedView.findViewById(R.id.rv);
-        postListRV.hasFixedSize();
-        postListRV.setLayoutManager(new LinearLayoutManager(getContext()));
+        postTitle = inflatedView.findViewById(R.id.newPostTitle);
+        postText = inflatedView.findViewById(R.id.newPostText);
+        addPostBtn = inflatedView.findViewById(R.id.addNewPostButton);
+        addPostBtn.setOnClickListener(view -> {
+            //ToDo: replace IDs with real IDs
+            postsViewModel.addPost(new Post(postTitle.getText().toString(), postText.getText().toString(), (long)123, (long)345, Instant.now()));
 
-        //fill with dummy posts:
-
-
-
-      List<Post> posts=postsViewModel.getAllPosts().getValue();
-        PostAdapter postAdapter = new PostAdapter(posts);
-        postAdapter.setOnClickListener(post -> {
-            Toast.makeText(getContext(), post.getTitle(), Toast.LENGTH_LONG ).show();
+            postTitle.setText("");
+            postText.setText("");
+            Toast.makeText(getContext(),"Post created", Toast.LENGTH_LONG).show();
+            //ToDo: do sth after the creation (redirect to the new 'fragment_post'?)
         });
-
-        postListRV.setAdapter(postAdapter);
 
         return inflatedView;
     }
-
 }

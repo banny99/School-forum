@@ -8,10 +8,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.*;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -19,7 +21,17 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 
+import org.w3c.dom.Text;
+
+import java.sql.Date;
+import java.time.Instant;
+import java.util.List;
+
 import benji.and.mishku.inc.viaforum.R;
+import benji.and.mishku.inc.viaforum.models.Post;
+import benji.and.mishku.inc.viaforum.models.User;
+import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
+import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 
 public class MainActivity extends AppCompatActivity {
     NavigationView navDrawer;
@@ -28,11 +40,14 @@ public class MainActivity extends AppCompatActivity {
     AppBarConfiguration appBarConfiguration;
 
     Toolbar toolbarBottom;
-
+    UserViewModel userViewModel;
+    PostsViewModel postsViewModel;
     private void initViews() {
         drawerLayout = findViewById(benji.and.mishku.inc.viaforum.R.id.drawer_layout);
         navDrawer = findViewById(benji.and.mishku.inc.viaforum.R.id.navigation_drawer);
         toolbarBottom = findViewById(benji.and.mishku.inc.viaforum.R.id.bottomAppBar);
+        userViewModel= new ViewModelProvider(this).get(UserViewModel.class);
+        postsViewModel= new ViewModelProvider(this).get(PostsViewModel.class);
     }
 
     @Override
@@ -41,6 +56,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(benji.and.mishku.inc.viaforum.R.layout.activity_main);
         initViews();
         navSetup();
+        User tempUser = new User("Ben", "email", "pass",new Date(101199));
+        userViewModel.addUser(tempUser);
+        for (int i=1;i<=20;i++){
+            postsViewModel.addPost(new Post( "title"+i,"text"+i, 1L,1L, Instant.now()));
+        }
+        View headerView=navDrawer.getHeaderView(0);
+        TextView username=headerView.findViewById(R.id.userName);
+        TextView email=headerView.findViewById(R.id.userEmail);
+        User u=userViewModel.getUserByUsername("Ben");
+        username.setText(u.getUsername());
+        email.setText(u.getEmail());
     }
 
     private void navSetup() {
