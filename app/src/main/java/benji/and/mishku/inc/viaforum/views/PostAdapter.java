@@ -19,6 +19,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         this.posts = posts;
     }
 
+
+
     private OnClickListener listener;
     public void setOnClickListener(OnClickListener listener) {
         this.listener = listener;
@@ -44,6 +46,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             return 0;
         }
         return posts.size();
+    }
+
+    public void setPosts(List<Post> posts){
+        this.posts = posts;
+        notifyDataSetChanged();
     }
 
 

@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -72,7 +73,7 @@ public class AddPostFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        postsViewModel=new ViewModelProvider(this).get(PostsViewModel.class);
+        postsViewModel=new ViewModelProvider(getActivity()).get(PostsViewModel.class);
         //postTitle = getActivity().findViewById(R.id.postTitle);
     }
 
@@ -87,12 +88,14 @@ public class AddPostFragment extends Fragment {
         addPostBtn = inflatedView.findViewById(R.id.addNewPostButton);
         addPostBtn.setOnClickListener(view -> {
             //ToDo: replace IDs with real IDs
-            postsViewModel.addPost(new Post(postTitle.getText().toString(), postText.getText().toString(), (long)123, (long)345, Instant.now()));
+            Post newPost = new Post(postTitle.getText().toString(), postText.getText().toString(), (long)123, (long)345, Instant.now());
+            postsViewModel.addPost(newPost);
 
             postTitle.setText("");
             postText.setText("");
-            Toast.makeText(getContext(),"Post created", Toast.LENGTH_LONG).show();
-            //ToDo: do sth after the creation (redirect to the new 'fragment_post'?)
+
+            postsViewModel.setSharedPost(newPost);
+            Navigation.findNavController(inflatedView).navigate(R.id.nav_post_detail);
         });
 
         return inflatedView;

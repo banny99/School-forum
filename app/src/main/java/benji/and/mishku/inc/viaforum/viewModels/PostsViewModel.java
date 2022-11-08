@@ -11,6 +11,7 @@ import benji.and.mishku.inc.viaforum.repositories.PostsRepository;
 
 public class PostsViewModel extends AndroidViewModel {
     private PostsService postsService;
+    private Post sharedPost;
 
     public PostsViewModel(@NonNull Application application) {
         super(application);
@@ -27,6 +28,13 @@ public class PostsViewModel extends AndroidViewModel {
     }
     public Post getPostById(int id){
         return postsService.getPostById(id);
+    }
+
+    public Post getSharedPost() {
+        return sharedPost;
+    }
+    public void setSharedPost(Post sharedPost) {
+        this.sharedPost = sharedPost;
     }
 
     public void removeAllPosts() {
