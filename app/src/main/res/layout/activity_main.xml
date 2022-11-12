@@ -19,12 +19,13 @@
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:layout_gravity="bottom"
+
             app:menu="@menu/bottom_app_bar"
             app:navigationIcon="@drawable/ic_baseline_menu_24" />
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addPostButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="TODO"
             app:layout_anchor="@id/bottomAppBar"
             app:srcCompat="@drawable/ic_baseline_add_24" />
 
@@ -34,6 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:defaultNavHost="true"
+            android:layout_marginBottom="?actionBarSize"
             app:layout_constraintBottom_toTopOf="@id/bottomAppBar"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

@@ -19,6 +19,7 @@ public class UserViewModel extends AndroidViewModel {
         userService.addUser(user);
     }
     public User getUserByUsername(String username){
+
         return userService.getUserByUsername(username);
     }
 }

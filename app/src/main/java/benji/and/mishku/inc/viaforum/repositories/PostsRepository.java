@@ -10,15 +10,14 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.ReentrantLock;
 
 import benji.and.mishku.inc.viaforum.contracts.PostsService;
-import benji.and.mishku.inc.viaforum.models.Comment;
 import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.models.Subforum;
 import benji.and.mishku.inc.viaforum.models.User;
 import benji.and.mishku.inc.viaforum.repositories.DAO.PostsDAO;
-import benji.and.mishku.inc.viaforum.repositories.DAO.SubforumsDAO;
 //TODO Add try catches for SQLite Exceptions and handle accordingly
 
 public class PostsRepository implements PostsService {
@@ -71,7 +70,6 @@ public class PostsRepository implements PostsService {
 
     @Override
     public LiveData<List<Post>> getAllPosts() {
-        List<Post> posts=dao.getAllPosts().getValue();
         return dao.getAllPosts();
     }
 

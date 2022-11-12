@@ -24,7 +24,7 @@ import benji.and.mishku.inc.viaforum.repositories.DAO.PostsDAO;
 public class CommentsRepository implements CommentsService {
     private static volatile CommentsRepository instance;
     private final static ReentrantLock lock=new ReentrantLock();
-    private ExecutorService executorService;
+    private final ExecutorService executorService;
     private CommentsDAO dao;
     private CommentsRepository(Application application){
         ForumDatabase forumDatabase=ForumDatabase.getInstance(application);
@@ -43,23 +43,39 @@ public class CommentsRepository implements CommentsService {
     }
     @Override
     public void addComment(Comment c) {
-        executorService.execute(()->{
-            dao.insert(c);
-        });
+        try {
+            executorService.execute(() -> {
+                dao.insert(c);
+            });
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void deleteComment(Comment c) {
-        executorService.execute(()->{
-            dao.delete(c);
-        });
+        try {
+            executorService.execute(() -> {
+                dao.delete(c);
+            });
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void updateComment(Comment c) {
-        executorService.execute(()->{
-            dao.update(c);
-        });
+        try{
+            executorService.execute(()->{
+                dao.update(c);
+            });
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     @Override

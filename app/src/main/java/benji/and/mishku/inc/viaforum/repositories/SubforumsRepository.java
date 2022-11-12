@@ -22,7 +22,7 @@ public class SubforumsRepository implements SubforumsService {
     private SubforumsRepository(Application application){
         ForumDatabase forumDatabase=ForumDatabase.getInstance(application);
         dao=forumDatabase.subforumsDAO();
-        executorService= Executors.newFixedThreadPool(5);
+        executorService= Executors.newFixedThreadPool(10);
 
     }
     public static SubforumsRepository getInstance(Application application){
@@ -60,6 +60,11 @@ public class SubforumsRepository implements SubforumsService {
         executorService.execute(()->{
             dao.delete(s);
         });
+    }
+
+    @Override
+    public void subscribeToSubforum(Long userId, Long subforumId) {
+
     }
 
 
