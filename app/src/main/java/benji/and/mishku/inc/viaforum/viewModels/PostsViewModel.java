@@ -42,4 +42,8 @@ public class PostsViewModel extends AndroidViewModel {
     public void removeAllPosts() {
         postsService.removeAllPosts();
     }
+
+    public void updatePost(Post editedPost) {
+        postsService.updatePost(editedPost);
+    }
 }
