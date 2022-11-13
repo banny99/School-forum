@@ -10,26 +10,13 @@ import android.view.View;
 import android.widget.TextView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.*;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-
-import java.sql.Date;
-import java.time.Instant;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.sql.Date;
-import java.time.Instant;
-
 import benji.and.mishku.inc.viaforum.R;
-import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.models.User;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
@@ -57,21 +44,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(benji.and.mishku.inc.viaforum.R.layout.activity_main);
         initViews();
         navSetup();
-        User tempUser = new User("Ben", "email", "pass",new Date(101199));
-        userViewModel.addUser(tempUser);
+//        User tempUser = new User("Ben", "email", "pass",new Date(101199));
+//        userViewModel.addUser(tempUser);
         actionButton=findViewById(R.id.addPostButton);
         actionButton.setOnClickListener(view -> navController.navigate(R.id.nav_add_post));
-        for (int i=1;i<=20;i++){
-            postsViewModel.addPost(new Post( "title"+i,"content"+i, 1L,1L, Instant.now()));
-        }
+//        for (int i=1;i<=20;i++){
+//            postsViewModel.addPost(new Post( "title"+i,"content"+i, 1L,1L, Instant.now()));
+//        }
 
         View headerView=navDrawer.getHeaderView(0);
         TextView username=headerView.findViewById(R.id.userName);
         TextView email=headerView.findViewById(R.id.userEmail);
         User u=userViewModel.getUserByUsername("Ben");
-        for (int i=1;i<=20;i++){
-            postsViewModel.addPost(new Post( "title"+i,"content"+i, u.getId(),1L, Instant.now()));
-        }
+//        for (int i=1;i<=20;i++){
+//            postsViewModel.addPost(new Post( "title"+i,"content"+i, u.getId(),1L, Instant.now()));
+//        }
         username.setText(u.getUsername());
         email.setText(u.getEmail());
     }

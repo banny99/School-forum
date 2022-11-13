@@ -21,7 +21,11 @@ public class Post {
     @TypeConverters(Converters.class)
     private Instant timestamp;
 
-    public Post( String title, String postText, Long userId, Long subForumId,  Instant timestamp) {
+    public Post() {
+        //required by Firebase
+    }
+
+    public Post(String title, String postText, Long userId, Long subForumId, Instant timestamp) {
         this.title = title;
         this.postText = postText;
         this.userId = userId;
