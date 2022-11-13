@@ -26,7 +26,7 @@ public abstract class ForumDatabase extends RoomDatabase {
     public static synchronized   ForumDatabase getInstance(Context context){
         if(instance==null){
             instance= Room.databaseBuilder(context.getApplicationContext(), ForumDatabase.class,"forum_database")
-                .allowMainThreadQueries().build();
+                    .allowMainThreadQueries().build();
         }
         return instance;
     }

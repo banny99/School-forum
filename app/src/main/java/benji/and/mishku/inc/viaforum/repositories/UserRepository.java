@@ -2,10 +2,17 @@ package benji.and.mishku.inc.viaforum.repositories;
 
 import android.app.Application;
 import android.database.sqlite.SQLiteException;
+import android.os.Handler;
+import android.os.Looper;
+
+import androidx.core.os.HandlerCompat;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
+
+
+import javax.xml.transform.Result;
 
 import benji.and.mishku.inc.viaforum.contracts.UserService;
 import benji.and.mishku.inc.viaforum.models.User;
@@ -17,11 +24,12 @@ public class UserRepository implements UserService {
     private final static ReentrantLock lock=new ReentrantLock();
     private ExecutorService executorService;
     private UserDAO dao;
+    private Handler mainThreadHandler;
     private UserRepository(Application application){
         ForumDatabase forumDatabase=ForumDatabase.getInstance(application);
         dao=forumDatabase.userDAO();
         executorService= Executors.newFixedThreadPool(5);
-
+        mainThreadHandler= HandlerCompat.createAsync(Looper.getMainLooper());
     }
     public static UserRepository getInstance(Application application){
         if(instance==null){
@@ -41,6 +49,8 @@ public class UserRepository implements UserService {
 
     @Override
     public User getUserByUsername(String username) {
+
+
         return dao.getUserByUsername(username);
     }
 

@@ -10,7 +10,7 @@ import benji.and.mishku.inc.viaforum.models.User;
 import benji.and.mishku.inc.viaforum.repositories.UserRepository;
 
 public class UserViewModel extends AndroidViewModel {
-    private UserService userService;
+    private final UserService userService;
     public UserViewModel(@NonNull Application application) {
         super(application);
         userService= UserRepository.getInstance(application);
@@ -19,6 +19,7 @@ public class UserViewModel extends AndroidViewModel {
         userService.addUser(user);
     }
     public User getUserByUsername(String username){
+
         return userService.getUserByUsername(username);
     }
 }

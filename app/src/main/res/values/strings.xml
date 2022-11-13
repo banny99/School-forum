@@ -34,4 +34,11 @@
     <string name="menu_add_post">Add post</string>
     <string name="edit">Edit</string>
     <string name="cancel">Cancel</string>
+    <string name="content">content</string>
+    <string name="author">author</string>
+    <string name="posted_in_subforum">posted in subforum</string>
+    <string name="title">Title</string>
+    <string name="placeholderSubforum">posted on patricianMemesDen</string>
+    <string name="action_1">Do this</string>
+    <string name="action_2">Do that</string>
 </resources>

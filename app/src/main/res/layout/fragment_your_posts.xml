@@ -3,16 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.YourPostsFragment"
-    android:orientation="vertical">
+    android:layout_gravity="bottom"
+    android:orientation="vertical"
+    tools:context=".views.YourPostsFragment">
 
     <TextView
         android:id="@+id/your_posts_header"
-        android:text="Your posts"
-        android:textSize="20dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:text="Your posts"
+        android:textSize="20dp" />
 
     <Button
         android:id="@+id/removeButton"
@@ -23,7 +24,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10" />
+        android:layout_height="match_parent"
+         />
 
 </LinearLayout>
