@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "759479334547",
+    "firebase_url": "https://viaforum-d19f5-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "viaforum-d19f5",
+    "storage_bucket": "viaforum-d19f5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:759479334547:android:eb9f523c260217f2b53f66",
+        "android_client_info": {
+          "package_name": "benji.and.mishku.inc.viaforum"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "759479334547-ocn824b0j3lk6s7hn886i7kfev128of9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAp5UthPVQOXFiRDti0dYCrQcKyDa13HdY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "759479334547-ocn824b0j3lk6s7hn886i7kfev128of9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
