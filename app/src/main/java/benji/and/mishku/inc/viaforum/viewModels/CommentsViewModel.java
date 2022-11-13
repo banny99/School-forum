@@ -13,7 +13,7 @@ import benji.and.mishku.inc.viaforum.models.Comment;
 import benji.and.mishku.inc.viaforum.models.Post;
 
 public class CommentsViewModel extends AndroidViewModel {
-    private CommentsService commentsService;
+    private final CommentsService commentsService;
     public CommentsViewModel(@NonNull Application application, CommentsService commentsService) {
         super(application);
         this.commentsService=commentsService;

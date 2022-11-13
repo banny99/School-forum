@@ -12,7 +12,7 @@ import benji.and.mishku.inc.viaforum.contracts.SubforumsService;
 import benji.and.mishku.inc.viaforum.models.Subforum;
 
 public class SubforumsViewModel extends AndroidViewModel {
-    private SubforumsService subforumsService;
+    private final SubforumsService subforumsService;
     public SubforumsViewModel(@NonNull Application application, SubforumsService subforumsService) {
         super(application);
         this.subforumsService=subforumsService;

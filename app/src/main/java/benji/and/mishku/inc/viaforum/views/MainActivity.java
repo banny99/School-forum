@@ -56,21 +56,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         actionButton=findViewById(R.id.addPostButton);
         actionButton.setOnClickListener(view -> navController.navigate(R.id.nav_add_post));
         for (int i=1;i<=20;i++){
-            postsViewModel.addPost(new Post( "title"+i,"text"+i, 1L,1L, Instant.now()));
+            postsViewModel.addPost(new Post( "title"+i,"content"+i, 1L,1L, Instant.now()));
         }
 
         View headerView=navDrawer.getHeaderView(0);
         TextView username=headerView.findViewById(R.id.userName);
         TextView email=headerView.findViewById(R.id.userEmail);
         User u=userViewModel.getUserByUsername("Ben");
+        for (int i=1;i<=20;i++){
+            postsViewModel.addPost(new Post( "title"+i,"content"+i, u.getId(),1L, Instant.now()));
+        }
         username.setText(u.getUsername());
         email.setText(u.getEmail());
     }
 
     private void navSetup() {
         setSupportActionBar(toolbarBottom);
-        navController = Navigation.findNavController(this, benji.and.mishku.inc.viaforum.R.id.nav_host_fragment);
-        appBarConfiguration = new AppBarConfiguration.Builder(benji.and.mishku.inc.viaforum.R.id.nav_home, benji.and.mishku.inc.viaforum.R.id.nav_saved_posts, benji.and.mishku.inc.viaforum.R.id.nav_profile, benji.and.mishku.inc.viaforum.R.id.nav_help, benji.and.mishku.inc.viaforum.R.id.nav_sub_forums, R.id.nav_your_posts, R.id.nav_add_post).setOpenableLayout(drawerLayout).build();
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        appBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_saved_posts, R.id.nav_profile, R.id.nav_help, R.id.nav_sub_forums, R.id.nav_your_posts, R.id.nav_add_post, R.id.nav_post_detail).setOpenableLayout(drawerLayout).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navDrawer, navController);
     }

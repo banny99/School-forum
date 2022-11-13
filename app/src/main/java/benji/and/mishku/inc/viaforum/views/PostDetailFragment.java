@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Objects;
 import java.util.function.Function;
 import benji.and.mishku.inc.viaforum.DialogGenerator;
 import benji.and.mishku.inc.viaforum.R;
@@ -69,14 +71,14 @@ public class PostDetailFragment extends Fragment {
 
     Function deletePostConfirmationAction = e->{
         postsViewModel.deletePost(postsViewModel.getSharedPost());
-        Navigation.findNavController(getView()).navigate(R.id.nav_your_posts);
+        Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.nav_your_posts);
         Toast.makeText(getContext(), "Post \""+postsViewModel.getSharedPost().getTitle()+"\" was DELETED", Toast.LENGTH_LONG).show();
         return null;
     };
 
     Function editPostConfirmationAction = e->{
         postsViewModel.updatePost(postsViewModel.getSharedPost());
-        Navigation.findNavController(getView()).navigate(R.id.nav_your_posts);
+        Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.nav_your_posts);
         Toast.makeText(getContext(), "Post-\""+postsViewModel.getSharedPost().getTitle()+"\" was EDITED", Toast.LENGTH_LONG).show();
         return null;
     };

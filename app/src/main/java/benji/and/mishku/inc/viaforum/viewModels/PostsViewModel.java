@@ -12,7 +12,7 @@ import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.repositories.PostsRepository;
 
 public class PostsViewModel extends AndroidViewModel {
-    private PostsService postsService;
+    private final PostsService postsService;
     private Post sharedPost;
 
     public PostsViewModel(@NonNull Application application) {

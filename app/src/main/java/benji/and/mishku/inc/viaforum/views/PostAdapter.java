@@ -36,8 +36,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull PostAdapter.ViewHolder viewHolder, int position) {
-        viewHolder.postTitle.setText(posts.get(position).getTitle());
+
         viewHolder.postContent.setText(posts.get(position).getPostText());
+        viewHolder.postTitle.setText(posts.get(position).getTitle());
+        viewHolder.postSubforum.setText(R.string.placeholderSubforum);
+        viewHolder.postAuthor.setText("Ben");
     }
 
     @Override
@@ -55,14 +58,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView postTitle;
-        private final TextView postContent;
 
+        private final TextView postContent;
+        private final TextView postAuthor;
+        private final TextView postSubforum;
+        private final TextView postTitle;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            postTitle = itemView.findViewById(R.id.postTitle);
-            postContent = itemView.findViewById(R.id.postAuthor);
-
+            postAuthor=itemView.findViewById(R.id.postAuthor);
+            postContent = itemView.findViewById(R.id.postContent);
+            postSubforum=itemView.findViewById(R.id.postSubforum);
+            postTitle=itemView.findViewById(R.id.postTitle);
             itemView.setOnClickListener(v -> {
                 listener.onClick(posts.get(getAdapterPosition()));
             });
