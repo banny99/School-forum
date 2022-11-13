@@ -4,16 +4,15 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-
 import benji.and.mishku.inc.viaforum.contracts.UserService;
 import benji.and.mishku.inc.viaforum.models.User;
-import benji.and.mishku.inc.viaforum.repositories.UserRepository;
+import benji.and.mishku.inc.viaforum.repositories.UserFirebaseRepository;
 
 public class UserViewModel extends AndroidViewModel {
     private final UserService userService;
     public UserViewModel(@NonNull Application application) {
         super(application);
-        userService= UserRepository.getInstance(application);
+        userService= UserFirebaseRepository.getInstance();
     }
     public void addUser(User user){
         userService.addUser(user);

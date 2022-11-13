@@ -1,16 +1,7 @@
 package benji.and.mishku.inc.viaforum.models;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-import androidx.room.TypeConverter;
-import androidx.room.TypeConverters;
-
-import java.time.Instant;
-
-@Entity
 
 public class Post {
-    @PrimaryKey(autoGenerate = true)
     private Long id;
     private String title;
     private String postText;
@@ -18,19 +9,18 @@ public class Post {
     private Long subForumId;
     private boolean flag;
     private String flagDescription;
-    @TypeConverters(Converters.class)
-    private Instant timestamp;
+    private DateTime dateTime;
 
     public Post() {
         //required by Firebase
     }
 
-    public Post(String title, String postText, Long userId, Long subForumId, Instant timestamp) {
+    public Post(String title, String postText, Long userId, Long subForumId) {
         this.title = title;
         this.postText = postText;
         this.userId = userId;
         this.subForumId = subForumId;
-        this.timestamp = timestamp;
+        dateTime = DateTime.now();
     }
 
     public Long getId() {
@@ -89,12 +79,12 @@ public class Post {
         this.flagDescription = flagDescription;
     }
 
-    public Instant getTimestamp() {
-        return timestamp;
+    public DateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setTimestamp(Instant timestamp) {
-        this.timestamp = timestamp;
+    public void setDateTime(DateTime dateTime) {
+        this.dateTime = dateTime;
     }
 }
 

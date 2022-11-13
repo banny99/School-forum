@@ -42,7 +42,6 @@ public class AddPostFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         postsViewModel=new ViewModelProvider(requireActivity()).get(PostsViewModel.class);
-        //postTitle = getActivity().findViewById(R.id.postTitle);
     }
 
     @Override
@@ -56,7 +55,7 @@ public class AddPostFragment extends Fragment {
         addPostBtn = inflatedView.findViewById(R.id.addNewPostButton);
         addPostBtn.setOnClickListener(view -> {
             //ToDo: replace IDs with real IDs
-            Post newPost = new Post(postTitle.getText().toString(), postText.getText().toString(), (long)123, (long)345, Instant.now());
+            Post newPost = new Post(postTitle.getText().toString(), postText.getText().toString(), (long)123, (long)345);
             postsViewModel.addPost(newPost);
 
             postTitle.setText("");

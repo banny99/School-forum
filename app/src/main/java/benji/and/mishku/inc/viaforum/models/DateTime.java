@@ -10,14 +10,33 @@ public class DateTime {
     private int minute;
     private int second;
 
-    public DateTime() {
+    public DateTime(){
+
+    }
+
+    public DateTime(int year, int month, int day, int hour, int minute, int second) {
+        this.year = year;
+        this.month = month;
+        this.day = day;
+        this.hour = hour;
+        this.minute = minute;
+        this.second = second;
+    }
+
+    public DateTime(int year, int month, int day) {
+        this.year = year;
+        this.month = month;
+        this.day = day;
+    }
+
+    public static DateTime now(){
         LocalDateTime now = LocalDateTime.now();
-        year = now.getYear();
-        month = now.getMonthValue();
-        day = now.getDayOfMonth();
-        hour = now.getHour();
-        minute = now.getMinute();
-        second = now.getSecond();
+        return new DateTime(now.getYear(),
+                now.getMonthValue(),
+                now.getDayOfMonth(),
+                now.getHour(),
+                now.getMinute(),
+                now.getSecond());
     }
 
     public int getYear() {

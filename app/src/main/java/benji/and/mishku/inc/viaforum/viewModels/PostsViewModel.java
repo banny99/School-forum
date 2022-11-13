@@ -8,7 +8,6 @@ import java.util.List;
 import benji.and.mishku.inc.viaforum.contracts.PostsService;
 import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.repositories.PostsFirebaseRepository;
-import benji.and.mishku.inc.viaforum.repositories.PostsRepository;
 
 public class PostsViewModel extends AndroidViewModel {
     private final PostsService postsService;
@@ -16,7 +15,6 @@ public class PostsViewModel extends AndroidViewModel {
 
     public PostsViewModel(@NonNull Application application) {
         super(application);
-        //postsService= PostsRepository.getInstance(application);
         postsService = PostsFirebaseRepository.getInstance();
     }
     public void addPost(Post post){
