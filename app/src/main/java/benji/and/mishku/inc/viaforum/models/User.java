@@ -1,10 +1,5 @@
 package benji.and.mishku.inc.viaforum.models;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
-
-@Entity
 public class User {
 
     private Long id;

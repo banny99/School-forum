@@ -10,15 +10,15 @@ import benji.and.mishku.inc.viaforum.repositories.UserFirebaseRepository;
 
 public class UserViewModel extends AndroidViewModel {
     private final UserService userService;
+
     public UserViewModel(@NonNull Application application) {
         super(application);
-        userService= UserFirebaseRepository.getInstance();
+        userService= UserFirebaseRepository.getInstance(application);
     }
-    public void addUser(User user){
-        userService.addUser(user);
-    }
-    public User getUserByUsername(String username){
-
-        return userService.getUserByUsername(username);
-    }
+//    public void addUser(User user){
+//        userService.addUser(user);
+//    }
+//    public User getUserByUsername(String username){
+//        return userService.getUserByUsername(username);
+//    }
 }

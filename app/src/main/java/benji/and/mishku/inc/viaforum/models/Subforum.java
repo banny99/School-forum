@@ -1,12 +1,6 @@
 package benji.and.mishku.inc.viaforum.models;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
-import java.util.List;
-@Entity
 public class Subforum {
-    @PrimaryKey(autoGenerate = true)
     private Long id;
     private String name;
     private String description;

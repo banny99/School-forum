@@ -32,7 +32,7 @@ public class ProfileFragment extends Fragment {
         View inflatedView = inflater.inflate(R.layout.fragment_profile, container, false);
 
         text = inflatedView.findViewById(R.id.profile_heading);
-        //text.setText(userViewModel.getUserByUsername("Ben").getUsername());
+//        text.setText(userViewModel.getUserByUsername("Ben").getUsername());
 
         return inflatedView;
     }
