@@ -35,7 +35,7 @@ public class YourPostsFragment extends Fragment {
 
         postAdapter = new PostAdapter(new ArrayList<>());
 
-        postsViewModel=new ViewModelProvider(getActivity()).get(PostsViewModel.class);
+        postsViewModel=new ViewModelProvider(requireActivity()).get(PostsViewModel.class);
         postsViewModel.getAllPosts().observe(this, new Observer<List<Post>>() {
             @Override
             public void onChanged(List<Post> posts) {

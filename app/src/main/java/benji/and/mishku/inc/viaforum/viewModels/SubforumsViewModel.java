@@ -10,15 +10,25 @@ import java.util.List;
 
 import benji.and.mishku.inc.viaforum.contracts.SubforumsService;
 import benji.and.mishku.inc.viaforum.models.Subforum;
+import benji.and.mishku.inc.viaforum.repositories.SubforumsRepository;
 
 public class SubforumsViewModel extends AndroidViewModel {
     private final SubforumsService subforumsService;
-    public SubforumsViewModel(@NonNull Application application, SubforumsService subforumsService) {
+    private Subforum sharedSubforum;
+    public SubforumsViewModel(@NonNull Application application) {
         super(application);
-        this.subforumsService=subforumsService;
+        this.subforumsService= SubforumsRepository.getInstance(application);
     }
     public LiveData<List<Subforum>> getAllSubforums(){
         return subforumsService.getSubforums();
+    }
+
+    public Subforum getSharedSubforum() {
+        return sharedSubforum;
+    }
+
+    public void setSharedSubforum(Subforum sharedSubforum) {
+        this.sharedSubforum = sharedSubforum;
     }
 
     public void addSubforum(Subforum subforum){

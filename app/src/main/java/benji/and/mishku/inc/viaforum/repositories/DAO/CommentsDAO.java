@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.MapInfo;
 import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
@@ -14,7 +15,6 @@ import java.util.Map;
 import benji.and.mishku.inc.viaforum.models.Comment;
 import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.models.User;
-import benji.and.mishku.inc.viaforum.models.relationships.CommentAndPost;
 
 @Dao
 public interface CommentsDAO {
@@ -27,11 +27,10 @@ public interface CommentsDAO {
     @Delete
     void delete(Comment comment);
 
-
     @Query(
-            "SELECT * FROM Post" +
-                    " JOIN Comment ON Post.id = Comment.postId"
+            "SELECT c.id, c.postId, c.userId, c.content FROM Post" +
+                    " JOIN Comment c ON Post.postId = c.postId WHERE Post.postId=:postId"
     )
-     LiveData<Map<Post, List<Comment>>> getCommentsForPost();
+    LiveData<List<Comment>> getCommentsForPost(Long postId);
 
 }

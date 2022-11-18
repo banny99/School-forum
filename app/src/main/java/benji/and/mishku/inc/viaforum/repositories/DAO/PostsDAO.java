@@ -37,13 +37,13 @@ public interface PostsDAO {
 
 
     @Query(
-            "SELECT * FROM Post" +
-                    " JOIN Subforum ON Subforum.id=Post.subForumId"
+            "SELECT p.postId,p.userId,p.subForumId,p.flag,p.flagDescription,p.postText,p.timestamp,p.title FROM Post p" +
+                    " JOIN Subforum ON Subforum.id=p.subForumId WHERE p.subForumId= :subforumId"
     )
-    LiveData<Map<Subforum, List<Post>>> getPostsBySubforum();
+    LiveData< List<Post>> getPostsBySubforum(Long subforumId);
 
     @Query(
-            "SELECT * FROM Post WHERE id=:id"
+            "SELECT * FROM Post WHERE postId=:id"
     )
     Post getPostById(int id);
 

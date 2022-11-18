@@ -41,4 +41,9 @@
     <string name="placeholderSubforum">posted on patricianMemesDen</string>
     <string name="action_1">Do this</string>
     <string name="action_2">Do that</string>
+    <string name="posted_by_author">posted by author</string>
+    <string name="posted_on">posted on</string>
+    <string name="posted_by">posted by</string>
+    <string name="subforumAccordionTitle">Lorem Ipsum</string>
+    <string name="subforumAccordionText">Sad cmsiwla uiepol sdxam cine stie ce pula mea se intampla peste hotare umane inconsolidabile si sihastre</string>
 </resources>

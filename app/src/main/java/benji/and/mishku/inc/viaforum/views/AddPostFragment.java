@@ -2,7 +2,9 @@ package benji.and.mishku.inc.viaforum.views;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,8 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.time.Instant;
@@ -21,17 +26,22 @@ import java.util.Objects;
 
 import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.models.Post;
+import benji.and.mishku.inc.viaforum.models.Subforum;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
+import benji.and.mishku.inc.viaforum.viewModels.SubscriptionsViewModel;
 
 
 public class AddPostFragment extends Fragment {
 
 
     private PostsViewModel postsViewModel;
+    private SubscriptionsViewModel subscriptionsViewModel;
     private EditText postTitle;
     private EditText postText;
-    private Button addPostBtn;
-
+    private ImageButton addPostBtn;
+    private Spinner spinner;
+    String[] temp;
+    ArrayAdapter<Subforum> arrayAdapter;
     public AddPostFragment() {
         // Required empty public constructor
     }
@@ -40,9 +50,26 @@ public class AddPostFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        temp=new String[50];
         postsViewModel=new ViewModelProvider(requireActivity()).get(PostsViewModel.class);
-        //postTitle = getActivity().findViewById(R.id.postTitle);
+        subscriptionsViewModel=new ViewModelProvider(requireActivity()).get(SubscriptionsViewModel.class);
+
+
+
+        subscriptionsViewModel.getSubforumsForUser(1L).observe(this, new Observer<List<Subforum>>() {
+            @Override
+            public void onChanged(@Nullable List<Subforum> subforums) {
+                if(subforums!=null){
+                    for (Subforum s:
+                         subforums) {
+                        arrayAdapter.add(s);
+                    }
+                }
+                arrayAdapter.notifyDataSetChanged();
+            }
+        });
+        arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     }
 
     @Override
@@ -54,9 +81,14 @@ public class AddPostFragment extends Fragment {
         postTitle = inflatedView.findViewById(R.id.newPostTitle);
         postText = inflatedView.findViewById(R.id.newPostText);
         addPostBtn = inflatedView.findViewById(R.id.addNewPostButton);
+        spinner=inflatedView.findViewById(R.id.spinnerSubforumChoice);
+
+
+        spinner.setAdapter(arrayAdapter);
         addPostBtn.setOnClickListener(view -> {
             //ToDo: replace IDs with real IDs
-            Post newPost = new Post(postTitle.getText().toString(), postText.getText().toString(), (long)123, (long)345, Instant.now());
+            Subforum sub= (Subforum)spinner.getSelectedItem();
+            Post newPost = new Post(postTitle.getText().toString(), postText.getText().toString(), (long)1, sub.getId(),  Instant.now());
             postsViewModel.addPost(newPost);
 
             postTitle.setText("");

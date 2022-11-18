@@ -14,7 +14,7 @@ public interface PostsService {
     void updatePost(Post post);
     LiveData<List<Post>> getPosts(int noOfItems);
     LiveData<List<Post>> getAllPosts();
-    LiveData<List<Post>> getPostsBySubforum(Subforum subforum);
+    LiveData<List<Post>> getPostsBySubforum(Long subforumId);
     LiveData<List<Post>> getPostsByUser(User user);
 
     Post getPostById(int id);

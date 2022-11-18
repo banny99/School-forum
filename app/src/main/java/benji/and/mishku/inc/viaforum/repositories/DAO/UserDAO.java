@@ -12,7 +12,7 @@ import java.util.List;
 
 import benji.and.mishku.inc.viaforum.models.Subforum;
 import benji.and.mishku.inc.viaforum.models.User;
-import benji.and.mishku.inc.viaforum.models.relationships.SubforumAndUser;
+
 
 @Dao
 public interface UserDAO {

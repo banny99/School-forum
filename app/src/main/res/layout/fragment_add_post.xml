@@ -1,33 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".views.AddPostFragment"
     android:orientation="vertical">
 
-    <TextView
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add new post fragment"/>
+        android:layout_height="300dp"
+        android:layout_margin="8dp"
+        android:clickable="true"
+        app:cardBackgroundColor="#FFFCFC">
 
-    <EditText
-        android:id="@+id/newPostTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Post Title"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/newPostText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Post text"/>
+            <!-- Media -->
 
-    <Button
-        android:id="@+id/addNewPostButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add new post"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Title, secondary and supporting text -->
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView6"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_weight="0"
+                        app:srcCompat="@mipmap/patricians_round" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/singlePostAuthor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="0dp"
+                            android:text="@string/content"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                            android:textColor="?android:attr/textColorSecondary"
+                            android:textSize="12sp" />
+
+                        <Spinner
+                            android:id="@+id/spinnerSubforumChoice"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/newPostTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Post Title" />
+
+                <EditText
+                    android:id="@+id/newPostText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Post text" />
+
+                <ImageButton
+                    android:id="@+id/addNewPostButton"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:background="@color/colorAccent"
+                    android:src="@drawable/ic_baseline_add_24"
+                    android:translationX="150dp" />
+
+            </LinearLayout>
+
+            <!-- Buttons -->
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>

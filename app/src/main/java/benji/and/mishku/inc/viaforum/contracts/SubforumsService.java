@@ -11,6 +11,7 @@ public interface SubforumsService {
     void addSubforum(Subforum s);
     void updateSubforum(Subforum s);
     void deleteSubforum(Subforum s);
-    void subscribeToSubforum(Long userId, Long subforumId);
+
+
 
 }

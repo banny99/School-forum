@@ -46,4 +46,7 @@ public class PostsViewModel extends AndroidViewModel {
     public void updatePost(Post editedPost) {
         postsService.updatePost(editedPost);
     }
+    public LiveData<List<Post>> getPostsBySubforum(Long subforumId){
+        return postsService.getPostsBySubforum(subforumId);
+    }
 }

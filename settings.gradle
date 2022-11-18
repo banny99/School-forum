@@ -1,2 +1,7 @@
 include ':app'
 rootProject.name = "VIAForum"
+dependencyResolutionManagement{
+    repositories{
+        maven { url "https://jitpack.io" }
+    }
+}

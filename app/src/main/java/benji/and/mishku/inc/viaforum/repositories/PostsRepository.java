@@ -74,10 +74,8 @@ public class PostsRepository implements PostsService {
     }
 
     @Override
-    public LiveData<List<Post>> getPostsBySubforum(Subforum subforum) {
-        LiveData<Map<Subforum, List<Post>>> temp=dao.getPostsBySubforum();
-        List<Post> posts= Objects.requireNonNull(temp.getValue()).get(subforum);
-        return new MutableLiveData<>(posts);
+    public LiveData<List<Post>> getPostsBySubforum(Long subforumId) {
+        return dao.getPostsBySubforum(subforumId);
     }
 
     @Override

@@ -5,7 +5,9 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.LiveDataKt;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -80,8 +82,6 @@ public class CommentsRepository implements CommentsService {
 
     @Override
     public LiveData<List<Comment>> getCommentsForPost(Post p) {
-        LiveData<Map<Post, List<Comment>>> temp=dao.getCommentsForPost();
-        List<Comment> comments= Objects.requireNonNull(temp.getValue()).get(p);
-        return new MutableLiveData<>(comments);
+         return  dao.getCommentsForPost(p.getId());
     }
 }

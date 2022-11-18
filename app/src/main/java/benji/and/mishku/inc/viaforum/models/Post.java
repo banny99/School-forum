@@ -1,16 +1,19 @@
 package benji.and.mishku.inc.viaforum.models;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
 import java.time.Instant;
+import java.util.Objects;
 
 @Entity
 
 public class Post {
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name="postId")
     private Long id;
     private String title;
     private String postText;
@@ -91,6 +94,19 @@ public class Post {
 
     public void setTimestamp(Instant timestamp) {
         this.timestamp = timestamp;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Post)) return false;
+        Post post = (Post) o;
+        return getId().equals(post.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 }
 
