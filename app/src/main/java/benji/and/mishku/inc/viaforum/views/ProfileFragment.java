@@ -7,7 +7,10 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
@@ -18,6 +21,7 @@ public class ProfileFragment extends Fragment {
 
     private UserViewModel userViewModel;
     private TextView text;
+    private Button signOutBtn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,7 +36,12 @@ public class ProfileFragment extends Fragment {
         View inflatedView = inflater.inflate(R.layout.fragment_profile, container, false);
 
         text = inflatedView.findViewById(R.id.profile_heading);
-//        text.setText(userViewModel.getUserByUsername("Ben").getUsername());
+        text.setText("Hello " + userViewModel.getCurrentUser().getValue().getEmail());
+
+        signOutBtn = inflatedView.findViewById(R.id.signOut_btn);
+        signOutBtn.setOnClickListener(view -> {
+            FirebaseAuth.getInstance().signOut();
+        });
 
         return inflatedView;
     }

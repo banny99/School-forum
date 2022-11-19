@@ -22,12 +22,13 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Arrays;
 import java.util.List;
-import benji.and.mishku.inc.viaforum.viewModels.SignInViewModel;
+
+import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 import benji.and.mishku.inc.viaforum.views.MainActivity;
 
 public class SignInActivity extends AppCompatActivity {
 
-    private SignInViewModel viewModel;
+    private UserViewModel userViewModel;
     private FirebaseAuth firebaseAuth;
 
     private EditText email;
@@ -44,7 +45,7 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(SignInViewModel.class);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         checkIfSignedIn();
         setContentView(R.layout.activity_sign_in);
 
@@ -54,7 +55,7 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void checkIfSignedIn() {
-        viewModel.getCurrentUser().observe(this, user -> {
+        userViewModel.getCurrentUser().observe(this, user -> {
             if (user != null)
                 goToMainActivity();
         });

@@ -16,13 +16,14 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+
 import benji.and.mishku.inc.viaforum.R;
-import benji.and.mishku.inc.viaforum.models.DateTime;
-import benji.and.mishku.inc.viaforum.models.User;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
     NavigationView navDrawer;
     DrawerLayout drawerLayout;
     NavController navController;
@@ -31,13 +32,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Toolbar toolbarBottom;
     UserViewModel userViewModel;
     PostsViewModel postsViewModel;
-    private void initViews() {
-        drawerLayout = findViewById(benji.and.mishku.inc.viaforum.R.id.drawer_layout);
-        navDrawer = findViewById(benji.and.mishku.inc.viaforum.R.id.navigation_drawer);
-        toolbarBottom = findViewById(benji.and.mishku.inc.viaforum.R.id.bottomAppBar);
-        userViewModel= new ViewModelProvider(this).get(UserViewModel.class);
-        postsViewModel= new ViewModelProvider(this).get(PostsViewModel.class);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,20 +39,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(benji.and.mishku.inc.viaforum.R.layout.activity_main);
         initViews();
         navSetup();
-//        User tempUser = new User("Ben", "email", "pass", new DateTime(28,9,1999));
-//        userViewModel.addUser(tempUser);
+
         actionButton=findViewById(R.id.addPostButton);
         actionButton.setOnClickListener(view -> navController.navigate(R.id.nav_add_post));
 
         View headerView=navDrawer.getHeaderView(0);
         TextView username=headerView.findViewById(R.id.userName);
         TextView email=headerView.findViewById(R.id.userEmail);
-//        User u=userViewModel.getUserByUsername("Ben");
-//        for (int i=1;i<=20;i++){
-//            postsViewModel.addPost(new Post( "title"+i,"content"+i, u.getId(),1L, Instant.now()));
-//        }
-//        username.setText(u.getUsername());
-//        email.setText(u.getEmail());
+
+        String emailStr = userViewModel.getCurrentUser().getValue().getEmail();
+        username.setText(emailStr.substring(0,emailStr.indexOf('@')));
+        email.setText(emailStr);
+    }
+
+    private void initViews() {
+        drawerLayout = findViewById(benji.and.mishku.inc.viaforum.R.id.drawer_layout);
+        navDrawer = findViewById(benji.and.mishku.inc.viaforum.R.id.navigation_drawer);
+        toolbarBottom = findViewById(benji.and.mishku.inc.viaforum.R.id.bottomAppBar);
+        userViewModel= new ViewModelProvider(this).get(UserViewModel.class);
+        postsViewModel= new ViewModelProvider(this).get(PostsViewModel.class);
     }
 
     private void navSetup() {
