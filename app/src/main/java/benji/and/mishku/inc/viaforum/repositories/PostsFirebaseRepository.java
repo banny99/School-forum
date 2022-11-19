@@ -4,6 +4,9 @@ import static android.content.ContentValues.TAG;
 import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,15 +26,13 @@ public class PostsFirebaseRepository implements PostsService {
     private final static ReentrantLock lock=new ReentrantLock();
 
     private final DatabaseReference postsRef;
-    private MutableLiveData<List<Post>> posts;
-
-    public void setPosts(ArrayList<Post> posts){
-        this.posts.setValue(posts);
-    }
+    private MutableLiveData<List<Post>> allPosts;
+    private MutableLiveData<List<Post>> myPosts;
 
     private PostsFirebaseRepository(){
         postsRef = FirebaseDatabase.getInstance().getReference("posts");
-        posts = new MutableLiveData<>();
+        allPosts = new MutableLiveData<>();
+        myPosts = new MutableLiveData<>();
 
         // Read from the database
         postsRef.addValueEventListener(new ValueEventListener() {
@@ -39,11 +40,21 @@ public class PostsFirebaseRepository implements PostsService {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                ArrayList<Post> allPosts = new ArrayList<>();
+
+                //update all posts:
+                ArrayList<Post> tempAllPosts = new ArrayList<>();
+                ArrayList<Post> tempMyPosts = new ArrayList<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
-                    allPosts.add(postSnapshot.getValue(Post.class));
+                    Post p = postSnapshot.getValue(Post.class);
+
+                    tempAllPosts.add(p);
+                    if (p.getUserId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
+                        tempMyPosts.add(p);
+                    }
                 }
-                setPosts(allPosts);
+                allPosts.setValue(tempAllPosts);
+                myPosts.setValue(tempMyPosts);
+
                 Log.d(TAG, "Value is: ");
             }
 
@@ -53,6 +64,7 @@ public class PostsFirebaseRepository implements PostsService {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
+
     }
 
     //Todo: do we need this to be singleton/protected ? isn't getReference() thread-safe ?
@@ -69,38 +81,51 @@ public class PostsFirebaseRepository implements PostsService {
 
     @Override
     public void addPost(Post post) {
-        post.setId((long)-1);
-        postsRef.child(post.getId().toString()).setValue(post);
+        post.setUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        String postId = postsRef.push().getKey();
+        post.setId(postId);
+        postsRef.child(postId).setValue(post);
     }
 
     @Override
     public void deletePost(Post post) {
-        postsRef.child(post.getId().toString()).setValue(null);
+        postsRef.child(post.getId()).setValue(null);
     }
 
     @Override
     public void updatePost(Post post) {
-        postsRef.child(post.getId().toString()).setValue(post);
+        postsRef.child(post.getId()).setValue(post);
     }
 
     @Override
+    //ToDo.. do we need this?
     public LiveData<List<Post>> getPosts(int noOfItems) {
         return null;
     }
 
     @Override
     public LiveData<List<Post>> getAllPosts() {
-        return posts;
+        return allPosts;
     }
 
     @Override
+    //ToDo: ask Kasper ??
+    //not really livedata anymore, or ?
     public LiveData<List<Post>> getPostsBySubforum(Subforum subforum) {
-        return null;
+        ArrayList<Post> temp = new ArrayList<>();
+        for (Post p : allPosts.getValue()){
+            if (p.getSubForumId().equals(subforum.getId())){
+                temp.add(p);
+            }
+        }
+        MutableLiveData<List<Post>> tempLive = new MutableLiveData<>();
+        tempLive.setValue(temp);
+        return tempLive;
     }
 
     @Override
     public LiveData<List<Post>> getPostsByUser(User user) {
-        return null;
+        return myPosts;
     }
 
     @Override
@@ -109,7 +134,8 @@ public class PostsFirebaseRepository implements PostsService {
     }
 
     @Override
+    //ToDo: I dont think we will keep this ...
     public void removeAllPosts() {
-
+        postsRef.setValue(null);
     }
 }

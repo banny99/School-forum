@@ -55,7 +55,7 @@ public class AddPostFragment extends Fragment {
         addPostBtn = inflatedView.findViewById(R.id.addNewPostButton);
         addPostBtn.setOnClickListener(view -> {
             //ToDo: replace IDs with real IDs
-            Post newPost = new Post(postTitle.getText().toString(), postText.getText().toString(), (long)123, (long)345);
+            Post newPost = new Post(postTitle.getText().toString(), postText.getText().toString(), null, null);
             postsViewModel.addPost(newPost);
 
             postTitle.setText("");

@@ -17,15 +17,12 @@ import benji.and.mishku.inc.viaforum.R;
 
 public class ProfileFragment extends Fragment {
 
-    private UserViewModel userViewModel;
     private TextView text;
     private Button signOutBtn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        userViewModel=new ViewModelProvider(requireActivity()).get(UserViewModel.class);
     }
 
     @Override

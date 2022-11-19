@@ -2,10 +2,10 @@ package benji.and.mishku.inc.viaforum.models;
 
 
 public class Post {
-    private Long id;
+    private String id;
     private String title;
     private String postText;
-    private Long userId;
+    private String userId;
     private Long subForumId;
     private boolean flag;
     private String flagDescription;
@@ -15,7 +15,7 @@ public class Post {
         //required by Firebase
     }
 
-    public Post(String title, String postText, Long userId, Long subForumId) {
+    public Post(String title, String postText, String userId, Long subForumId) {
         this.title = title;
         this.postText = postText;
         this.userId = userId;
@@ -23,11 +23,11 @@ public class Post {
         dateTime = DateTime.now();
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -47,11 +47,11 @@ public class Post {
         this.postText = postText;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

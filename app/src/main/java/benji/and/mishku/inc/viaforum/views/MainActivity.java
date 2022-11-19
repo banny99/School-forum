@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     AppBarConfiguration appBarConfiguration;
     FloatingActionButton actionButton;
     Toolbar toolbarBottom;
-    UserViewModel userViewModel;
     PostsViewModel postsViewModel;
 
     private FirebaseAuth firebaseAuth;
@@ -90,12 +89,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
     private void initViews() {
         drawerLayout = findViewById(benji.and.mishku.inc.viaforum.R.id.drawer_layout);
         navDrawer = findViewById(benji.and.mishku.inc.viaforum.R.id.navigation_drawer);
         toolbarBottom = findViewById(benji.and.mishku.inc.viaforum.R.id.bottomAppBar);
-        userViewModel= new ViewModelProvider(this).get(UserViewModel.class);
         postsViewModel= new ViewModelProvider(this).get(PostsViewModel.class);
     }
 
