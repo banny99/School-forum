@@ -6,7 +6,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -23,12 +23,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.Arrays;
 import java.util.List;
 
-import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 import benji.and.mishku.inc.viaforum.views.MainActivity;
 
 public class SignInActivity extends AppCompatActivity {
 
-    private UserViewModel userViewModel;
     private FirebaseAuth firebaseAuth;
 
     private EditText email;
@@ -45,21 +43,17 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        checkIfSignedIn();
+        firebaseAuth = FirebaseAuth.getInstance();
+        if (firebaseAuth.getCurrentUser() != null) {
+            // User is logged in
+            goToMainActivity();
+        }
         setContentView(R.layout.activity_sign_in);
 
-        firebaseAuth = FirebaseAuth.getInstance();
         email = findViewById(R.id.signUp_email);
         password = findViewById(R.id.signUp_Password);
     }
 
-    private void checkIfSignedIn() {
-        userViewModel.getCurrentUser().observe(this, user -> {
-            if (user != null)
-                goToMainActivity();
-        });
-    }
 
     private void goToMainActivity() {
         startActivity(new Intent(this, MainActivity.class));

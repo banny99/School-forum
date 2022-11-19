@@ -1,7 +1,10 @@
 package benji.and.mishku.inc.viaforum.views;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -17,10 +20,11 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import benji.and.mishku.inc.viaforum.R;
+import benji.and.mishku.inc.viaforum.SignInActivity;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
-import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -33,10 +37,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     UserViewModel userViewModel;
     PostsViewModel postsViewModel;
 
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener fireAuthListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(benji.and.mishku.inc.viaforum.R.layout.activity_main);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        //get curr user:
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        //set user-listener
+        fireAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser() == null) {
+                    //user not login
+                    startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                    finish();
+                }
+            }
+        };
+
         initViews();
         navSetup();
 
@@ -47,10 +70,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView username=headerView.findViewById(R.id.userName);
         TextView email=headerView.findViewById(R.id.userEmail);
 
-        String emailStr = userViewModel.getCurrentUser().getValue().getEmail();
+        String emailStr = firebaseAuth.getCurrentUser().getEmail();
         username.setText(emailStr.substring(0,emailStr.indexOf('@')));
         email.setText(emailStr);
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseAuth.addAuthStateListener(fireAuthListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(fireAuthListener != null){
+            firebaseAuth.removeAuthStateListener(fireAuthListener);
+        }
+    }
+
+
 
     private void initViews() {
         drawerLayout = findViewById(benji.and.mishku.inc.viaforum.R.id.drawer_layout);

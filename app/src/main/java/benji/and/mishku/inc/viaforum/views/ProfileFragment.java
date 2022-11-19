@@ -13,8 +13,6 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import benji.and.mishku.inc.viaforum.R;
-import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
-import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 
 
 public class ProfileFragment extends Fragment {
@@ -36,7 +34,6 @@ public class ProfileFragment extends Fragment {
         View inflatedView = inflater.inflate(R.layout.fragment_profile, container, false);
 
         text = inflatedView.findViewById(R.id.profile_heading);
-        text.setText("Hello " + userViewModel.getCurrentUser().getValue().getEmail());
 
         signOutBtn = inflatedView.findViewById(R.id.signOut_btn);
         signOutBtn.setOnClickListener(view -> {
