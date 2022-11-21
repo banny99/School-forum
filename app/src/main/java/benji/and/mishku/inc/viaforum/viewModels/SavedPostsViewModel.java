@@ -10,14 +10,14 @@ import java.util.List;
 
 import benji.and.mishku.inc.viaforum.contracts.SavedPostService;
 import benji.and.mishku.inc.viaforum.models.Post;
-import benji.and.mishku.inc.viaforum.repositories.SavedPostsRepository;
+import benji.and.mishku.inc.viaforum.repositories.SavedPostsFirebaseRepository;
 
 public class SavedPostsViewModel extends AndroidViewModel {
     private SavedPostService savedPostService;
 
     public SavedPostsViewModel(@NonNull Application application) {
         super(application);
-        savedPostService= SavedPostsRepository.getInstance(application);
+        savedPostService= SavedPostsFirebaseRepository.getInstance(application);
     }
 
     public void savePostForUser(Long userId, Long postId){

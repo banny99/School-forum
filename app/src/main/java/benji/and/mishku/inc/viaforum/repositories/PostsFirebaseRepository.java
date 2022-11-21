@@ -114,7 +114,7 @@ public class PostsFirebaseRepository implements PostsService {
     @Override
     //ToDo: ask Kasper ??
     //not really livedata anymore, or ?
-    public LiveData<List<Post>> getPostsBySubforum(Subforum subforum) {
+    public LiveData<List<Post>> getPostsBySubforum(String subforumId) {
         MutableLiveData<List<Post>> tempLive = new MutableLiveData<>();
 
         Query query = postsRef.orderByChild("userId").equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -138,9 +138,10 @@ public class PostsFirebaseRepository implements PostsService {
     }
 
     @Override
-    public LiveData<List<Post>> getPostsByUser(User user) {
-        return myPosts;
+    public LiveData<List<Post>> getPostsByUser(String userId) {
+        return null;
     }
+
 
     @Override
     public Post getPostById(int id) {
@@ -152,4 +153,10 @@ public class PostsFirebaseRepository implements PostsService {
     public void removeAllPosts() {
         postsRef.setValue(null);
     }
+
+    @Override
+    public LiveData<List<Post>> getAllPostsFromSubscribedSubforums(String userId) {
+        return null;
+    }
+
 }

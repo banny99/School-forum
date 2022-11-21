@@ -3,48 +3,25 @@ package benji.and.mishku.inc.viaforum.views;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.*;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-
-import java.sql.Date;
-import java.time.Instant;
-import java.util.Objects;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.sql.Date;
-import java.time.Instant;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.SignInActivity;
-import benji.and.mishku.inc.viaforum.models.Subforum;
-import benji.and.mishku.inc.viaforum.models.Comment;
-import benji.and.mishku.inc.viaforum.models.Post;
-import benji.and.mishku.inc.viaforum.models.Subforum;
-import benji.and.mishku.inc.viaforum.models.User;
-import benji.and.mishku.inc.viaforum.viewModels.CommentsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
-import benji.and.mishku.inc.viaforum.viewModels.SubforumsViewModel;
-import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 

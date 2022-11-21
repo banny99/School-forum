@@ -11,5 +11,5 @@ public interface SubforumsService {
     void addSubforum(Subforum s);
     void updateSubforum(Subforum s);
     void deleteSubforum(Subforum s);
-    Subforum getSubforumById(Long subforumId);
+    Subforum getSubforumById(String subforumId);
 }

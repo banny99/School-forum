@@ -14,11 +14,11 @@ public interface PostsService {
     void updatePost(Post post);
     LiveData<List<Post>> getPosts(int noOfItems);
     LiveData<List<Post>> getAllPosts();
-    LiveData<List<Post>> getPostsBySubforum(Long subforumId);
-    LiveData<List<Post>> getPostsByUser(Long userId);
+    LiveData<List<Post>> getPostsBySubforum(String subforumId);
+    LiveData<List<Post>> getPostsByUser(String userId);
 
     Post getPostById(int id);
     void removeAllPosts();
 
-    LiveData<List<Post>> getAllPostsFromSubscribedSubforums(Long userId);
+    LiveData<List<Post>> getAllPostsFromSubscribedSubforums(String userId);
 }

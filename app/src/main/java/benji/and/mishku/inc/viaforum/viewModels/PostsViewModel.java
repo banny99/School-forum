@@ -27,7 +27,7 @@ public class PostsViewModel extends AndroidViewModel {
     public LiveData<List<Post>> getAllPosts(){
         return postsService.getAllPosts();
     }
-    public LiveData<List<Post>> getPostsByUser(Long userId){
+    public LiveData<List<Post>> getPostsByUser(String userId){
         return postsService.getPostsByUser(userId);
     }
     public Post getPostById(int id){
@@ -48,11 +48,11 @@ public class PostsViewModel extends AndroidViewModel {
     public void updatePost(Post editedPost) {
         postsService.updatePost(editedPost);
     }
-    public LiveData<List<Post>> getPostsBySubforum(Long subforumId){
+    public LiveData<List<Post>> getPostsBySubforum(String subforumId){
         return postsService.getPostsBySubforum(subforumId);
     }
 
-    public LiveData<List<Post>> getAllPostsFromSubscribedSubforums(Long userId) {
+    public LiveData<List<Post>> getAllPostsFromSubscribedSubforums(String userId) {
         return postsService.getAllPostsFromSubscribedSubforums(userId);
     }
 }
