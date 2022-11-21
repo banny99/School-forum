@@ -1,42 +1,33 @@
 package benji.and.mishku.inc.viaforum.models;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-import androidx.room.TypeConverter;
-import androidx.room.TypeConverters;
-
-import java.time.Instant;
-import java.util.Objects;
-
-@Entity
 
 public class Post {
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name="postId")
-    private Long id;
+    private String id;
     private String title;
     private String postText;
-    private Long userId;
+    private String userId;
     private Long subForumId;
     private boolean flag;
     private String flagDescription;
-    @TypeConverters(Converters.class)
-    private Instant timestamp;
+    private DateTime dateTime;
 
-    public Post( String title, String postText, Long userId, Long subForumId,  Instant timestamp) {
+    public Post() {
+        //required by Firebase
+    }
+
+    public Post(String title, String postText, String userId, Long subForumId) {
         this.title = title;
         this.postText = postText;
         this.userId = userId;
         this.subForumId = subForumId;
-        this.timestamp = timestamp;
+        dateTime = DateTime.now();
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -56,11 +47,11 @@ public class Post {
         this.postText = postText;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -88,25 +79,12 @@ public class Post {
         this.flagDescription = flagDescription;
     }
 
-    public Instant getTimestamp() {
-        return timestamp;
+    public DateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setTimestamp(Instant timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Post)) return false;
-        Post post = (Post) o;
-        return getId().equals(post.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId());
+    public void setDateTime(DateTime dateTime) {
+        this.dateTime = dateTime;
     }
 }
 

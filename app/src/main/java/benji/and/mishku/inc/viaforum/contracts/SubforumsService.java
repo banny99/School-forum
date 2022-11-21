@@ -12,6 +12,4 @@ public interface SubforumsService {
     void updateSubforum(Subforum s);
     void deleteSubforum(Subforum s);
     Subforum getSubforumById(Long subforumId);
-
-
 }

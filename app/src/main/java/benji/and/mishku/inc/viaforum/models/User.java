@@ -1,26 +1,32 @@
 package benji.and.mishku.inc.viaforum.models;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-@Entity
 public class User {
-    @PrimaryKey(autoGenerate = true)
+
     private Long id;
     private String username;
     private String email;
     private String password;
-    private Date birthday;
-    public User(String username, String email, String password,  Date birthday) {
+    private DateTime birthday;
+    private Long subForumId;
+
+    public User() {
+        //required by Firebase
+    }
+
+    public User(String username, String email, String password, DateTime birthday) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.birthday = birthday;
     }
 
+    public Long getSubForumId() {
+        return subForumId;
+    }
+
+    public void setSubForumId(Long subForumId) {
+        this.subForumId = subForumId;
+    }
 
     public Long getId() {
         return id;
@@ -55,11 +61,11 @@ public class User {
     }
 
 
-    public Date getBirthday() {
+    public DateTime getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(DateTime birthday) {
         this.birthday = birthday;
     }
 }

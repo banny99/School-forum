@@ -1,7 +1,10 @@
 package benji.and.mishku.inc.viaforum.views;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -16,7 +19,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.*;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -29,8 +31,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.sql.Date;
 import java.time.Instant;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import benji.and.mishku.inc.viaforum.R;
+import benji.and.mishku.inc.viaforum.SignInActivity;
+import benji.and.mishku.inc.viaforum.models.Subforum;
 import benji.and.mishku.inc.viaforum.models.Comment;
 import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.models.Subforum;
@@ -41,46 +47,73 @@ import benji.and.mishku.inc.viaforum.viewModels.SubforumsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
     NavigationView navDrawer;
     DrawerLayout drawerLayout;
     NavController navController;
     AppBarConfiguration appBarConfiguration;
     FloatingActionButton actionButton;
     Toolbar toolbarBottom;
-    UserViewModel userViewModel;
     PostsViewModel postsViewModel;
-    CommentsViewModel commentsViewModel;
-    SubforumsViewModel subforumsViewModel;
-    private void initViews() {
-        drawerLayout = findViewById(benji.and.mishku.inc.viaforum.R.id.drawer_layout);
-        navDrawer = findViewById(benji.and.mishku.inc.viaforum.R.id.navigation_drawer);
-        toolbarBottom = findViewById(benji.and.mishku.inc.viaforum.R.id.bottomAppBar);
-        userViewModel= new ViewModelProvider(this).get(UserViewModel.class);
-        commentsViewModel=new ViewModelProvider(this).get(CommentsViewModel.class);
-        postsViewModel= new ViewModelProvider(this).get(PostsViewModel.class);
-        subforumsViewModel=new ViewModelProvider(this).get(SubforumsViewModel.class);
-    }
+
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener fireAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(benji.and.mishku.inc.viaforum.R.layout.activity_main);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        //get curr user:
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        //set user-listener
+        fireAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser() == null) {
+                    //user not login
+                    startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                    finish();
+                }
+            }
+        };
+
         initViews();
         navSetup();
-        User tempUser = new User("Ben", "email", "pass",new Date(101199));
-        userViewModel.addUser(tempUser);
-        for(int i=0; i<8;i++){
-            subforumsViewModel.addSubforum(new Subforum("VAR"+i,"oisjadhioashdlkjashldkhasljkdhlas"+i));
-        }
+
         actionButton=findViewById(R.id.addPostButton);
         actionButton.setOnClickListener(view -> navController.navigate(R.id.nav_add_post));
+
         View headerView=navDrawer.getHeaderView(0);
         TextView username=headerView.findViewById(R.id.userName);
         TextView email=headerView.findViewById(R.id.userEmail);
-        User u=userViewModel.getUserById(1L);
-        userViewModel.setCurrentUser(u);
-        username.setText(u.getUsername());
-        email.setText(u.getEmail());
+
+        String emailStr = firebaseAuth.getCurrentUser().getEmail();
+        username.setText(emailStr.substring(0,emailStr.indexOf('@')));
+        email.setText(emailStr);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseAuth.addAuthStateListener(fireAuthListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(fireAuthListener != null){
+            firebaseAuth.removeAuthStateListener(fireAuthListener);
+        }
+    }
+
+
+    private void initViews() {
+        drawerLayout = findViewById(benji.and.mishku.inc.viaforum.R.id.drawer_layout);
+        navDrawer = findViewById(benji.and.mishku.inc.viaforum.R.id.navigation_drawer);
+        toolbarBottom = findViewById(benji.and.mishku.inc.viaforum.R.id.bottomAppBar);
+        postsViewModel= new ViewModelProvider(this).get(PostsViewModel.class);
     }
 
     private void navSetup() {

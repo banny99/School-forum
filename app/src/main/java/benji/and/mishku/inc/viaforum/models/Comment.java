@@ -1,12 +1,7 @@
 package benji.and.mishku.inc.viaforum.models;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
-@Entity
 public class Comment {
-    @PrimaryKey(autoGenerate = true)
-    private Long id;
+    private String id;
     private String content;
     private Long userId;
     private Long postId;
@@ -17,11 +12,11 @@ public class Comment {
         this.postId = postId;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

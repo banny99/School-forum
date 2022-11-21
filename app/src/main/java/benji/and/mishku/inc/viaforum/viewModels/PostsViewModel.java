@@ -4,12 +4,11 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.room.RxRoom;
-
 import java.util.List;
 import benji.and.mishku.inc.viaforum.contracts.PostsService;
 import benji.and.mishku.inc.viaforum.models.Post;
-import benji.and.mishku.inc.viaforum.repositories.PostsRepository;
+import benji.and.mishku.inc.viaforum.models.Subforum;
+import benji.and.mishku.inc.viaforum.repositories.PostsFirebaseRepository;
 
 public class PostsViewModel extends AndroidViewModel {
     private final PostsService postsService;
@@ -17,7 +16,7 @@ public class PostsViewModel extends AndroidViewModel {
 
     public PostsViewModel(@NonNull Application application) {
         super(application);
-        postsService= PostsRepository.getInstance(application);
+        postsService = PostsFirebaseRepository.getInstance();
     }
     public void addPost(Post post){
         postsService.addPost(post);
