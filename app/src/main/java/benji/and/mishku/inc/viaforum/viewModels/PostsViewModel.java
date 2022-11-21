@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 import benji.and.mishku.inc.viaforum.contracts.PostsService;
 import benji.and.mishku.inc.viaforum.models.Post;
+import benji.and.mishku.inc.viaforum.models.Subforum;
 import benji.and.mishku.inc.viaforum.repositories.PostsFirebaseRepository;
 
 public class PostsViewModel extends AndroidViewModel {
@@ -43,5 +44,9 @@ public class PostsViewModel extends AndroidViewModel {
 
     public void updatePost(Post editedPost) {
         postsService.updatePost(editedPost);
+    }
+
+    public LiveData<List<Post>> getPostBySubforum(Subforum subforum){
+        return postsService.getPostsBySubforum(subforum);
     }
 }

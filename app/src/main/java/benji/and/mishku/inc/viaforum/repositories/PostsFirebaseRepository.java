@@ -2,15 +2,18 @@ package benji.and.mishku.inc.viaforum.repositories;
 
 import static android.content.ContentValues.TAG;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -112,14 +115,25 @@ public class PostsFirebaseRepository implements PostsService {
     //ToDo: ask Kasper ??
     //not really livedata anymore, or ?
     public LiveData<List<Post>> getPostsBySubforum(Subforum subforum) {
-        ArrayList<Post> temp = new ArrayList<>();
-        for (Post p : allPosts.getValue()){
-            if (p.getSubForumId().equals(subforum.getId())){
-                temp.add(p);
-            }
-        }
         MutableLiveData<List<Post>> tempLive = new MutableLiveData<>();
-        tempLive.setValue(temp);
+
+        Query query = postsRef.orderByChild("userId").equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<Post> temp = new ArrayList<>();
+                for (DataSnapshot s : snapshot.getChildren()){
+                    temp.add(s.getValue(Post.class));
+                }
+                tempLive.setValue(temp);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         return tempLive;
     }
 

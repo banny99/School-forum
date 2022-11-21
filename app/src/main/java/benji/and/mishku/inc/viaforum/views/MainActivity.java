@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.SignInActivity;
+import benji.and.mishku.inc.viaforum.models.Subforum;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -72,6 +73,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String emailStr = firebaseAuth.getCurrentUser().getEmail();
         username.setText(emailStr.substring(0,emailStr.indexOf('@')));
         email.setText(emailStr);
+
+        postsViewModel.getPostBySubforum(new Subforum());
     }
 
     @Override

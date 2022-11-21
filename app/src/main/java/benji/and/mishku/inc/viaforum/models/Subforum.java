@@ -5,6 +5,10 @@ public class Subforum {
     private String name;
     private String description;
 
+    public Subforum() {
+        //required by firebase
+    }
+
     public Subforum(String name, String description) {
         this.name = name;
         this.description = description;
