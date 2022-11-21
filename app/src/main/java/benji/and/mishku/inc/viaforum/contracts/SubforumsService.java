@@ -10,6 +10,6 @@ public interface SubforumsService {
     LiveData<List<Subforum>> getSubforums();
     void addSubforum(Subforum s);
     void updateSubforum(Subforum s);
-    void deleteSubforum(Subforum s);
+    void deleteSubforum(String subforumId);
     Subforum getSubforumById(String subforumId);
 }
