@@ -1,13 +1,10 @@
 package benji.and.mishku.inc.viaforum.viewModels;
 
 import android.app.Application;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-
 import java.util.List;
-
 import benji.and.mishku.inc.viaforum.contracts.SavedPostService;
 import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.repositories.SavedPostsFirebaseRepository;
@@ -17,7 +14,7 @@ public class SavedPostsViewModel extends AndroidViewModel {
 
     public SavedPostsViewModel(@NonNull Application application) {
         super(application);
-        savedPostService= SavedPostsFirebaseRepository.getInstance(application);
+        savedPostService= SavedPostsFirebaseRepository.getInstance();
     }
 
     public void savePostForUser(String userId, String postId){

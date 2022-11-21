@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -14,17 +13,15 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SavedPostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SubforumsViewModel;
-import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 
 public class SavedPostsFragment extends Fragment {
     private PostsViewModel postsViewModel;

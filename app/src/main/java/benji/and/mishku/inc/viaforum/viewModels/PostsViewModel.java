@@ -7,7 +7,6 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 import benji.and.mishku.inc.viaforum.contracts.PostsService;
 import benji.and.mishku.inc.viaforum.models.Post;
-import benji.and.mishku.inc.viaforum.models.Subforum;
 import benji.and.mishku.inc.viaforum.repositories.PostsFirebaseRepository;
 
 public class PostsViewModel extends AndroidViewModel {
@@ -21,8 +20,8 @@ public class PostsViewModel extends AndroidViewModel {
     public void addPost(Post post){
         postsService.addPost(post);
     }
-    public void deletePost(Post post){
-        postsService.deletePost(post);
+    public void deletePost(String postId){
+        postsService.deletePost(postId);
     }
     public LiveData<List<Post>> getAllPosts(){
         return postsService.getAllPosts();
@@ -31,7 +30,7 @@ public class PostsViewModel extends AndroidViewModel {
         return postsService.getPostsByUser(userId);
     }
     public Post getPostById(String postId){
-        return postsService.getPostById(id);
+        return postsService.getPostById(postId);
     }
 
     public Post getSharedPost() {

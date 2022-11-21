@@ -138,6 +138,11 @@ public class PostsFirebaseRepository implements PostsService {
     }
 
     @Override
+    public Post getPostById(String postId) {
+        return null;
+    }
+
+    @Override
     //ToDo: I dont think we will keep this ...
     public void removeAllPosts() {
         postsRef.setValue(null);
@@ -147,5 +152,4 @@ public class PostsFirebaseRepository implements PostsService {
     public LiveData<List<Post>> getAllPostsFromSubscribedSubforums(String userId) {
         return null;
     }
-
 }

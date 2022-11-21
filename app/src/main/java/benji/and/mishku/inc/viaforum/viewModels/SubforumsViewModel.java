@@ -1,24 +1,20 @@
 package benji.and.mishku.inc.viaforum.viewModels;
 
 import android.app.Application;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-
 import java.util.List;
-
 import benji.and.mishku.inc.viaforum.contracts.SubforumsService;
 import benji.and.mishku.inc.viaforum.models.Subforum;
 import benji.and.mishku.inc.viaforum.repositories.SubForumFirebaseRepository;
-import benji.and.mishku.inc.viaforum.repositories.SubforumsRepository;
 
 public class SubforumsViewModel extends AndroidViewModel {
     private final SubforumsService subforumsService;
     private Subforum sharedSubforum;
     public SubforumsViewModel(@NonNull Application application) {
         super(application);
-        this.subforumsService= SubForumFirebaseRepository.getInstance(application);
+        this.subforumsService= SubForumFirebaseRepository.getInstance();
     }
     public LiveData<List<Subforum>> getAllSubforums(){
         return subforumsService.getSubforums();
@@ -38,5 +34,5 @@ public class SubforumsViewModel extends AndroidViewModel {
         subforumsService.addSubforum(subforum);
     }
     public void updateSubforum(Subforum subforum){subforumsService.updateSubforum(subforum);}
-    public void deleteSubforum(Subforum subforum){subforumsService.deleteSubforum(subforum);}
+    public void deleteSubforum(String subforumId){subforumsService.deleteSubforum(subforumId);}
 }

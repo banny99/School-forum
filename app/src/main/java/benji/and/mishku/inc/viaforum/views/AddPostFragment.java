@@ -20,11 +20,14 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 
 import benji.and.mishku.inc.viaforum.R;
+import benji.and.mishku.inc.viaforum.models.DateTime;
 import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.models.Subforum;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
@@ -86,9 +89,8 @@ public class AddPostFragment extends Fragment {
 
         spinner.setAdapter(arrayAdapter);
         addPostBtn.setOnClickListener(view -> {
-            //ToDo: replace IDs with real IDs
             Subforum sub= (Subforum)spinner.getSelectedItem();
-            Post newPost = new Post(postTitle.getText().toString(), postText.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getUid(), sub.getId(),  Instant.now());
+            Post newPost = new Post(postTitle.getText().toString(), postText.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getUid(), sub.getId());
             postsViewModel.addPost(newPost);
 
             postTitle.setText("");

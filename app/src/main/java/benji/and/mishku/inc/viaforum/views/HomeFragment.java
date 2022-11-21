@@ -13,21 +13,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
 import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SavedPostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SubforumsViewModel;
-import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 
 
 public class HomeFragment extends Fragment {
     private PostsViewModel postsViewModel;
-    private UserViewModel userViewModel;
     private SubforumsViewModel subforumsViewModel;
     private SavedPostsViewModel savedPostsViewModel;
     private RecyclerView postListRV;
@@ -40,10 +38,9 @@ public class HomeFragment extends Fragment {
 
         postsViewModel=new ViewModelProvider(requireActivity()).get(PostsViewModel.class);
         subforumsViewModel=new ViewModelProvider(requireActivity()).get(SubforumsViewModel.class);
-        userViewModel=new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         savedPostsViewModel=new ViewModelProvider(requireActivity()).get(SavedPostsViewModel.class);
-        postAdapter = new PostAdapter(new ArrayList<>(),subforumsViewModel,userViewModel,savedPostsViewModel);
-        postsViewModel.getAllPostsFromSubscribedSubforums(1L).observe(this, new Observer<List<Post>>() {
+        postAdapter = new PostAdapter(new ArrayList<>(),subforumsViewModel,savedPostsViewModel);
+        postsViewModel.getAllPostsFromSubscribedSubforums(FirebaseAuth.getInstance().getCurrentUser().getUid()).observe(this, new Observer<List<Post>>() {
             @Override
             public void onChanged(List<Post> posts) {
                 postAdapter.setPosts(posts);

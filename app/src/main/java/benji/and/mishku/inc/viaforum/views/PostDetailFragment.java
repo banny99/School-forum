@@ -19,6 +19,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -96,7 +98,7 @@ public class PostDetailFragment extends Fragment {
 
             addComment.setOnClickListener((view -> {
                 if(commentText.getText()!=null && !commentText.getText().toString().equals("")){
-                commentsViewModel.addComment(new Comment(commentText.getText().toString(),FirebaseAuth.getInstance().getCurrentUser().getUid(),postsViewModel.getSharedPost().getId()));
+                commentsViewModel.addComment(new Comment(commentText.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getUid(),postsViewModel.getSharedPost().getId()));
 
                 Toast.makeText(getContext(), "Your comment has been added", Toast.LENGTH_SHORT).show();
                 commentText.setText("");
@@ -120,7 +122,7 @@ public class PostDetailFragment extends Fragment {
     }
 
     Function deletePostConfirmationAction = e->{
-        postsViewModel.deletePost(postsViewModel.getSharedPost());
+        postsViewModel.deletePost(postsViewModel.getSharedPost().getId());
         Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.nav_your_posts);
         Toast.makeText(getContext(), "Post \""+postsViewModel.getSharedPost().getTitle()+"\" was DELETED", Toast.LENGTH_LONG).show();
         return null;

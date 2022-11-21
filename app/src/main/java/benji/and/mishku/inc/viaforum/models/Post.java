@@ -6,7 +6,7 @@ public class Post {
     private String title;
     private String postText;
     private String userId;
-    private Long subForumId;
+    private String subForumId;
     private boolean flag;
     private String flagDescription;
     private DateTime dateTime;
@@ -15,7 +15,7 @@ public class Post {
         //required by Firebase
     }
 
-    public Post(String title, String postText, String userId, Long subForumId) {
+    public Post(String title, String postText, String userId, String subForumId) {
         this.title = title;
         this.postText = postText;
         this.userId = userId;
@@ -55,11 +55,11 @@ public class Post {
         this.userId = userId;
     }
 
-    public Long getSubForumId() {
+    public String getSubForumId() {
         return subForumId;
     }
 
-    public void setSubForumId(Long subForumId) {
+    public void setSubForumId(String subForumId) {
         this.subForumId = subForumId;
     }
 
