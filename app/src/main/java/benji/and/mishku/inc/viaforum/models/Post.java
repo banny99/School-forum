@@ -1,6 +1,8 @@
 package benji.and.mishku.inc.viaforum.models;
 
 
+import java.util.List;
+
 public class Post {
     private String id;
     private String title;
@@ -10,7 +12,6 @@ public class Post {
     private boolean flag;
     private String flagDescription;
     private DateTime dateTime;
-
     public Post() {
         //required by Firebase
     }

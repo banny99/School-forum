@@ -1,10 +1,12 @@
 package benji.and.mishku.inc.viaforum.repositories;
 
 import static android.content.ContentValues.TAG;
+
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -14,9 +16,12 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.ReentrantLock;
 import benji.and.mishku.inc.viaforum.contracts.PostsService;
 import benji.and.mishku.inc.viaforum.models.Post;
+import benji.and.mishku.inc.viaforum.models.User;
+
 
 public class PostsFirebaseRepository implements PostsService {
 
@@ -24,14 +29,17 @@ public class PostsFirebaseRepository implements PostsService {
     private final static ReentrantLock lock=new ReentrantLock();
 
     private final DatabaseReference postsRef;
+    private final DatabaseReference usersRef;
+    private final DatabaseReference subscriptionsRef;
     private MutableLiveData<List<Post>> allPosts;
     private MutableLiveData<List<Post>> myPosts;
 
     private PostsFirebaseRepository(){
         postsRef = FirebaseDatabase.getInstance().getReference("posts");
+        subscriptionsRef=FirebaseDatabase.getInstance().getReference("subscriptions");
         allPosts = new MutableLiveData<>();
         myPosts = new MutableLiveData<>();
-
+        usersRef=FirebaseDatabase.getInstance().getReference("users");
         // Read from the database
         postsRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -62,7 +70,6 @@ public class PostsFirebaseRepository implements PostsService {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-
     }
 
     //Todo: do we need this to be singleton/protected ? isn't getReference() thread-safe ?
@@ -112,7 +119,7 @@ public class PostsFirebaseRepository implements PostsService {
     public LiveData<List<Post>> getPostsBySubforum(String subforumId) {
         MutableLiveData<List<Post>> tempLive = new MutableLiveData<>();
 
-        Query query = postsRef.orderByChild("userId").equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        Query query = postsRef.orderByChild("subforumId").equalTo(subforumId);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -134,7 +141,27 @@ public class PostsFirebaseRepository implements PostsService {
 
     @Override
     public LiveData<List<Post>> getPostsByUser(String userId) {
-        return null;
+
+        MutableLiveData<List<Post>> tempLive = new MutableLiveData<>();
+
+        Query query = postsRef.orderByChild("userId").equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<Post> temp = new ArrayList<>();
+                for (DataSnapshot s : snapshot.getChildren()){
+                    temp.add(s.getValue(Post.class));
+                }
+                tempLive.setValue(temp);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        return tempLive;
     }
 
     @Override
@@ -150,6 +177,32 @@ public class PostsFirebaseRepository implements PostsService {
 
     @Override
     public LiveData<List<Post>> getAllPostsFromSubscribedSubforums(String userId) {
-        return null;
+
+        MutableLiveData<List<Post>> tempLive = new MutableLiveData<>();
+        AtomicReference<User> user = null;
+        usersRef.child(userId).get().addOnCompleteListener(task -> {
+            user.set(task.getResult().getValue(User.class));
+        });
+        assert user != null;
+        User u=user.get();
+
+        Query query2 = postsRef.orderByChild("userId").equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        query2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<Post> temp = new ArrayList<>();
+                for (DataSnapshot s : snapshot.getChildren()){
+                    temp.add(s.getValue(Post.class));
+                }
+                tempLive.setValue(temp);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        return tempLive;
     }
 }

@@ -22,11 +22,13 @@ import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SavedPostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SubforumsViewModel;
+import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 
 public class SavedPostsFragment extends Fragment {
     private PostsViewModel postsViewModel;
     private SubforumsViewModel subforumsViewModel;
     private SavedPostsViewModel savedPostsViewModel;
+    private UserViewModel userViewModel;
     private RecyclerView postListRV;
     private PostAdapter postAdapter;
 
@@ -38,8 +40,9 @@ public class SavedPostsFragment extends Fragment {
         postsViewModel=new ViewModelProvider(requireActivity()).get(PostsViewModel.class);
         subforumsViewModel=new ViewModelProvider(requireActivity()).get(SubforumsViewModel.class);
         savedPostsViewModel=new ViewModelProvider(requireActivity()).get(SavedPostsViewModel.class);
-        postAdapter = new PostAdapter(new ArrayList<>(),subforumsViewModel,savedPostsViewModel);
-        savedPostsViewModel.getSavedPostsForUser(FirebaseAuth.getInstance().getCurrentUser().getUid()).observe(this, new Observer<List<Post>>() {
+        userViewModel=new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        postAdapter = new PostAdapter(new ArrayList<>(),subforumsViewModel,savedPostsViewModel,userViewModel);
+        savedPostsViewModel.getSavedPostsForUser(userViewModel.getLoggedUser().getValue()).observe(this, new Observer<List<Post>>() {
             @Override
             public void onChanged(List<Post> posts) {
                 postAdapter.setPosts(posts);

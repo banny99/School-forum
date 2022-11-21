@@ -18,6 +18,7 @@ import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SavedPostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SubforumsViewModel;
+import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
@@ -25,13 +26,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private SubforumsViewModel subforumsViewModel;
     private SavedPostsViewModel savedPostsViewModel;
     private PostsViewModel postsViewModel;
+    private UserViewModel userViewModel;
     Icon iconSaved;
     Icon iconNotSaved;
 
-    public PostAdapter(List<Post> posts, SubforumsViewModel subforumsViewModel, SavedPostsViewModel savedPostsViewModel) {
+    public PostAdapter(List<Post> posts, SubforumsViewModel subforumsViewModel, SavedPostsViewModel savedPostsViewModel, UserViewModel userViewModel) {
         this.posts = posts;
         this.subforumsViewModel = subforumsViewModel;
         this.savedPostsViewModel=savedPostsViewModel;
+        this.userViewModel=userViewModel;
 
     }
 
@@ -56,8 +59,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         viewHolder.postContent.setText(posts.get(position).getPostText());
         viewHolder.postTitle.setText(posts.get(position).getTitle());
         viewHolder.postSubforum.setText(subforumsViewModel.getSubforum(posts.get(position).getSubForumId()).getName());
-        viewHolder.postAuthor.setText(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        boolean isPostSaved=savedPostsViewModel.isPostSavedForUser(posts.get(position).getUserId(),posts.get(position).getId());
+        viewHolder.postAuthor.setText(FirebaseAuth.getInstance().getUid());
+        boolean isPostSaved=savedPostsViewModel.isPostSavedForUser(userViewModel.getLoggedUser().getValue(),posts.get(position));
         if(isPostSaved){
             viewHolder.saveButton.setImageIcon(iconSaved);
         }
@@ -66,12 +69,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         }
         viewHolder.saveButton.setOnClickListener((l)->{
             if(isPostSaved) {
-                savedPostsViewModel.unSavePostForUser(FirebaseAuth.getInstance().getCurrentUser().getUid(), posts.get(position).getId());
+                savedPostsViewModel.unSavePostForUser(userViewModel.getLoggedUser().getValue(), posts.get(position));
                 Toast.makeText(l.getContext(), "You unsaved a post", Toast.LENGTH_SHORT).show();
                 viewHolder.saveButton.setImageIcon(iconNotSaved);
             }
             else{
-                savedPostsViewModel.savePostForUser(FirebaseAuth.getInstance().getCurrentUser().getUid(),posts.get(position).getId());
+                savedPostsViewModel.savePostForUser(userViewModel.getLoggedUser().getValue(),posts.get(position));
                 Toast.makeText(l.getContext(), "You saved a post",Toast.LENGTH_SHORT).show();
                 viewHolder.saveButton.setImageIcon(iconSaved);
             }
