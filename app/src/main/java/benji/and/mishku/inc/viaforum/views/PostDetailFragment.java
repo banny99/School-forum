@@ -63,7 +63,7 @@ public class PostDetailFragment extends Fragment {
         commentsViewModel=new ViewModelProvider(requireActivity()).get(CommentsViewModel.class);
         commentAdapter=new CommentAdapter(new ArrayList<>());
         postsViewModel=new ViewModelProvider(requireActivity()).get(PostsViewModel.class);
-        commentsViewModel.getCommentsForPost(postsViewModel.getSharedPost()).observe(this, new Observer<List<Comment>>() {
+        commentsViewModel.getCommentsForPost(postsViewModel.getSharedPost().getId()).observe(this, new Observer<List<Comment>>() {
             @Override
             public void onChanged(List<Comment> comments) {
                 commentAdapter.setComments(comments);
@@ -83,9 +83,9 @@ public class PostDetailFragment extends Fragment {
         postText = inflatedView.findViewById(R.id.singlePostContent);
         postText.setText(postsViewModel.getSharedPost().getPostText());
         postSubforum=inflatedView.findViewById(R.id.singlePostSubforum);
-        postSubforum.setText(getString(R.string.posted_on) + Math.toIntExact(postsViewModel.getSharedPost().getSubForumId()));
+        postSubforum.setText(getString(R.string.posted_on) + postsViewModel.getSharedPost().getSubForumId());
         postAuthor=inflatedView.findViewById(R.id.singlePostAuthor);
-        postAuthor.setText(getString(R.string.posted_by)+Math.toIntExact(postsViewModel.getSharedPost().getUserId()));
+        postAuthor.setText(getString(R.string.posted_by)+postsViewModel.getSharedPost().getUserId());
         //edit post btn set-up:
         editPostBtn = inflatedView.findViewById(R.id.editPostButton);
         editPostBtn.setOnClickListener(view -> {
@@ -96,7 +96,7 @@ public class PostDetailFragment extends Fragment {
 
             addComment.setOnClickListener((view -> {
                 if(commentText.getText()!=null && !commentText.getText().toString().equals("")){
-                commentsViewModel.addComment(new Comment(commentText.getText().toString(),1L,postsViewModel.getSharedPost().getId()));
+                commentsViewModel.addComment(new Comment(commentText.getText().toString(),FirebaseAuth.getInstance().getCurrentUser().getUid(),postsViewModel.getSharedPost().getId()));
 
                 Toast.makeText(getContext(), "Your comment has been added", Toast.LENGTH_SHORT).show();
                 commentText.setText("");

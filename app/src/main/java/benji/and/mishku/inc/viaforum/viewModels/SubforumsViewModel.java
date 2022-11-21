@@ -10,6 +10,7 @@ import java.util.List;
 
 import benji.and.mishku.inc.viaforum.contracts.SubforumsService;
 import benji.and.mishku.inc.viaforum.models.Subforum;
+import benji.and.mishku.inc.viaforum.repositories.SubForumFirebaseRepository;
 import benji.and.mishku.inc.viaforum.repositories.SubforumsRepository;
 
 public class SubforumsViewModel extends AndroidViewModel {
@@ -17,7 +18,7 @@ public class SubforumsViewModel extends AndroidViewModel {
     private Subforum sharedSubforum;
     public SubforumsViewModel(@NonNull Application application) {
         super(application);
-        this.subforumsService= SubforumsRepository.getInstance(application);
+        this.subforumsService= SubForumFirebaseRepository.getInstance(application);
     }
     public LiveData<List<Subforum>> getAllSubforums(){
         return subforumsService.getSubforums();
@@ -30,7 +31,7 @@ public class SubforumsViewModel extends AndroidViewModel {
     public void setSharedSubforum(Subforum sharedSubforum) {
         this.sharedSubforum = sharedSubforum;
     }
-    public Subforum getSubforum(Long subforumId){
+    public Subforum getSubforum(String subforumId){
         return subforumsService.getSubforumById(subforumId);
     }
     public void addSubforum(Subforum subforum){

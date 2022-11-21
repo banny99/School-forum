@@ -67,7 +67,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             commentAuthor=itemView.findViewById(R.id.commentAuthor);
             commentContent=itemView.findViewById(R.id.commentContent);
             itemView.setOnClickListener(v -> {
-                listener.onClick(comments.get(getAbsoluteAdapterPosition()));
+                listener.onClick(comments.get(getAdapterPosition()));
             });
         }
     }

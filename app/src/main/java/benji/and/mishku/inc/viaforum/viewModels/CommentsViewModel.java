@@ -11,17 +11,18 @@ import java.util.List;
 import benji.and.mishku.inc.viaforum.contracts.CommentsService;
 import benji.and.mishku.inc.viaforum.models.Comment;
 import benji.and.mishku.inc.viaforum.models.Post;
+import benji.and.mishku.inc.viaforum.repositories.CommentsFirebaseRepository;
 import benji.and.mishku.inc.viaforum.repositories.CommentsRepository;
 
 public class CommentsViewModel extends AndroidViewModel {
     private final CommentsService commentsService;
     public CommentsViewModel(@NonNull Application application) {
         super(application);
-        this.commentsService= CommentsRepository.getInstance(application);
+        this.commentsService= CommentsFirebaseRepository.getInstance(application);
 
     }
-    public LiveData<List<Comment>> getCommentsForPost(Post post){
-        return commentsService.getCommentsForPost(post);
+    public LiveData<List<Comment>> getCommentsForPost(String postId){
+        return commentsService.getCommentsForPost(postId);
     }
     public void addComment( Comment comment){
         commentsService.addComment(comment);

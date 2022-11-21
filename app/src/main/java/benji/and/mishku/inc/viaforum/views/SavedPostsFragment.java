@@ -14,6 +14,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.FirebaseApp;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +28,6 @@ import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 
 public class SavedPostsFragment extends Fragment {
     private PostsViewModel postsViewModel;
-    private UserViewModel userViewModel;
     private SubforumsViewModel subforumsViewModel;
     private SavedPostsViewModel savedPostsViewModel;
     private RecyclerView postListRV;
@@ -39,10 +40,9 @@ public class SavedPostsFragment extends Fragment {
 
         postsViewModel=new ViewModelProvider(requireActivity()).get(PostsViewModel.class);
         subforumsViewModel=new ViewModelProvider(requireActivity()).get(SubforumsViewModel.class);
-        userViewModel=new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         savedPostsViewModel=new ViewModelProvider(requireActivity()).get(SavedPostsViewModel.class);
-        postAdapter = new PostAdapter(new ArrayList<>(),subforumsViewModel,userViewModel,savedPostsViewModel);
-        savedPostsViewModel.getSavedPostsForUser(1L).observe(this, new Observer<List<Post>>() {
+        postAdapter = new PostAdapter(new ArrayList<>(),subforumsViewModel,savedPostsViewModel);
+        savedPostsViewModel.getSavedPostsForUser(FirebaseAuth.getInstance().getCurrentUser().getUid()).observe(this, new Observer<List<Post>>() {
             @Override
             public void onChanged(List<Post> posts) {
                 postAdapter.setPosts(posts);

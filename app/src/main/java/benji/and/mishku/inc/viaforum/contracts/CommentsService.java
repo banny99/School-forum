@@ -11,5 +11,5 @@ public interface CommentsService {
     void addComment(Comment c);
     void deleteComment(Comment c);
     void updateComment(Comment c);
-    LiveData<List<Comment>> getCommentsForPost(Post post);
+    LiveData<List<Comment>> getCommentsForPost(String postId);
 }

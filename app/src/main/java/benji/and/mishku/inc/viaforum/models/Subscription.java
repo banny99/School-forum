@@ -4,27 +4,32 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(primaryKeys = {"userId","subforumId"})
 
 public class Subscription {
-    @NonNull
-    private Long userId;
-    @NonNull
-    private Long subforumId;
+    private String userId;
+    private String subforumId;
 
-    public Long getUserId() {
+    public Subscription() {
+    }
+
+    public Subscription(String userId, String subforumId) {
+        this.userId = userId;
+        this.subforumId = subforumId;
+    }
+
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public Long getSubforumId() {
+    public String getSubforumId() {
         return subforumId;
     }
 
-    public void setSubforumId(Long subforumId) {
+    public void setSubforumId(String subforumId) {
         this.subforumId = subforumId;
     }
 }

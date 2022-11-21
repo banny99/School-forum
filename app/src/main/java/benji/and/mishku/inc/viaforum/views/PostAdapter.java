@@ -29,16 +29,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     private List<Post> posts;
     private SubforumsViewModel subforumsViewModel;
-    private UserViewModel userViewModel;
     private SavedPostsViewModel savedPostsViewModel;
     private PostsViewModel postsViewModel;
     Icon iconSaved;
     Icon iconNotSaved;
 
-    public PostAdapter(List<Post> posts, SubforumsViewModel subforumsViewModel, UserViewModel userViewModel,SavedPostsViewModel savedPostsViewModel) {
+    public PostAdapter(List<Post> posts, SubforumsViewModel subforumsViewModel, SavedPostsViewModel savedPostsViewModel) {
         this.posts = posts;
         this.subforumsViewModel = subforumsViewModel;
-        this.userViewModel = userViewModel;
         this.savedPostsViewModel=savedPostsViewModel;
 
     }
@@ -64,7 +62,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         viewHolder.postContent.setText(posts.get(position).getPostText());
         viewHolder.postTitle.setText(posts.get(position).getTitle());
         viewHolder.postSubforum.setText(subforumsViewModel.getSubforum(posts.get(position).getSubForumId()).getName());
-        viewHolder.postAuthor.setText(userViewModel.getUserById(posts.get(position).getUserId()).getUsername());
+        viewHolder.postAuthor.setText(FirebaseAuth.getInstance().getCurrentUser().getUid());
         boolean isPostSaved=savedPostsViewModel.isPostSavedForUser(posts.get(position).getUserId(),posts.get(position).getId());
         if(isPostSaved){
             viewHolder.saveButton.setImageIcon(iconSaved);
@@ -74,12 +72,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         }
         viewHolder.saveButton.setOnClickListener((l)->{
             if(isPostSaved) {
-                savedPostsViewModel.unSavePostForUser(userViewModel.getCurrentUser().getId(), posts.get(position).getId());
+                savedPostsViewModel.unSavePostForUser(FirebaseAuth.getInstance().getCurrentUser().getUid(), posts.get(position).getId());
                 Toast.makeText(l.getContext(), "You unsaved a post", Toast.LENGTH_SHORT).show();
                 viewHolder.saveButton.setImageIcon(iconNotSaved);
             }
             else{
-                savedPostsViewModel.savePostForUser(userViewModel.getCurrentUser().getId(),posts.get(position).getId());
+                savedPostsViewModel.savePostForUser(FirebaseAuth.getInstance().getCurrentUser().getUid(),posts.get(position).getId());
                 Toast.makeText(l.getContext(), "You saved a post",Toast.LENGTH_SHORT).show();
                 viewHolder.saveButton.setImageIcon(iconSaved);
             }

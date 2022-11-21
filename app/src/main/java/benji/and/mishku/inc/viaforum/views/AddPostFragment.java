@@ -56,7 +56,7 @@ public class AddPostFragment extends Fragment {
 
 
 
-        subscriptionsViewModel.getSubforumsForUser(1L).observe(this, new Observer<List<Subforum>>() {
+        subscriptionsViewModel.getSubforumsForUser(FirebaseAuth.getInstance().getCurrentUser().getUid()).observe(this, new Observer<List<Subforum>>() {
             @Override
             public void onChanged(@Nullable List<Subforum> subforums) {
                 if(subforums!=null){
@@ -88,7 +88,7 @@ public class AddPostFragment extends Fragment {
         addPostBtn.setOnClickListener(view -> {
             //ToDo: replace IDs with real IDs
             Subforum sub= (Subforum)spinner.getSelectedItem();
-            Post newPost = new Post(postTitle.getText().toString(), postText.getText().toString(), (long)1, sub.getId(),  Instant.now());
+            Post newPost = new Post(postTitle.getText().toString(), postText.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getUid(), sub.getId(),  Instant.now());
             postsViewModel.addPost(newPost);
 
             postTitle.setText("");

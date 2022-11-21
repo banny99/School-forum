@@ -30,7 +30,7 @@ public class PostsViewModel extends AndroidViewModel {
     public LiveData<List<Post>> getPostsByUser(String userId){
         return postsService.getPostsByUser(userId);
     }
-    public Post getPostById(int id){
+    public Post getPostById(String postId){
         return postsService.getPostById(id);
     }
 

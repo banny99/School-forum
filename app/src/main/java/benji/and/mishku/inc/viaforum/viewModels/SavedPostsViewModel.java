@@ -20,16 +20,16 @@ public class SavedPostsViewModel extends AndroidViewModel {
         savedPostService= SavedPostsFirebaseRepository.getInstance(application);
     }
 
-    public void savePostForUser(Long userId, Long postId){
+    public void savePostForUser(String userId, String postId){
         savedPostService.savePostForUser(userId,postId);
     }
-    public void unSavePostForUser(Long userId, Long postId){
+    public void unSavePostForUser(String userId, String postId){
         savedPostService.removeSavedPostForUser(userId,postId);
     }
-    public LiveData<List<Post>> getSavedPostsForUser(Long userId){
+    public LiveData<List<Post>> getSavedPostsForUser(String userId){
         return savedPostService.getSavedPostsForUser(userId);
     }
-    public boolean isPostSavedForUser(Long userId, Long postId){
+    public boolean isPostSavedForUser(String userId, String postId){
         return savedPostService.isPostSavedByUser(userId,postId);
     }
 }

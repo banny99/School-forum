@@ -67,7 +67,7 @@ public class SubforumAdapter extends RecyclerView.Adapter<SubforumAdapter.ViewHo
             subforumTitle=itemView.findViewById(R.id.subforumName);
             subforumDescription=itemView.findViewById(R.id.subforumDescription);
             itemView.setOnClickListener(v -> {
-                listener.onClick(subforums.get(getAbsoluteAdapterPosition()));
+                listener.onClick(subforums.get(getAdapterPosition()));
             });
         }
     }

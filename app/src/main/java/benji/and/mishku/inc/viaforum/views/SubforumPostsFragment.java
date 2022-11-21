@@ -27,7 +27,6 @@ import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SavedPostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SubforumsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SubscriptionsViewModel;
-import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 
 
 public class SubforumPostsFragment extends Fragment {
@@ -36,7 +35,7 @@ public class SubforumPostsFragment extends Fragment {
     private RecyclerView postListRV;
     private PostAdapter postAdapter;
     private PostsViewModel postsViewModel;
-    private UserViewModel userViewModel;
+
     private SubscriptionsViewModel subscriptionsViewModel;
     private SavedPostsViewModel savedPostsViewModel;
     private Subforum currentSubforum;
@@ -50,8 +49,7 @@ public class SubforumPostsFragment extends Fragment {
         subforumsViewModel=new ViewModelProvider(requireActivity()).get(SubforumsViewModel.class);
         subscriptionsViewModel=new ViewModelProvider(requireActivity()).get(SubscriptionsViewModel.class);
         savedPostsViewModel=new ViewModelProvider(requireActivity()).get(SavedPostsViewModel.class);
-        userViewModel=new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        postAdapter = new PostAdapter(new ArrayList<>(),subforumsViewModel,userViewModel,savedPostsViewModel);
+        postAdapter = new PostAdapter(new ArrayList<>(),subforumsViewModel,savedPostsViewModel);
         currentSubforum=subforumsViewModel.getSharedSubforum();
         postsViewModel.getPostsBySubforum(currentSubforum.getId()).observe(this, new Observer<List<Post>>() {
             @Override
@@ -75,7 +73,7 @@ public class SubforumPostsFragment extends Fragment {
        subscribeButton=view.findViewById(R.id.subscribeButton);
        subscribeButton.setOnClickListener((l)->
                {
-                subscriptionsViewModel.subscribeToSubforum(1L, currentSubforum.getId());
+                subscriptionsViewModel.subscribeToSubforum(FirebaseAuth.getInstance().getCurrentUser().getUid(), currentSubforum.getId());
                 CharSequence text="You just subscribed to "+currentSubforum.getName()+" subforum";
                 Toast.makeText(getContext(),text, Toast.LENGTH_SHORT).show();
                });

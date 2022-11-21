@@ -39,8 +39,8 @@ public class YourPostsFragment extends Fragment {
         postsViewModel=new ViewModelProvider(requireActivity()).get(PostsViewModel.class);
         subforumsViewModel=new ViewModelProvider(requireActivity()).get(SubforumsViewModel.class);
         savedPostsViewModel=new ViewModelProvider(requireActivity()).get(SavedPostsViewModel.class);
-        postAdapter = new PostAdapter(new ArrayList<>(),subforumsViewModel,userViewModel,savedPostsViewModel);
-        postsViewModel.getPostsByUser(1L).observe(this, new Observer<List<Post>>() {
+        postAdapter = new PostAdapter(new ArrayList<>(),subforumsViewModel,savedPostsViewModel);
+        postsViewModel.getPostsByUser(FirebaseAuth.getInstance().getCurrentUser().getUid()).observe(this, new Observer<List<Post>>() {
             @Override
             public void onChanged(List<Post> posts) {
                 postAdapter.setPosts(posts);
