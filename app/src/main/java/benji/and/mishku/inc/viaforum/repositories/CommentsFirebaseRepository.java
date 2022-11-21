@@ -1,23 +1,19 @@
 package benji.and.mishku.inc.viaforum.repositories;
 
 import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 import benji.and.mishku.inc.viaforum.contracts.CommentsService;
 import benji.and.mishku.inc.viaforum.models.Comment;
-import benji.and.mishku.inc.viaforum.models.Post;
 
 public class CommentsFirebaseRepository implements CommentsService {
 
@@ -26,10 +22,20 @@ public class CommentsFirebaseRepository implements CommentsService {
 
     private final DatabaseReference commentsRef;
     private MutableLiveData<List<Comment>> allComments;
-    private float maxId = 0;
 
-    public CommentsFirebaseRepository() {
+    private CommentsFirebaseRepository() {
         commentsRef = FirebaseDatabase.getInstance().getReference("comments");
+    }
+
+    public static CommentsService getInstance(){
+        if(instance==null){
+            synchronized (lock){
+                if(instance==null) {
+                    instance = new CommentsFirebaseRepository();
+                }
+            }
+        }
+        return instance;
     }
 
     @Override
@@ -40,17 +46,17 @@ public class CommentsFirebaseRepository implements CommentsService {
     }
 
     @Override
-    public void deleteComment(Comment c) {
-        commentsRef.child(c.getId().toString()).setValue(null);
+    public void deleteComment(String commentId) {
+        commentsRef.child(commentId).setValue(null);
     }
 
     @Override
     public void updateComment(Comment c) {
-        commentsRef.child(c.getId().toString()).setValue(c);
+        commentsRef.child(c.getId()).setValue(c);
     }
 
     @Override
-    public LiveData<List<Comment>> getCommentsForPost(Post post) {
+    public LiveData<List<Comment>> getCommentsForPost(String postId) {
         ArrayList<Comment> comments = new ArrayList<>();
 
         commentsRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -63,7 +69,7 @@ public class CommentsFirebaseRepository implements CommentsService {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     for (DataSnapshot s : task.getResult().getChildren()){
                         Comment c = s.getValue(Comment.class);
-                        if (c.getPostId().equals(post.getId())){
+                        if (c.getPostId().equals(postId)){
                             comments.add(c);
                         }
                     }

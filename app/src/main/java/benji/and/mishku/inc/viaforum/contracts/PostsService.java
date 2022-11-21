@@ -10,7 +10,7 @@ import benji.and.mishku.inc.viaforum.models.User;
 
 public interface PostsService {
     void addPost(Post post);
-    void deletePost(Post post);
+    void deletePost(String postId);
     void updatePost(Post post);
     LiveData<List<Post>> getPosts(int noOfItems);
     LiveData<List<Post>> getAllPosts();
@@ -19,6 +19,5 @@ public interface PostsService {
 
     Post getPostById(String postId);
     void removeAllPosts();
-
     LiveData<List<Post>> getAllPostsFromSubscribedSubforums(String userId);
 }

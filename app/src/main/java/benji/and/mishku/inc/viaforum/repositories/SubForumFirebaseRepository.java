@@ -22,7 +22,7 @@ public class SubForumFirebaseRepository  implements SubforumsService {
     private final DatabaseReference subforumsRef;
     private MutableLiveData<List<Subforum>> allSubforums;
 
-    public SubForumFirebaseRepository() {
+    private SubForumFirebaseRepository() {
         subforumsRef = FirebaseDatabase.getInstance().getReference("subforums");
 
         // Read from the database
@@ -47,6 +47,17 @@ public class SubForumFirebaseRepository  implements SubforumsService {
         });
     }
 
+    public static SubForumFirebaseRepository getInstance(){
+        if(instance==null){
+            synchronized (lock){
+                if(instance==null) {
+                    instance = new SubForumFirebaseRepository();
+                }
+            }
+        }
+        return instance;
+    }
+
     @Override
     public LiveData<List<Subforum>> getSubforums() {
         return allSubforums;
@@ -65,12 +76,13 @@ public class SubForumFirebaseRepository  implements SubforumsService {
     }
 
     @Override
-    public void deleteSubforum(Subforum s) {
-        subforumsRef.child(s.getId().toString()).setValue(null);
+    public void deleteSubforum(String subforumId) {
+        subforumsRef.child(subforumId).setValue(null);
     }
 
     @Override
-    public void subscribeToSubforum(String userId, Long subforumId) {
-        //ToDo. not sure
+    public Subforum getSubforumById(String subforumId) {
+        return null;
     }
+
 }
