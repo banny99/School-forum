@@ -15,8 +15,10 @@ public interface PostsService {
     LiveData<List<Post>> getPosts(int noOfItems);
     LiveData<List<Post>> getAllPosts();
     LiveData<List<Post>> getPostsBySubforum(Long subforumId);
-    LiveData<List<Post>> getPostsByUser(User user);
+    LiveData<List<Post>> getPostsByUser(Long userId);
 
     Post getPostById(int id);
     void removeAllPosts();
+
+    LiveData<List<Post>> getAllPostsFromSubscribedSubforums(Long userId);
 }

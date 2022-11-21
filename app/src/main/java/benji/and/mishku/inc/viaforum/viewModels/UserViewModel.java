@@ -11,6 +11,7 @@ import benji.and.mishku.inc.viaforum.repositories.UserRepository;
 
 public class UserViewModel extends AndroidViewModel {
     private final UserService userService;
+    private User currentUser=null;
     public UserViewModel(@NonNull Application application) {
         super(application);
         userService= UserRepository.getInstance(application);
@@ -18,8 +19,18 @@ public class UserViewModel extends AndroidViewModel {
     public void addUser(User user){
         userService.addUser(user);
     }
-    public User getUserByUsername(String username){
+    public User getUserById(Long id){
 
-        return userService.getUserByUsername(username);
+        return userService.getUserById(id);
+    }
+
+
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
     }
 }

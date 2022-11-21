@@ -30,10 +30,10 @@ public interface PostsDAO {
     LiveData<List<Post>> getPostsWithLimit(int noOfItems);
 
     @Query(
-            "SELECT * FROM Post" +
-                    " JOIN User ON User.id=Post.userId"
+            "SELECT p.postId,p.userId,p.subForumId,p.flag,p.flagDescription,p.postText,p.timestamp,p.title FROM Post p" +
+                    " JOIN User u ON u.id=p.userId WHERE u.id=:userId"
     )
-    LiveData<Map<User, List<Post>>> getPostsByUser();
+    LiveData<List<Post>> getPostsByUser(Long userId);
 
 
     @Query(
@@ -49,4 +49,7 @@ public interface PostsDAO {
 
     @Query("DELETE FROM Post")
     void deleteAll();
+    @Query("SELECT p.postId,p.userId,p.subForumId,p.flag,p.flagDescription,p.postText,p.timestamp,p.title FROM POST p"+
+    " JOIN Subscription s on p.subForumId=s.subforumId WHERE s.userId=:userId")
+    LiveData<List<Post>> getAllPostsFromSubscribedSubforums(Long userId);
 }

@@ -14,7 +14,6 @@ public class User {
     private String email;
     private String password;
     private Date birthday;
-    private Long subForumId;
     public User(String username, String email, String password,  Date birthday) {
         this.username = username;
         this.email = email;
@@ -22,13 +21,6 @@ public class User {
         this.birthday = birthday;
     }
 
-    public Long getSubForumId() {
-        return subForumId;
-    }
-
-    public void setSubForumId(Long subForumId) {
-        this.subForumId = subForumId;
-    }
 
     public Long getId() {
         return id;

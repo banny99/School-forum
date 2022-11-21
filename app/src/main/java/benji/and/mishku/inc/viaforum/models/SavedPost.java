@@ -1,11 +1,14 @@
 package benji.and.mishku.inc.viaforum.models;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+@Entity(primaryKeys = {"userId","postId"})
 
 public class SavedPost {
-    @PrimaryKey
+    @NonNull
     private Long userId;
-    @PrimaryKey
+    @NonNull
     private Long postId;
 
     public SavedPost(Long userId, Long postId) {
@@ -16,7 +19,7 @@ public class SavedPost {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(@NonNull Long userId) {
         this.userId = userId;
     }
 

@@ -4,6 +4,6 @@ import benji.and.mishku.inc.viaforum.models.User;
 
 public interface UserService {
     User logUserIn(String username, String password);
-    User getUserByUsername(String username);
+    User getUserById(Long userId);
     void addUser(User user);
 }

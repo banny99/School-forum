@@ -77,7 +77,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         View headerView=navDrawer.getHeaderView(0);
         TextView username=headerView.findViewById(R.id.userName);
         TextView email=headerView.findViewById(R.id.userEmail);
-        User u=userViewModel.getUserByUsername("Ben");
+        User u=userViewModel.getUserById(1L);
+        userViewModel.setCurrentUser(u);
         username.setText(u.getUsername());
         email.setText(u.getEmail());
     }

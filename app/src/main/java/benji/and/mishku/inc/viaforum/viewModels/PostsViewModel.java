@@ -28,6 +28,9 @@ public class PostsViewModel extends AndroidViewModel {
     public LiveData<List<Post>> getAllPosts(){
         return postsService.getAllPosts();
     }
+    public LiveData<List<Post>> getPostsByUser(Long userId){
+        return postsService.getPostsByUser(userId);
+    }
     public Post getPostById(int id){
         return postsService.getPostById(id);
     }
@@ -48,5 +51,9 @@ public class PostsViewModel extends AndroidViewModel {
     }
     public LiveData<List<Post>> getPostsBySubforum(Long subforumId){
         return postsService.getPostsBySubforum(subforumId);
+    }
+
+    public LiveData<List<Post>> getAllPostsFromSubscribedSubforums(Long userId) {
+        return postsService.getAllPostsFromSubscribedSubforums(userId);
     }
 }

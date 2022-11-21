@@ -16,11 +16,17 @@ import java.util.List;
 import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
+import benji.and.mishku.inc.viaforum.viewModels.SavedPostsViewModel;
+import benji.and.mishku.inc.viaforum.viewModels.SubforumsViewModel;
+import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 
 
 public class YourPostsFragment extends Fragment {
 
     private PostsViewModel postsViewModel;
+    private SubforumsViewModel subforumsViewModel;
+    private UserViewModel userViewModel;
+    private SavedPostsViewModel savedPostsViewModel;
     private RecyclerView postListRV;
     private PostAdapter postAdapter;
     private Button removeAllPostsButton;
@@ -33,10 +39,14 @@ public class YourPostsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        postAdapter = new PostAdapter(new ArrayList<>());
+
 
         postsViewModel=new ViewModelProvider(requireActivity()).get(PostsViewModel.class);
-        postsViewModel.getAllPosts().observe(this, new Observer<List<Post>>() {
+        subforumsViewModel=new ViewModelProvider(requireActivity()).get(SubforumsViewModel.class);
+        userViewModel=new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        savedPostsViewModel=new ViewModelProvider(requireActivity()).get(SavedPostsViewModel.class);
+        postAdapter = new PostAdapter(new ArrayList<>(),subforumsViewModel,userViewModel,savedPostsViewModel);
+        postsViewModel.getPostsByUser(1L).observe(this, new Observer<List<Post>>() {
             @Override
             public void onChanged(List<Post> posts) {
                 postAdapter.setPosts(posts);

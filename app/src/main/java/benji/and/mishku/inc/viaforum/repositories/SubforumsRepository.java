@@ -62,7 +62,10 @@ public class SubforumsRepository implements SubforumsService {
         });
     }
 
-
+    @Override
+    public Subforum getSubforumById(Long subforumId) {
+        return dao.getSubforumById(subforumId);
+    }
 
 
 }

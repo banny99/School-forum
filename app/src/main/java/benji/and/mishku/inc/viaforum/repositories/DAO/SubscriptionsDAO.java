@@ -24,6 +24,6 @@ public interface SubscriptionsDAO {
     @Query("SELECT sub.id, sub.description, sub.name  FROM SUBFORUM sub JOIN SUBSCRIPTION ON sub.ID=SUBSCRIPTION.subforumId WHERE SUBSCRIPTION.userId = :subscribedUserId ")
     LiveData<List<Subforum>> getSubscriptionsForUser(Long subscribedUserId);
 
-    @Query("SELECT u.id,u.subForumId,u.birthday,u.email,u.password  FROM User u  JOIN Subscription  ON u.ID=subscription.userId WHERE SUBSCRIPTION.subforumId = :subforumId ")
+    @Query("SELECT u.id,u.birthday,u.email,u.password  FROM User u  JOIN Subscription  ON u.ID=subscription.userId WHERE SUBSCRIPTION.subforumId = :subforumId ")
     LiveData<List<User>> getUsersForSubforum(Long subforumId);
 }

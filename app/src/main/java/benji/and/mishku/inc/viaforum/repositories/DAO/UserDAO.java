@@ -28,6 +28,7 @@ public interface UserDAO {
     @Query("SELECT * FROM User WHERE username= :username")
     User getUserByUsername(String username);
 
-    @Query("SELECT * FROM User WHERE subForumId= :id")
-    LiveData<List<User>> getUserBySubforum(Long id);
+    @Query("SELECT * FROM User WHERE id= :userId")
+    User getUserById(Long userId);
+
 }

@@ -24,4 +24,6 @@ public interface SubforumsDAO {
 
     @Query("SELECT * FROM Subforum")
     LiveData<List<Subforum>> getSubforums();
+    @Query("SELECT * FROM Subforum WHERE id=:subforumId")
+    Subforum getSubforumById(Long subforumId);
 }

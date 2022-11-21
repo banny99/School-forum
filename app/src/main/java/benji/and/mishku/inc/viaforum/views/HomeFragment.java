@@ -20,10 +20,16 @@ import java.util.Objects;
 import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
+import benji.and.mishku.inc.viaforum.viewModels.SavedPostsViewModel;
+import benji.and.mishku.inc.viaforum.viewModels.SubforumsViewModel;
+import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 
 
 public class HomeFragment extends Fragment {
     private PostsViewModel postsViewModel;
+    private UserViewModel userViewModel;
+    private SubforumsViewModel subforumsViewModel;
+    private SavedPostsViewModel savedPostsViewModel;
     private RecyclerView postListRV;
     private PostAdapter postAdapter;
 
@@ -31,9 +37,13 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        postAdapter = new PostAdapter(new ArrayList<>());
+
         postsViewModel=new ViewModelProvider(requireActivity()).get(PostsViewModel.class);
-        postsViewModel.getAllPosts().observe(this, new Observer<List<Post>>() {
+        subforumsViewModel=new ViewModelProvider(requireActivity()).get(SubforumsViewModel.class);
+        userViewModel=new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        savedPostsViewModel=new ViewModelProvider(requireActivity()).get(SavedPostsViewModel.class);
+        postAdapter = new PostAdapter(new ArrayList<>(),subforumsViewModel,userViewModel,savedPostsViewModel);
+        postsViewModel.getAllPostsFromSubscribedSubforums(1L).observe(this, new Observer<List<Post>>() {
             @Override
             public void onChanged(List<Post> posts) {
                 postAdapter.setPosts(posts);

@@ -47,6 +47,7 @@ public class PostDetailFragment extends Fragment {
     private EditText editingPostText;
     private ImageButton submitPostEditBtn;
     private ImageButton cancelPostEditingBtn;
+    private ImageButton reportButton;
     private CommentAdapter commentAdapter;
     private RecyclerView commentListRV;
 
@@ -109,6 +110,11 @@ public class PostDetailFragment extends Fragment {
         deletePostBtn.setOnClickListener(view -> {
             DialogGenerator.showConfirmationDialog("title", "msg", getActivity(), deletePostConfirmationAction);
         });
+
+        reportButton=inflatedView.findViewById(R.id.reportButton);
+        reportButton.setOnClickListener(l->{
+            DialogGenerator.showPostReportingDialog(postsViewModel.getSharedPost(), getActivity(), reportPostConfirmationAction);
+        });
         commentListRV.setAdapter(commentAdapter);
         return inflatedView;
     }
@@ -124,6 +130,13 @@ public class PostDetailFragment extends Fragment {
         postsViewModel.updatePost(postsViewModel.getSharedPost());
         Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.nav_your_posts);
         Toast.makeText(getContext(), "Post-\""+postsViewModel.getSharedPost().getTitle()+"\" was EDITED", Toast.LENGTH_LONG).show();
+        return null;
+    };
+
+    Function reportPostConfirmationAction = e->{
+        postsViewModel.updatePost(postsViewModel.getSharedPost());
+        Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.nav_your_posts);
+        Toast.makeText(getContext(), "Post-\""+postsViewModel.getSharedPost().getTitle()+"\" was reported, we will review your complaint and let you know.", Toast.LENGTH_LONG).show();
         return null;
     };
 

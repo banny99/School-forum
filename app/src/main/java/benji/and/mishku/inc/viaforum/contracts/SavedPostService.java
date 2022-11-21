@@ -8,7 +8,8 @@ import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.models.User;
 
 public interface SavedPostService {
-    LiveData<List<Post>> getSavedPostsForUser(User user);
-    void savePostForUser(User user, Post post);
-    void removeSavedPostForUser(User user, Post post);
+    LiveData<List<Post>> getSavedPostsForUser(Long userId);
+    void savePostForUser(Long userId, Long postId);
+    void removeSavedPostForUser(Long userId, Long postId);
+    boolean isPostSavedByUser(Long userId, Long postId);
 }

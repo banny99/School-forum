@@ -12,8 +12,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
 
 
-import javax.xml.transform.Result;
-
 import benji.and.mishku.inc.viaforum.contracts.UserService;
 import benji.and.mishku.inc.viaforum.models.User;
 import benji.and.mishku.inc.viaforum.repositories.DAO.UserDAO;
@@ -48,10 +46,10 @@ public class UserRepository implements UserService {
     }
 
     @Override
-    public User getUserByUsername(String username) {
+    public User getUserById(Long userId) {
 
 
-        return dao.getUserByUsername(username);
+        return dao.getUserById(userId);
     }
 
     @Override

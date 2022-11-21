@@ -5,19 +5,19 @@ The motivation behind it stems from the unorganized manner in which questions ar
 ## User Stories:
 ### High
 - [ ]  As an admin, I want to create/moderate subforums, in order for users to have the space to discuss certain topics.
-- [ ]  As a user, I would like to subscribe to a subforum, in case I'm interested in the topics discussed there.
-- [ ]  As a user, I would like to create a post, in order to ask a question or start a polemic.
-- [ ]  As a user, I want to comment on a post, in case I know the answer to it or want to extend the question.
-- [ ]  As a user, I want to modify a post, in case I want to add something to it or I made a mistake.
-- [ ]  As a user, I want to search through posts and answers, in order to find something specific that I'm looking for.
+- [ x ]  As a user, I would like to subscribe to a subforum, in case I'm interested in the topics discussed there.
+- [ x ]  As a user, I would like to create a post, in order to ask a question or start a polemic.
+- [ x ]  As a user, I want to comment on a post, in case I know the answer to it or want to extend the question.
+- [ x ]  As a user, I want to modify a post, in case I want to add something to it or I made a mistake.
+- [ ]  As a user, I want to search through posts and comments, in order to find something specific that I'm looking for.
 - [ ]  As a user, I want to sort my search results, based on different criteria (subforum, time, upvotes, etc.) , in order to have a narrower pool of results.
-- [ ]  As a user, I would like to log in for the purpose of accessing the application.
-- [ ]  As a user, I want to be able to report posts or comments, if I find them in violation of the posting rules.
+- [ x ]  As a user, I would like to log in for the purpose of accessing the application.
+- [ x ]  As a user, I want to be able to report posts , if I find them in violation of the posting rules.
+- [ x ]  As a user, I want to save a post, in case I need the information later.
 
 
 ### Medium
-- [ ]  As a user, I would like to have a landing page in the app, where I could see all new posts related to the subforums I'm subscribed to, in order to keep updated.
-- [ ]  As a user, I want to hide a post, in order for it not to be public.
+- [ x ]  As a user, I would like to have a landing page in the app, where I could see all new posts related to the subforums I'm subscribed to, in order to keep updated.
 - [ ]  As a user, I want to track a specific post, in case I'm interested in that thread and want to know how it updates.
 - [ ]  As a user, I want to be able to have 2 types of posts, questions and discussions, if I either want exact answers or just want to debate something.
 - [ ]  As a user, I want to mark the right answer to my question , in order for others to know which answer is right.
@@ -27,6 +27,5 @@ The motivation behind it stems from the unorganized manner in which questions ar
 
 ### Low
 - [ ]  As a user, I want to be able to post anonymously, in case the topic is sensible or I want to keep my identity enclosed.
-- [ ]  As a user, I want to save a post, in case I need the information later.
 - [ ]  As an admin, I want to be able to mute users, in case they show disrespectful/erratic behaviour.
 - [ ]  As a user, I want to be able to set a profile picture, in order to have a unique identity.

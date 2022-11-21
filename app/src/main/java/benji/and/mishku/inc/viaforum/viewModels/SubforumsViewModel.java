@@ -30,7 +30,9 @@ public class SubforumsViewModel extends AndroidViewModel {
     public void setSharedSubforum(Subforum sharedSubforum) {
         this.sharedSubforum = sharedSubforum;
     }
-
+    public Subforum getSubforum(Long subforumId){
+        return subforumsService.getSubforumById(subforumId);
+    }
     public void addSubforum(Subforum subforum){
         subforumsService.addSubforum(subforum);
     }
