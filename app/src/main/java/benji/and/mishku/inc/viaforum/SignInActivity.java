@@ -6,6 +6,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,11 +24,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.Arrays;
 import java.util.List;
 
+import benji.and.mishku.inc.viaforum.models.User;
+import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 import benji.and.mishku.inc.viaforum.views.MainActivity;
 
 public class SignInActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
+    private UserViewModel userViewModel;
 
     private EditText email;
     private EditText password;
@@ -52,6 +56,8 @@ public class SignInActivity extends AppCompatActivity {
 
         email = findViewById(R.id.signUp_email);
         password = findViewById(R.id.signUp_Password);
+
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
     }
 
 
@@ -83,17 +89,14 @@ public class SignInActivity extends AppCompatActivity {
             showToast("Enter email address!");
             return;
         }
-
         if(TextUtils.isEmpty(userPassword)){
             showToast("Enter Password!");
             return;
         }
-
         if(userPassword.length() < 6){
             showToast("Password too short, enter minimum 6 characters");
             return;
         }
-
 
         //register user
         firebaseAuth.createUserWithEmailAndPassword(userEmail,userPassword)
@@ -105,6 +108,7 @@ public class SignInActivity extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             showToast("Authentication failed. " + task.getException());
                         } else {
+                            userViewModel.addUser(new User(firebaseAuth.getCurrentUser().getUid() ,firebaseAuth.getCurrentUser().getEmail()));
                             goToMainActivity();
                         }
                     }

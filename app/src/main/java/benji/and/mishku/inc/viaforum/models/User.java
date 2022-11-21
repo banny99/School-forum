@@ -1,39 +1,23 @@
 package benji.and.mishku.inc.viaforum.models;
 
+import java.util.List;
+
 public class User {
 
-    private Long id;
+    private String userId;
     private String username;
     private String email;
-    private String password;
-    private DateTime birthday;
-    private Long subForumId;
+    private List<Subscription> subscriptions;
+    private List<SavedPost> savedPosts;
 
     public User() {
         //required by Firebase
     }
 
-    public User(String username, String email, String password, DateTime birthday) {
-        this.username = username;
+    public User(String userId, String email) {
+        this.userId = userId;
         this.email = email;
-        this.password = password;
-        this.birthday = birthday;
-    }
-
-    public Long getSubForumId() {
-        return subForumId;
-    }
-
-    public void setSubForumId(Long subForumId) {
-        this.subForumId = subForumId;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        username = email.substring(0,email.indexOf('@'));
     }
 
     public String getUsername() {
@@ -52,20 +36,27 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-
-    public DateTime getBirthday() {
-        return birthday;
+    public List<Subscription> getSubscriptions() {
+        return subscriptions;
     }
 
-    public void setBirthday(DateTime birthday) {
-        this.birthday = birthday;
+    public void setSubscriptions(List<Subscription> subscriptions) {
+        this.subscriptions = subscriptions;
+    }
+
+    public List<SavedPost> getSavedPosts() {
+        return savedPosts;
+    }
+
+    public void setSavedPosts(List<SavedPost> savedPosts) {
+        this.savedPosts = savedPosts;
     }
 }

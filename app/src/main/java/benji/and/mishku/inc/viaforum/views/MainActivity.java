@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.*;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -21,7 +22,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.SignInActivity;
+import benji.and.mishku.inc.viaforum.models.User;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
+import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -31,7 +34,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     AppBarConfiguration appBarConfiguration;
     FloatingActionButton actionButton;
     Toolbar toolbarBottom;
+
     PostsViewModel postsViewModel;
+    UserViewModel userViewModel;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener fireAuthListener;
@@ -66,9 +71,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView username=headerView.findViewById(R.id.userName);
         TextView email=headerView.findViewById(R.id.userEmail);
 
-        String emailStr = firebaseAuth.getCurrentUser().getEmail();
-        username.setText(emailStr.substring(0,emailStr.indexOf('@')));
-        email.setText(emailStr);
+        userViewModel.getLoggedUser().observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                username.setText(user.getUsername());
+                email.setText(user.getEmail());
+            }
+        });
     }
 
     @Override
@@ -90,7 +99,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawerLayout = findViewById(benji.and.mishku.inc.viaforum.R.id.drawer_layout);
         navDrawer = findViewById(benji.and.mishku.inc.viaforum.R.id.navigation_drawer);
         toolbarBottom = findViewById(benji.and.mishku.inc.viaforum.R.id.bottomAppBar);
-        postsViewModel= new ViewModelProvider(this).get(PostsViewModel.class);
+
+        postsViewModel = new ViewModelProvider(this).get(PostsViewModel.class);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
     }
 
     private void navSetup() {

@@ -2,6 +2,7 @@ package benji.and.mishku.inc.viaforum.models;
 
 
 public class Subscription {
+    private String subscriptionId;
     private String userId;
     private String subforumId;
 
@@ -27,5 +28,13 @@ public class Subscription {
 
     public void setSubforumId(String subforumId) {
         this.subforumId = subforumId;
+    }
+
+    public String getSubscriptionId() {
+        return subscriptionId;
+    }
+
+    public void setSubscriptionId(String subscriptionId) {
+        this.subscriptionId = subscriptionId;
     }
 }

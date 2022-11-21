@@ -40,12 +40,12 @@ public class HomeFragment extends Fragment {
         subforumsViewModel=new ViewModelProvider(requireActivity()).get(SubforumsViewModel.class);
         savedPostsViewModel=new ViewModelProvider(requireActivity()).get(SavedPostsViewModel.class);
         postAdapter = new PostAdapter(new ArrayList<>(),subforumsViewModel,savedPostsViewModel);
-        postsViewModel.getAllPostsFromSubscribedSubforums(FirebaseAuth.getInstance().getCurrentUser().getUid()).observe(this, new Observer<List<Post>>() {
-            @Override
-            public void onChanged(List<Post> posts) {
-                postAdapter.setPosts(posts);
-            }
-        });
+//        postsViewModel.getAllPostsFromSubscribedSubforums(FirebaseAuth.getInstance().getCurrentUser().getUid()).observe(this, new Observer<List<Post>>() {
+//            @Override
+//            public void onChanged(List<Post> posts) {
+//                postAdapter.setPosts(posts);
+//            }
+//        });
     }
 
     @Override

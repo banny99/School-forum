@@ -35,13 +35,10 @@ public class SubForumFirebaseRepository  implements SubforumsService {
                     tempSubforums.add(s);
                 }
                 allSubforums.setValue(tempSubforums);
-
-                Log.d(TAG, "Value is: ");
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-                // Failed to read value
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
@@ -72,7 +69,7 @@ public class SubForumFirebaseRepository  implements SubforumsService {
 
     @Override
     public void updateSubforum(Subforum s) {
-        subforumsRef.child(s.getId().toString()).setValue(s);
+        subforumsRef.child(s.getId()).setValue(s);
     }
 
     @Override
