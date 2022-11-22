@@ -9,9 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.firebase.auth.FirebaseAuth;
-
 import java.util.List;
 import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.R;
@@ -35,7 +33,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         this.subforumsViewModel = subforumsViewModel;
         this.savedPostsViewModel=savedPostsViewModel;
         this.userViewModel=userViewModel;
-
     }
 
     private OnClickListener listener;
@@ -78,7 +75,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 Toast.makeText(l.getContext(), "You saved a post",Toast.LENGTH_SHORT).show();
                 viewHolder.saveButton.setImageIcon(iconSaved);
             }
-
         });
     }
 
@@ -94,7 +90,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         this.posts = posts;
         notifyDataSetChanged();
     }
-
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
