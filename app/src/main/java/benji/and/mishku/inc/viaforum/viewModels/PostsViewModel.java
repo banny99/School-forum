@@ -1,6 +1,8 @@
 package benji.and.mishku.inc.viaforum.viewModels;
 
 import android.app.Application;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -56,6 +58,7 @@ public class PostsViewModel extends AndroidViewModel {
     }
 
     public void getSearchedPosts(String searchedPhrase) {
+        Toast.makeText(getApplication(), searchedPhrase, Toast.LENGTH_LONG).show();
 //        displayedPosts.setValue(postsService.getSearchedPosts(searchedPhrase).getValue());
     }
 }
