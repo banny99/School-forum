@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
@@ -30,8 +31,11 @@ public class HomeFragment extends Fragment {
     private SavedPostsViewModel savedPostsViewModel;
     private RecyclerView postListRV;
     private PostAdapter postAdapter;
+
+    private LinearLayout searchLayout;
     private EditText searchBar;
     private Button searchBtn;
+    private Button hideBtn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,10 +60,17 @@ public class HomeFragment extends Fragment {
         View inflatedView=inflater.inflate(R.layout.fragment_home, container, false);
 
         //Initialize objects ...
-        searchBar = inflatedView.findViewById(R.id.search_bar);
+        searchLayout = inflatedView.findViewById(R.id.search_bar);
+        hideBtn = inflatedView.findViewById(R.id.hide_btn);
+        hideBtn.setOnClickListener(view -> {
+            searchLayout.setVisibility(View.GONE);
+        });
+        searchBar = inflatedView.findViewById(R.id.search_input);
         searchBtn = inflatedView.findViewById(R.id.search_btn);
         searchBtn.setOnClickListener(view -> {
-//            postsViewModel.getSearchedPosts(searchBar.getText().toString());
+            String searchedPhrase = searchBar.getText().toString();
+            if (!searchedPhrase.isEmpty())
+                postsViewModel.getSearchedPosts(searchBar.getText().toString());
         });
 
         postListRV = inflatedView.findViewById(R.id.rvHome);
