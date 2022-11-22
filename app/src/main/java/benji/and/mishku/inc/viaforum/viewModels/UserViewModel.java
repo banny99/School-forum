@@ -22,7 +22,7 @@ public class UserViewModel extends AndroidViewModel {
     }
 
     public LiveData<User> getLoggedUser(){
-        if (loggedUser == null)
+        if (loggedUser.getValue() == null)
             userService.getUserById(FirebaseAuth.getInstance().getCurrentUser().getUid(), user -> {
                 loggedUser.setValue(user);
             });
