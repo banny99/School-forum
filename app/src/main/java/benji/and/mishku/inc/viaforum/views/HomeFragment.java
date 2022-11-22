@@ -21,6 +21,7 @@ import benji.and.mishku.inc.viaforum.viewModels.SavedPostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SubforumsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 
+
 public class HomeFragment extends Fragment {
     private PostsViewModel postsViewModel;
     private UserViewModel userViewModel;
@@ -38,12 +39,12 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         postsViewModel=new ViewModelProvider(requireActivity()).get(PostsViewModel.class);
         subforumsViewModel=new ViewModelProvider(requireActivity()).get(SubforumsViewModel.class);
         savedPostsViewModel=new ViewModelProvider(requireActivity()).get(SavedPostsViewModel.class);
-        postAdapter = new PostAdapter(new ArrayList<>(),subforumsViewModel,savedPostsViewModel);
-//        postsViewModel.getAllPostsFromSubscribedSubforums(userViewModel.getLoggedUser().getValue().getUserId()).observe(this, new Observer<List<Post>>() {
+        userViewModel=new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        postAdapter = new PostAdapter(new ArrayList<>(),subforumsViewModel,savedPostsViewModel,userViewModel);
+//        postsViewModel.getAllPostsFromSubscribedSubforums(FirebaseAuth.getInstance().getCurrentUser().getUid()).observe(this, new Observer<List<Post>>() {
 //            @Override
 //            public void onChanged(List<Post> posts) {
 //                postAdapter.setPosts(posts);

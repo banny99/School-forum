@@ -12,6 +12,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import benji.and.mishku.inc.viaforum.contracts.SavedPostService;
 import benji.and.mishku.inc.viaforum.models.Post;
+import benji.and.mishku.inc.viaforum.models.User;
 
 public class SavedPostsFirebaseRepository implements SavedPostService {
 
@@ -38,22 +39,24 @@ public class SavedPostsFirebaseRepository implements SavedPostService {
     //ToDo: implement with firebase
 
     @Override
-    public LiveData<List<Post>> getSavedPostsForUser(String userId) {
+    public LiveData<List<Post>> getSavedPostsForUser(User user) {
         return null;
     }
 
     @Override
-    public void savePostForUser(String userId, String postId) {
+    public void savePostForUser(User user, Post post) {
 
     }
 
     @Override
-    public void removeSavedPostForUser(String userId, String postId) {
+    public void removeSavedPostForUser(User user, Post post) {
 
     }
 
     @Override
-    public boolean isPostSavedByUser(String userId, String postId) {
+    public boolean isPostSavedByUser(User user, Post post) {
         return false;
     }
+
+
 }

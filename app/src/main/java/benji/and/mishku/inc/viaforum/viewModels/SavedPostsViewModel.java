@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 import benji.and.mishku.inc.viaforum.contracts.SavedPostService;
 import benji.and.mishku.inc.viaforum.models.Post;
+import benji.and.mishku.inc.viaforum.models.User;
 import benji.and.mishku.inc.viaforum.repositories.SavedPostsFirebaseRepository;
 
 public class SavedPostsViewModel extends AndroidViewModel {
@@ -17,16 +18,16 @@ public class SavedPostsViewModel extends AndroidViewModel {
         savedPostService= SavedPostsFirebaseRepository.getInstance();
     }
 
-    public void savePostForUser(String userId, String postId){
-        savedPostService.savePostForUser(userId,postId);
+    public void savePostForUser(User user, Post post){
+        savedPostService.savePostForUser(user,post);
     }
-    public void unSavePostForUser(String userId, String postId){
-        savedPostService.removeSavedPostForUser(userId,postId);
+    public void unSavePostForUser(User user,Post post){
+        savedPostService.removeSavedPostForUser(user, post);
     }
-    public LiveData<List<Post>> getSavedPostsForUser(String userId){
-        return savedPostService.getSavedPostsForUser(userId);
+    public LiveData<List<Post>> getSavedPostsForUser(User user){
+        return savedPostService.getSavedPostsForUser(user);
     }
-    public boolean isPostSavedForUser(String userId, String postId){
-        return savedPostService.isPostSavedByUser(userId,postId);
+    public boolean isPostSavedForUser(User user, Post post){
+        return savedPostService.isPostSavedByUser(user,post);
     }
 }

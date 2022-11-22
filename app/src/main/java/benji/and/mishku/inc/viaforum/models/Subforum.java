@@ -1,10 +1,12 @@
 package benji.and.mishku.inc.viaforum.models;
 
+import java.util.List;
+
 public class Subforum {
     private String id;
     private String name;
     private String description;
-
+    private List<User> users;
     public Subforum() {
         //required by firebase
     }
