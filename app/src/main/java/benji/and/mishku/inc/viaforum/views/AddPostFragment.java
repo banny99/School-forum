@@ -32,6 +32,7 @@ import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.models.Subforum;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SubscriptionsViewModel;
+import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 
 
 public class AddPostFragment extends Fragment {
@@ -39,6 +40,7 @@ public class AddPostFragment extends Fragment {
 
     private PostsViewModel postsViewModel;
     private SubscriptionsViewModel subscriptionsViewModel;
+    private UserViewModel userViewModel;
     private EditText postTitle;
     private EditText postText;
     private ImageButton addPostBtn;
@@ -59,7 +61,7 @@ public class AddPostFragment extends Fragment {
 
 
 
-        subscriptionsViewModel.getSubforumsForUser(FirebaseAuth.getInstance().getCurrentUser().getUid()).observe(this, new Observer<List<Subforum>>() {
+        subscriptionsViewModel.getSubforumsForUser(userViewModel.getLoggedUser().getValue()).observe(this, new Observer<List<Subforum>>() {
             @Override
             public void onChanged(@Nullable List<Subforum> subforums) {
                 if(subforums!=null){

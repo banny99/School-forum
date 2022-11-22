@@ -55,31 +55,30 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull PostAdapter.ViewHolder viewHolder, int position) {
-
-        viewHolder.postContent.setText(posts.get(position).getPostText());
-        viewHolder.postTitle.setText(posts.get(position).getTitle());
-        viewHolder.postSubforum.setText(subforumsViewModel.getSubforum(posts.get(position).getSubForumId()).getName());
-        viewHolder.postAuthor.setText(FirebaseAuth.getInstance().getUid());
-        boolean isPostSaved=savedPostsViewModel.isPostSavedForUser(userViewModel.getLoggedUser().getValue(),posts.get(position));
-        if(isPostSaved){
-            viewHolder.saveButton.setImageIcon(iconSaved);
-        }
-        else{
-            viewHolder.saveButton.setImageIcon(iconNotSaved);
-        }
-        viewHolder.saveButton.setOnClickListener((l)->{
-            if(isPostSaved) {
-                savedPostsViewModel.unSavePostForUser(userViewModel.getLoggedUser().getValue(), posts.get(position));
-                Toast.makeText(l.getContext(), "You unsaved a post", Toast.LENGTH_SHORT).show();
+        if(posts!=null) {
+            viewHolder.postContent.setText(posts.get(position).getPostText());
+            viewHolder.postTitle.setText(posts.get(position).getTitle());
+//            viewHolder.postSubforum.setText(subforumsViewModel.getSubforum(posts.get(position).getSubForumId()).getName());
+            viewHolder.postAuthor.setText(FirebaseAuth.getInstance().getUid());
+            boolean isPostSaved = savedPostsViewModel.isPostSavedForUser(userViewModel.getLoggedUser().getValue(), posts.get(position));
+            if (isPostSaved) {
+                viewHolder.saveButton.setImageIcon(iconSaved);
+            } else {
                 viewHolder.saveButton.setImageIcon(iconNotSaved);
             }
-            else{
-                savedPostsViewModel.savePostForUser(userViewModel.getLoggedUser().getValue(),posts.get(position));
-                Toast.makeText(l.getContext(), "You saved a post",Toast.LENGTH_SHORT).show();
-                viewHolder.saveButton.setImageIcon(iconSaved);
-            }
+            viewHolder.saveButton.setOnClickListener((l) -> {
+                if (isPostSaved) {
+                    savedPostsViewModel.unSavePostForUser(userViewModel.getLoggedUser().getValue(), posts.get(position));
+                    Toast.makeText(l.getContext(), "You unsaved a post", Toast.LENGTH_SHORT).show();
+                    viewHolder.saveButton.setImageIcon(iconNotSaved);
+                } else {
+                    savedPostsViewModel.savePostForUser(userViewModel.getLoggedUser().getValue(), posts.get(position));
+                    Toast.makeText(l.getContext(), "You saved a post", Toast.LENGTH_SHORT).show();
+                    viewHolder.saveButton.setImageIcon(iconSaved);
+                }
 
-        });
+            });
+        }
     }
 
     @Override

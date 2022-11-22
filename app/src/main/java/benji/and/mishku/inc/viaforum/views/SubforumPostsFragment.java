@@ -77,7 +77,7 @@ public class SubforumPostsFragment extends Fragment {
        subscribeButton=view.findViewById(R.id.subscribeButton);
        subscribeButton.setOnClickListener((l)->
                {
-                subscriptionsViewModel.subscribeToSubforum(FirebaseAuth.getInstance().getCurrentUser().getUid(), currentSubforum.getId());
+                subscriptionsViewModel.subscribeToSubforum(userViewModel.getLoggedUser().getValue(), currentSubforum);
                 CharSequence text="You just subscribed to "+currentSubforum.getName()+" subforum";
                 Toast.makeText(getContext(),text, Toast.LENGTH_SHORT).show();
                });

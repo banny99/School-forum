@@ -6,6 +6,9 @@ public class Comment {
     private String userId;
     private String postId;
 
+    public Comment() {
+    }
+
     public Comment(String content, String userId, String postId) {
         this.content = content;
         this.userId = userId;

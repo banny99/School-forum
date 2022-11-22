@@ -7,8 +7,8 @@ public class User {
     private String userId;
     private String username;
     private String email;
-    private List<Subscription> subscriptions;
-    private List<SavedPost> savedPosts;
+    private List<Subforum> subscriptions;
+    private List<Post> savedPosts;
 
     public User() {
         //required by Firebase
@@ -44,19 +44,19 @@ public class User {
         this.userId = userId;
     }
 
-    public List<Subscription> getSubscriptions() {
+    public List<Subforum> getSubscriptions() {
         return subscriptions;
     }
 
-    public void setSubscriptions(List<Subscription> subscriptions) {
+    public void setSubscriptions(List<Subforum> subscriptions) {
         this.subscriptions = subscriptions;
     }
 
-    public List<SavedPost> getSavedPosts() {
+    public List<Post> getSavedPosts() {
         return savedPosts;
     }
 
-    public void setSavedPosts(List<SavedPost> savedPosts) {
+    public void setSavedPosts(List<Post> savedPosts) {
         this.savedPosts = savedPosts;
     }
 }

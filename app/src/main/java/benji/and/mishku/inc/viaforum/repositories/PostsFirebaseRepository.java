@@ -20,6 +20,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.ReentrantLock;
 import benji.and.mishku.inc.viaforum.contracts.PostsService;
 import benji.and.mishku.inc.viaforum.models.Post;
+import benji.and.mishku.inc.viaforum.models.Subforum;
 import benji.and.mishku.inc.viaforum.models.User;
 
 
@@ -178,31 +179,24 @@ public class PostsFirebaseRepository implements PostsService {
     @Override
     public LiveData<List<Post>> getAllPostsFromSubscribedSubforums(String userId) {
 
-        MutableLiveData<List<Post>> tempLive = new MutableLiveData<>();
-        AtomicReference<User> user = null;
-        usersRef.child(userId).get().addOnCompleteListener(task -> {
-            user.set(task.getResult().getValue(User.class));
-        });
-        assert user != null;
-        User u=user.get();
-
-        Query query2 = postsRef.orderByChild("userId").equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        query2.addValueEventListener(new ValueEventListener() {
+        MutableLiveData<List<Post>> posts=new MutableLiveData<>();
+        postsRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<Post> temp = new ArrayList<>();
-                for (DataSnapshot s : snapshot.getChildren()){
-                    temp.add(s.getValue(Post.class));
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
+                    Post p = postSnapshot.getValue(Post.class);
+                    temp.add(p);
                 }
-                tempLive.setValue(temp);
+                posts.setValue(temp);
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onCancelled(DatabaseError error) {
+                Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
 
-        return tempLive;
+        return posts;
     }
 }

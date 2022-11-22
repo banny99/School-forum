@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 import benji.and.mishku.inc.viaforum.contracts.SubscriptionService;
 import benji.and.mishku.inc.viaforum.models.Subforum;
+import benji.and.mishku.inc.viaforum.models.User;
 import benji.and.mishku.inc.viaforum.repositories.SubscriptionFirebaseRepository;
 
 public class SubscriptionsViewModel extends AndroidViewModel {
@@ -17,11 +18,11 @@ public class SubscriptionsViewModel extends AndroidViewModel {
         subscriptionService= SubscriptionFirebaseRepository.getInstance();
     }
 
-    public void subscribeToSubforum(String userId, String subforumId){
-        subscriptionService.subscribeUserToSubforum(userId,subforumId);
+    public void subscribeToSubforum(User user, Subforum subforum){
+        subscriptionService.subscribeUserToSubforum(user,subforum);
     }
-    public LiveData<List<Subforum>> getSubforumsForUser(String userId){
-        return subscriptionService.getSubscriptionsForUser(userId);
+    public LiveData<List<Subforum>> getSubforumsForUser(User user){
+        return subscriptionService.getSubscriptionsForUser(user);
     }
 
 

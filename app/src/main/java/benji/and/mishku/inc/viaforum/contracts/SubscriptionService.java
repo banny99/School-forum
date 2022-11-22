@@ -6,8 +6,8 @@ import benji.and.mishku.inc.viaforum.models.Subforum;
 import benji.and.mishku.inc.viaforum.models.User;
 
 public interface SubscriptionService {
-    LiveData<List<Subforum>> getSubscriptionsForUser(String userId);
+    LiveData<List<Subforum>> getSubscriptionsForUser(User user);
     LiveData<List<User>> getUsersSubscribedToSubforum(String subId);
-    void subscribeUserToSubforum(String userId, String subforumId);
-    void unSubscribeUserFromSubforum(String subscriptionId);
+    void subscribeUserToSubforum(User user, Subforum subforum);
+    void unSubscribeUserFromSubforum(User user, Subforum subforum);
 }
