@@ -17,7 +17,8 @@ public interface PostsService {
     LiveData<List<Post>> getPostsBySubforum(String subforumId);
     LiveData<List<Post>> getPostsByUser(String userId);
 
-    Post getPostById(String postId);
     void removeAllPosts();
     LiveData<List<Post>> getAllPostsFromSubscribedSubforums(String userId);
+
+    LiveData<List<Post>> getSearchedPosts(String searchedPhrase);
 }

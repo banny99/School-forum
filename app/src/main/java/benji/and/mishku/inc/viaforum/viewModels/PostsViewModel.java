@@ -4,6 +4,8 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import java.util.List;
 import benji.and.mishku.inc.viaforum.contracts.PostsService;
 import benji.and.mishku.inc.viaforum.models.Post;
@@ -17,6 +19,7 @@ public class PostsViewModel extends AndroidViewModel {
         super(application);
         postsService = PostsFirebaseRepository.getInstance();
     }
+
     public void addPost(Post post){
         postsService.addPost(post);
     }
@@ -28,9 +31,6 @@ public class PostsViewModel extends AndroidViewModel {
     }
     public LiveData<List<Post>> getPostsByUser(String userId){
         return postsService.getPostsByUser(userId);
-    }
-    public Post getPostById(String postId){
-        return postsService.getPostById(postId);
     }
 
     public Post getSharedPost() {
@@ -53,5 +53,9 @@ public class PostsViewModel extends AndroidViewModel {
 
     public LiveData<List<Post>> getAllPostsFromSubscribedSubforums(String userId) {
         return postsService.getAllPostsFromSubscribedSubforums(userId);
+    }
+
+    public void getSearchedPosts(String searchedPhrase) {
+//        displayedPosts.setValue(postsService.getSearchedPosts(searchedPhrase).getValue());
     }
 }

@@ -24,6 +24,7 @@ public class SubForumFirebaseRepository  implements SubforumsService {
 
     private SubForumFirebaseRepository() {
         subforumsRef = FirebaseDatabase.getInstance().getReference("subforums");
+        allSubforums = new MutableLiveData<>();
 
         // Read from the database
         subforumsRef.addValueEventListener(new ValueEventListener() {

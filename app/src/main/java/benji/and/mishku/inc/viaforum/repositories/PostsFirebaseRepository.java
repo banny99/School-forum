@@ -62,7 +62,6 @@ public class PostsFirebaseRepository implements PostsService {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-
     }
 
     //Todo: do we need this to be singleton/protected ? isn't getReference() thread-safe ?
@@ -122,23 +121,14 @@ public class PostsFirebaseRepository implements PostsService {
                 }
                 tempLive.setValue(temp);
             }
-
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
-
         return tempLive;
     }
 
     @Override
     public LiveData<List<Post>> getPostsByUser(String userId) {
-        return null;
-    }
-
-    @Override
-    public Post getPostById(String postId) {
         return null;
     }
 
@@ -151,5 +141,17 @@ public class PostsFirebaseRepository implements PostsService {
     @Override
     public LiveData<List<Post>> getAllPostsFromSubscribedSubforums(String userId) {
         return null;
+    }
+
+    @Override
+    public LiveData<List<Post>> getSearchedPosts(String searchedPhrase) {
+        DataSnapshot snapshot = postsRef.orderByChild("title").startAt(searchedPhrase).get().getResult();
+        ArrayList<Post> temp = new ArrayList<>();
+        for (DataSnapshot s : snapshot.getChildren()){
+            temp.add(s.getValue(Post.class));
+        }
+        MutableLiveData<List<Post>> posts = new MutableLiveData<>();
+        posts.setValue(temp);
+        return posts;
     }
 }

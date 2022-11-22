@@ -50,24 +50,21 @@ public class UserFirebaseRepository implements UserService {
     }
 
     @Override
-    public void getUserById(String uid, MyCallBack callback) {
+    public void getUserById(String uid, UserCallBack callback) {
         Query q = usersRef.orderByChild("userId").equalTo(uid);
         q.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User u = snapshot.getValue(User.class);
                 callback.callback(u);
-//                u = q.get().getResult().getValue(User.class);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
 
-    public interface MyCallBack{
+    public interface UserCallBack {
         void callback(User user);
     }
 }

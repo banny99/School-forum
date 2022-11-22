@@ -8,5 +8,5 @@ public interface UserService {
     public void deleteUser(String userId);
     public void updateUser(User user);
 
-    public void getUserById(String uid, UserFirebaseRepository.MyCallBack c);
+    public void getUserById(String uid, UserFirebaseRepository.UserCallBack c);
 }

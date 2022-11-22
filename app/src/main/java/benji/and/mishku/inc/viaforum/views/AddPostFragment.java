@@ -57,8 +57,6 @@ public class AddPostFragment extends Fragment {
         postsViewModel=new ViewModelProvider(requireActivity()).get(PostsViewModel.class);
         subscriptionsViewModel=new ViewModelProvider(requireActivity()).get(SubscriptionsViewModel.class);
 
-
-
         subscriptionsViewModel.getSubforumsForUser(FirebaseAuth.getInstance().getCurrentUser().getUid()).observe(this, new Observer<List<Subforum>>() {
             @Override
             public void onChanged(@Nullable List<Subforum> subforums) {
