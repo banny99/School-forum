@@ -68,7 +68,7 @@ public class PostDetailFragment extends Fragment {
         commentsViewModel.getCommentsForPost(postsViewModel.getSharedPost().getId()).observe(this, new Observer<List<Comment>>() {
             @Override
             public void onChanged(List<Comment> comments) {
-                commentAdapter.setComments(comments);
+                commentAdapter.setComments(comments);commentAdapter.notifyDataSetChanged();
             }
         });
     }

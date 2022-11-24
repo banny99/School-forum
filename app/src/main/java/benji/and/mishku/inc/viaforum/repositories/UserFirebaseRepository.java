@@ -67,4 +67,3 @@ public class UserFirebaseRepository implements UserService {
         void callback(User user);
     }
 }
-

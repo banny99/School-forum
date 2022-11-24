@@ -17,8 +17,11 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.models.Post;
+import benji.and.mishku.inc.viaforum.models.User;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SavedPostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SubforumsViewModel;
@@ -42,12 +45,9 @@ public class SavedPostsFragment extends Fragment {
         savedPostsViewModel=new ViewModelProvider(requireActivity()).get(SavedPostsViewModel.class);
         userViewModel=new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         postAdapter = new PostAdapter(new ArrayList<>(),subforumsViewModel,savedPostsViewModel,userViewModel);
-        savedPostsViewModel.getSavedPostsForUser(userViewModel.getLoggedUser().getValue()).observe(this, new Observer<List<Post>>() {
-            @Override
-            public void onChanged(List<Post> posts) {
-                postAdapter.setPosts(posts);
-            }
-        });
+
+
+        postAdapter.setPosts(Objects.requireNonNull(userViewModel.getLoggedUser().getValue()).getSavedPosts());
     }
     @Nullable
     @Override

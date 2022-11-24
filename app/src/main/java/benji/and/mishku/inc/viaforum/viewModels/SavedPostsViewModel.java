@@ -28,6 +28,6 @@ public class SavedPostsViewModel extends AndroidViewModel {
         return savedPostService.getSavedPostsForUser(user);
     }
     public boolean isPostSavedForUser(User user, Post post){
-        return savedPostService.isPostSavedByUser(user,post);
+        return false;
     }
 }

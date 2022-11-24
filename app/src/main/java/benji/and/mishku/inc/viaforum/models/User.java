@@ -1,11 +1,15 @@
 package benji.and.mishku.inc.viaforum.models;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class User {
 
     private String userId;
     private String username;
     private String email;
+    private List<Subforum> subscriptions=new ArrayList<>();
+    private List<Post> savedPosts=new ArrayList<>();
 
     public User() {
         //required by Firebase
@@ -39,5 +43,21 @@ public class User {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public List<Subforum> getSubscriptions() {
+        return subscriptions;
+    }
+
+    public void setSubscriptions(List<Subforum> subscriptions) {
+        this.subscriptions = subscriptions;
+    }
+
+    public List<Post> getSavedPosts() {
+        return savedPosts;
+    }
+
+    public void setSavedPosts(List<Post> savedPosts) {
+        this.savedPosts = savedPosts;
     }
 }

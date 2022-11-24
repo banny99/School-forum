@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ import benji.and.mishku.inc.viaforum.models.Subforum;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SavedPostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SubforumsViewModel;
+import benji.and.mishku.inc.viaforum.viewModels.SubscriptionsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 
 
@@ -37,6 +39,7 @@ public class SubforumPostsFragment extends Fragment {
     private PostAdapter postAdapter;
     private PostsViewModel postsViewModel;
     private UserViewModel userViewModel;
+    private SubscriptionsViewModel subscriptionsViewModel;
     private SavedPostsViewModel savedPostsViewModel;
     private Subforum currentSubforum;
     private Button subscribeButton;
@@ -47,6 +50,7 @@ public class SubforumPostsFragment extends Fragment {
 
         postsViewModel=new ViewModelProvider(requireActivity()).get(PostsViewModel.class);
         subforumsViewModel=new ViewModelProvider(requireActivity()).get(SubforumsViewModel.class);
+        subscriptionsViewModel=new ViewModelProvider(requireActivity()).get(SubscriptionsViewModel.class);
         savedPostsViewModel=new ViewModelProvider(requireActivity()).get(SavedPostsViewModel.class);
         userViewModel=new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         postAdapter = new PostAdapter(new ArrayList<>(),subforumsViewModel,savedPostsViewModel,userViewModel);
@@ -69,17 +73,20 @@ public class SubforumPostsFragment extends Fragment {
         postListRV.setLayoutManager(new LinearLayoutManager(getContext()));
         title=view.findViewById(R.id.subForumSingleName);
         title.setText(currentSubforum.getName());
-
-       subscribeButton=view.findViewById(R.id.subscribeButton);
-       subscribeButton.setOnClickListener((l)->
-               {
-                CharSequence text="You just subscribed to "+currentSubforum.getName()+" subforum";
-                Toast.makeText(getContext(),text, Toast.LENGTH_SHORT).show();
-               });
-        postAdapter.setOnClickListener(post -> {
-            postsViewModel.setSharedPost(post);
-            Navigation.findNavController(view).navigate(R.id.nav_post_detail);
-        });
+        if(userViewModel.getLoggedUser().getValue()!=null) {
+            subscribeButton = view.findViewById(R.id.subscribeButton);
+            subscribeButton.setOnClickListener((l) ->
+            {
+                subscriptionsViewModel.subscribeToSubforum(userViewModel.getLoggedUser().getValue(), currentSubforum);
+                CharSequence text = "You just subscribed to " + currentSubforum.getName() + " subforum";
+                Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+            });
+            postAdapter.setOnClickListener(post -> {
+                postsViewModel.setSharedPost(post);
+                Navigation.findNavController(view).navigate(R.id.nav_post_detail);
+            });
+        }
+        else subscribeButton=null;
         postListRV.setAdapter(postAdapter);
         return  view;
     }

@@ -20,7 +20,7 @@ public class SubForumFirebaseRepository  implements SubforumsService {
     private final static ReentrantLock lock=new ReentrantLock();
 
     private final DatabaseReference subforumsRef;
-    private MutableLiveData<List<Subforum>> allSubforums;
+    private MutableLiveData<List<Subforum>> allSubforums=new MutableLiveData<>();
 
     private SubForumFirebaseRepository() {
         subforumsRef = FirebaseDatabase.getInstance().getReference("subforums");
