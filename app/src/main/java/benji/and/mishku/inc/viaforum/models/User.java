@@ -1,5 +1,6 @@
 package benji.and.mishku.inc.viaforum.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
@@ -7,8 +8,8 @@ public class User {
     private String userId;
     private String username;
     private String email;
-    private List<Subforum> subscriptions;
-    private List<Post> savedPosts;
+    private List<Subforum> subscriptions=new ArrayList<>();
+    private List<Post> savedPosts=new ArrayList<>();
 
     public User() {
         //required by Firebase

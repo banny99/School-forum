@@ -7,13 +7,18 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 import benji.and.mishku.inc.viaforum.contracts.CommentsService;
 import benji.and.mishku.inc.viaforum.models.Comment;
+import benji.and.mishku.inc.viaforum.models.Post;
 
 public class CommentsFirebaseRepository implements CommentsService {
 
@@ -57,28 +62,26 @@ public class CommentsFirebaseRepository implements CommentsService {
 
     @Override
     public LiveData<List<Comment>> getCommentsForPost(String postId) {
-        ArrayList<Comment> comments = new ArrayList<>();
 
-        commentsRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        MutableLiveData<List<Comment>> tempLive = new MutableLiveData<>();
+
+        Query query = commentsRef.orderByChild("postId").equalTo(postId);
+        query.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<Comment> temp = new ArrayList<>();
+                for (DataSnapshot s : snapshot.getChildren()){
+                    temp.add(s.getValue(Comment.class));
                 }
-                else {
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                    for (DataSnapshot s : task.getResult().getChildren()){
-                        Comment c = s.getValue(Comment.class);
-                        if (c.getPostId().equals(postId)){
-                            comments.add(c);
-                        }
-                    }
-                }
+                tempLive.setValue(temp);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
-        MutableLiveData<List<Comment>> liveData = new MutableLiveData<>();
-        liveData.setValue(comments);
-        return liveData;
+        return tempLive;
     }
 }

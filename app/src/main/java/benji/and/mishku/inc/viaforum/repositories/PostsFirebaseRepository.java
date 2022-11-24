@@ -120,7 +120,7 @@ public class PostsFirebaseRepository implements PostsService {
     public LiveData<List<Post>> getPostsBySubforum(String subforumId) {
         MutableLiveData<List<Post>> tempLive = new MutableLiveData<>();
 
-        Query query = postsRef.orderByChild("subforumId").equalTo(subforumId);
+        Query query = postsRef.orderByChild("subForumId").equalTo(subforumId);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

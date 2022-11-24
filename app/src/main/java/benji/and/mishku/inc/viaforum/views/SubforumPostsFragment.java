@@ -73,18 +73,20 @@ public class SubforumPostsFragment extends Fragment {
         postListRV.setLayoutManager(new LinearLayoutManager(getContext()));
         title=view.findViewById(R.id.subForumSingleName);
         title.setText(currentSubforum.getName());
-
-       subscribeButton=view.findViewById(R.id.subscribeButton);
-       subscribeButton.setOnClickListener((l)->
-               {
+        if(userViewModel.getLoggedUser().getValue()!=null) {
+            subscribeButton = view.findViewById(R.id.subscribeButton);
+            subscribeButton.setOnClickListener((l) ->
+            {
                 subscriptionsViewModel.subscribeToSubforum(userViewModel.getLoggedUser().getValue(), currentSubforum);
-                CharSequence text="You just subscribed to "+currentSubforum.getName()+" subforum";
-                Toast.makeText(getContext(),text, Toast.LENGTH_SHORT).show();
-               });
-        postAdapter.setOnClickListener(post -> {
-            postsViewModel.setSharedPost(post);
-            Navigation.findNavController(view).navigate(R.id.nav_post_detail);
-        });
+                CharSequence text = "You just subscribed to " + currentSubforum.getName() + " subforum";
+                Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+            });
+            postAdapter.setOnClickListener(post -> {
+                postsViewModel.setSharedPost(post);
+                Navigation.findNavController(view).navigate(R.id.nav_post_detail);
+            });
+        }
+        else subscribeButton=null;
         postListRV.setAdapter(postAdapter);
         return  view;
     }

@@ -30,6 +30,7 @@ import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.models.DateTime;
 import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.models.Subforum;
+import benji.and.mishku.inc.viaforum.models.User;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SubscriptionsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
@@ -58,7 +59,14 @@ public class AddPostFragment extends Fragment {
         temp=new String[50];
         postsViewModel=new ViewModelProvider(requireActivity()).get(PostsViewModel.class);
         subscriptionsViewModel=new ViewModelProvider(requireActivity()).get(SubscriptionsViewModel.class);
-
+        userViewModel=new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        final User[] currentUser = new User[1];
+        userViewModel.getLoggedUser().observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                currentUser[0] =user;
+            }
+        });
 
 
         subscriptionsViewModel.getSubforumsForUser(userViewModel.getLoggedUser().getValue()).observe(this, new Observer<List<Subforum>>() {

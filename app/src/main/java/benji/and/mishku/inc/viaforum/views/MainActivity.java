@@ -22,8 +22,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.SignInActivity;
+import benji.and.mishku.inc.viaforum.models.Subforum;
 import benji.and.mishku.inc.viaforum.models.User;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
+import benji.and.mishku.inc.viaforum.viewModels.SubforumsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     PostsViewModel postsViewModel;
     UserViewModel userViewModel;
-
+    SubforumsViewModel subforumsViewModel;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener fireAuthListener;
 
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         View headerView=navDrawer.getHeaderView(0);
         TextView username=headerView.findViewById(R.id.userName);
         TextView email=headerView.findViewById(R.id.userEmail);
-
+        subforumsViewModel.addSubforum(new Subforum("Administration", "This is a subforum for..."));
         userViewModel.getLoggedUser().observe(this, new Observer<User>() {
             @Override
             public void onChanged(User user) {
@@ -102,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         postsViewModel = new ViewModelProvider(this).get(PostsViewModel.class);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        subforumsViewModel = new ViewModelProvider(this).get(SubforumsViewModel.class);
     }
 
     private void navSetup() {
