@@ -47,7 +47,12 @@ public class SavedPostsFragment extends Fragment {
         postAdapter = new PostAdapter(new ArrayList<>(),subforumsViewModel,savedPostsViewModel,userViewModel);
 
 
-        postAdapter.setPosts(Objects.requireNonNull(userViewModel.getLoggedUser().getValue()).getSavedPosts());
+        savedPostsViewModel.getSavedPostsForUser(userViewModel.getLoggedUser().getValue()).observe(this, new Observer<List<Post>>() {
+            @Override
+            public void onChanged(List<Post> posts) {
+                postAdapter.setPosts(posts);
+            }
+        });
     }
     @Nullable
     @Override

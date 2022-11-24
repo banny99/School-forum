@@ -100,7 +100,7 @@ public class AddPostFragment extends Fragment {
         spinner.setAdapter(arrayAdapter);
         addPostBtn.setOnClickListener(view -> {
             Subforum sub= (Subforum)spinner.getSelectedItem();
-            Post newPost = new Post(postTitle.getText().toString(), postText.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getUid(), sub.getId());
+            Post newPost = new Post(postTitle.getText().toString(), postText.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getUid(), sub.getId(),userViewModel.getLoggedUser().getValue().getUsername());
             postsViewModel.addPost(newPost);
 
             postTitle.setText("");

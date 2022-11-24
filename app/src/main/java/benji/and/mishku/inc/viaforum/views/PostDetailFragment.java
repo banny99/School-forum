@@ -30,12 +30,14 @@ import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.models.Comment;
 import benji.and.mishku.inc.viaforum.viewModels.CommentsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
+import benji.and.mishku.inc.viaforum.viewModels.SubforumsViewModel;
 
 
 public class PostDetailFragment extends Fragment {
 
     private PostsViewModel postsViewModel;
     private CommentsViewModel commentsViewModel;
+    private SubforumsViewModel subforumsViewModel;
     private TextView postTitle;
     private TextView postText;
     private TextView postSubforum;
@@ -65,6 +67,7 @@ public class PostDetailFragment extends Fragment {
         commentsViewModel=new ViewModelProvider(requireActivity()).get(CommentsViewModel.class);
         commentAdapter=new CommentAdapter(new ArrayList<>());
         postsViewModel=new ViewModelProvider(requireActivity()).get(PostsViewModel.class);
+        subforumsViewModel=new ViewModelProvider(requireActivity()).get(SubforumsViewModel.class);
         commentsViewModel.getCommentsForPost(postsViewModel.getSharedPost().getId()).observe(this, new Observer<List<Comment>>() {
             @Override
             public void onChanged(List<Comment> comments) {
@@ -85,9 +88,9 @@ public class PostDetailFragment extends Fragment {
         postText = inflatedView.findViewById(R.id.singlePostContent);
         postText.setText(postsViewModel.getSharedPost().getPostText());
         postSubforum=inflatedView.findViewById(R.id.singlePostSubforum);
-        postSubforum.setText(getString(R.string.posted_on) + postsViewModel.getSharedPost().getSubForumId());
+        postSubforum.setText(getString(R.string.posted_on) +" "+ subforumsViewModel.getSubforum(postsViewModel.getSharedPost().getSubForumId()));
         postAuthor=inflatedView.findViewById(R.id.singlePostAuthor);
-        postAuthor.setText(getString(R.string.posted_by)+postsViewModel.getSharedPost().getUserId());
+        postAuthor.setText(getString(R.string.posted_by)+" "+ postsViewModel.getSharedPost().getPostAuthor());
         //edit post btn set-up:
         editPostBtn = inflatedView.findViewById(R.id.editPostButton);
         editPostBtn.setOnClickListener(view -> {

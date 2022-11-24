@@ -7,7 +7,14 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
+
 import benji.and.mishku.inc.viaforum.contracts.UserService;
+import benji.and.mishku.inc.viaforum.models.Post;
+import benji.and.mishku.inc.viaforum.models.Subforum;
 import benji.and.mishku.inc.viaforum.models.User;
 import benji.and.mishku.inc.viaforum.repositories.UserFirebaseRepository;
 
@@ -42,5 +49,18 @@ public class UserViewModel extends AndroidViewModel {
 
     public void logOut(){
         loggedUser = null;
+    }
+    public User getPostAuthor(Post post){
+        List<User> allUsers=userService.getAllUsers().getValue();
+        User user=null;
+        assert allUsers != null;
+        for (User u:
+             allUsers) {
+            if(u.getUserId().equals(post.getUserId())){
+                user=u;
+                break;
+            }
+        }
+        return user;
     }
 }

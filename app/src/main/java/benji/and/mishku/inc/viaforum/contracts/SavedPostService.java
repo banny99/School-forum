@@ -9,5 +9,5 @@ public interface SavedPostService {
     LiveData<List<Post>> getSavedPostsForUser(User user);
     void savePostForUser(User user, Post post);
     void removeSavedPostForUser(User user, Post post);
-
+    boolean isPostSavedForUser(User user, Post post);
 }

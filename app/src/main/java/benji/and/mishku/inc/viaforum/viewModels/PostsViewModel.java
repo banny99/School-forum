@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.List;
 import benji.and.mishku.inc.viaforum.contracts.PostsService;
 import benji.and.mishku.inc.viaforum.models.Post;
+import benji.and.mishku.inc.viaforum.models.User;
 import benji.and.mishku.inc.viaforum.repositories.PostsFirebaseRepository;
 
 public class PostsViewModel extends AndroidViewModel {
@@ -56,6 +57,8 @@ public class PostsViewModel extends AndroidViewModel {
     public LiveData<List<Post>> getAllPostsFromSubscribedSubforums(String userId) {
         return postsService.getAllPostsFromSubscribedSubforums(userId);
     }
+
+
 
     public void getSearchedPosts(String searchedPhrase) {
         Toast.makeText(getApplication(), searchedPhrase, Toast.LENGTH_LONG).show();

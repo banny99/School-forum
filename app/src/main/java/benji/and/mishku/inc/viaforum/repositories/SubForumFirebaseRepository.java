@@ -2,6 +2,8 @@ package benji.and.mishku.inc.viaforum.repositories;
 
 import static android.content.ContentValues.TAG;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.google.firebase.database.DataSnapshot;
@@ -11,9 +13,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.locks.ReentrantLock;
 import benji.and.mishku.inc.viaforum.contracts.SubforumsService;
 import benji.and.mishku.inc.viaforum.models.Subforum;
+import benji.and.mishku.inc.viaforum.models.User;
 
 public class SubForumFirebaseRepository  implements SubforumsService {
     private static volatile SubForumFirebaseRepository instance;
@@ -79,8 +83,33 @@ public class SubForumFirebaseRepository  implements SubforumsService {
     }
 
     @Override
-    public Subforum getSubforumById(String subforumId) {
-        return null;
+    public LiveData<Subforum> getSubforumById(String subforumId) {
+        MutableLiveData<Subforum> subforum=new MutableLiveData<>();
+        subforumsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
+                    Subforum s = postSnapshot.getValue(Subforum.class);
+                    assert s != null;
+                    if(Objects.equals(s.getId(), subforumId)){
+                        subforum.setValue(s);
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+        return subforum;
+    }
+
+
+    public interface SubforumCallback {
+        void callback(Subforum subforum);
     }
 
 }

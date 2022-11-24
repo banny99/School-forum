@@ -2,6 +2,7 @@ package benji.and.mishku.inc.viaforum.views;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,8 +15,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
+import java.util.List;
+
 import benji.and.mishku.inc.viaforum.R;
+import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SavedPostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SubforumsViewModel;
