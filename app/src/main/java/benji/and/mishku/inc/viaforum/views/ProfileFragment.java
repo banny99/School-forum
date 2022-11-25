@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import benji.and.mishku.inc.viaforum.R;
@@ -15,7 +16,7 @@ import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 public class ProfileFragment extends Fragment {
 
     private TextView text;
-    private Button signOutBtn;
+    private ImageButton signOutBtn;
 
     private UserViewModel userViewModel;
 
@@ -33,7 +34,7 @@ public class ProfileFragment extends Fragment {
 
         text = inflatedView.findViewById(R.id.profile_heading);
 
-        signOutBtn = inflatedView.findViewById(R.id.signOut_btn);
+        signOutBtn = inflatedView.findViewById(R.id.logout_btn);
         signOutBtn.setOnClickListener(view -> {
             userViewModel.logOut();
             FirebaseAuth.getInstance().signOut();

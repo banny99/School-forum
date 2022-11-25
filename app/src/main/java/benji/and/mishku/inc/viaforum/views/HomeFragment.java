@@ -10,23 +10,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SavedPostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SubforumsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
-
 
 public class HomeFragment extends Fragment {
     private PostsViewModel postsViewModel;
@@ -41,6 +37,8 @@ public class HomeFragment extends Fragment {
     private ImageButton searchBtn;
     private FloatingActionButton floatingSearchButton;
 
+    private boolean isSearching = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +51,8 @@ public class HomeFragment extends Fragment {
         postsViewModel.getAllPostsFromSubscribedSubforums(FirebaseAuth.getInstance().getCurrentUser().getUid()).observe(this, new Observer<List<Post>>() {
             @Override
             public void onChanged(List<Post> posts) {
-                postAdapter.setPosts(posts);
+                if (!isSearching)
+                    postAdapter.setPosts(posts);
             }
         });
     }
@@ -68,9 +67,10 @@ public class HomeFragment extends Fragment {
         searchInput = inflatedView.findViewById(R.id.search_input);
         searchBtn = inflatedView.findViewById(R.id.search_btn);
         searchBtn.setOnClickListener(view -> {
+            isSearching = true;
             String searchedPhrase = searchInput.getText().toString();
             if (!searchedPhrase.isEmpty())
-                postsViewModel.getSearchedPosts(searchInput.getText().toString());
+                postAdapter.setPosts(postsViewModel.getSearchedPosts(searchedPhrase));
         });
         floatingSearchButton = inflatedView.findViewById(R.id.floating_search_btn);
         floatingSearchButton.setOnClickListener(view -> {
@@ -78,9 +78,12 @@ public class HomeFragment extends Fragment {
                 floatingSearchButton.setImageResource(R.drawable.ic_baseline_search_24);
                 searchInput.setText("");
                 searchBar.setVisibility(View.GONE);
+
+                isSearching = false;
+                postAdapter.setPosts(postsViewModel.getAllPosts().getValue());
             }
             else{
-                floatingSearchButton.setImageResource(R.drawable.ic_baseline_delete_24);
+                floatingSearchButton.setImageResource(R.drawable.ic_baseline_clear_24);
                 searchBar.setVisibility(View.VISIBLE);
             }
         });

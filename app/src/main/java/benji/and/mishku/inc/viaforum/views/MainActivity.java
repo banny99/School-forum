@@ -96,6 +96,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        postsViewModel.removeObserver();
+    }
 
     private void initViews() {
         drawerLayout = findViewById(benji.and.mishku.inc.viaforum.R.id.drawer_layout);

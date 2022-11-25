@@ -1,37 +1,49 @@
 package benji.and.mishku.inc.viaforum.viewModels;
 
 import android.app.Application;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-
+import androidx.lifecycle.Observer;
+import java.util.ArrayList;
 import java.util.List;
 import benji.and.mishku.inc.viaforum.contracts.PostsService;
 import benji.and.mishku.inc.viaforum.models.Post;
-import benji.and.mishku.inc.viaforum.models.User;
 import benji.and.mishku.inc.viaforum.repositories.PostsFirebaseRepository;
 
 public class PostsViewModel extends AndroidViewModel {
     private final PostsService postsService;
     private Post sharedPost;
+    private MutableLiveData<List<Post>> allPosts;
+
+    private Observer<List<Post>> allPostsObserver = new Observer<List<Post>>() {
+        @Override
+        public void onChanged(List<Post> posts) {
+            allPosts.setValue(posts);
+        }
+    };
 
     public PostsViewModel(@NonNull Application application) {
         super(application);
         postsService = PostsFirebaseRepository.getInstance();
+
+        allPosts = new MutableLiveData<>();
+        postsService.getAllPosts().observeForever(allPostsObserver);
     }
 
     public void addPost(Post post){
         postsService.addPost(post);
     }
+
     public void deletePost(String postId){
         postsService.deletePost(postId);
     }
+
     public LiveData<List<Post>> getAllPosts(){
         return postsService.getAllPosts();
     }
+
     public LiveData<List<Post>> getPostsByUser(String userId){
         return postsService.getPostsByUser(userId);
     }
@@ -58,10 +70,16 @@ public class PostsViewModel extends AndroidViewModel {
         return postsService.getAllPostsFromSubscribedSubforums(userId);
     }
 
+    public List<Post> getSearchedPosts(String searchedPhrase) {
+        ArrayList<Post> searchedPosts = new ArrayList<>();
+        for (Post p : allPosts.getValue()){
+            if (p.getTitle().contains(searchedPhrase) || p.getPostText().contains(searchedPhrase))
+                searchedPosts.add(p);
+        }
+        return searchedPosts;
+    }
 
-
-    public void getSearchedPosts(String searchedPhrase) {
-        Toast.makeText(getApplication(), searchedPhrase, Toast.LENGTH_LONG).show();
-//        displayedPosts.setValue(postsService.getSearchedPosts(searchedPhrase).getValue());
+    public void removeObserver(){
+        postsService.getAllPosts().removeObserver(allPostsObserver);
     }
 }

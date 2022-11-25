@@ -1,12 +1,10 @@
 package benji.and.mishku.inc.viaforum.repositories;
 
 import static android.content.ContentValues.TAG;
-
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,13 +14,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.ReentrantLock;
 import benji.and.mishku.inc.viaforum.contracts.PostsService;
 import benji.and.mishku.inc.viaforum.models.Post;
-import benji.and.mishku.inc.viaforum.models.Subforum;
-import benji.and.mishku.inc.viaforum.models.User;
-
 
 public class PostsFirebaseRepository implements PostsService {
 
@@ -61,8 +55,6 @@ public class PostsFirebaseRepository implements PostsService {
                 }
                 allPosts.setValue(tempAllPosts);
                 myPosts.setValue(tempMyPosts);
-
-                Log.d(TAG, "Value is: ");
             }
 
             @Override
@@ -115,7 +107,6 @@ public class PostsFirebaseRepository implements PostsService {
     }
 
     @Override
-    //ToDo: ask Kasper ??
     //not really livedata anymore, or ?
     public LiveData<List<Post>> getPostsBySubforum(String subforumId) {
         MutableLiveData<List<Post>> tempLive = new MutableLiveData<>();
@@ -187,19 +178,6 @@ public class PostsFirebaseRepository implements PostsService {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-
-        return posts;
-    }
-
-    @Override
-    public LiveData<List<Post>> getSearchedPosts(String searchedPhrase) {
-        DataSnapshot snapshot = postsRef.orderByChild("title").startAt(searchedPhrase).get().getResult();
-        ArrayList<Post> temp = new ArrayList<>();
-        for (DataSnapshot s : snapshot.getChildren()){
-            temp.add(s.getValue(Post.class));
-        }
-        MutableLiveData<List<Post>> posts = new MutableLiveData<>();
-        posts.setValue(temp);
         return posts;
     }
 }
