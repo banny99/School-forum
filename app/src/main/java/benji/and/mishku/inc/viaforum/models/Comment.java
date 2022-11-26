@@ -5,6 +5,7 @@ public class Comment {
     private String content;
     private String userId;
     private String postId;
+    private boolean isRightAnswer;
 
     public Comment() {
     }
@@ -13,6 +14,7 @@ public class Comment {
         this.content = content;
         this.userId = userId;
         this.postId = postId;
+        isRightAnswer = false;
     }
 
     public String getId() {
@@ -45,5 +47,13 @@ public class Comment {
 
     public void setPostId(String postId) {
         this.postId = postId;
+    }
+
+    public boolean isRightAnswer() {
+        return isRightAnswer;
+    }
+
+    public void setRightAnswer(boolean rightAnswer) {
+        isRightAnswer = rightAnswer;
     }
 }

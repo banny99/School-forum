@@ -45,6 +45,7 @@
 
         <!-- Buttons -->
         <LinearLayout
+            android:id="@+id/comment_options_bar"
             android:layout_width="382dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -67,7 +68,12 @@
                 android:clickable="true"
                 android:src="@drawable/ic_baseline_delete_24" />
         </LinearLayout>
-
+        <ImageButton
+            android:id="@+id/mark_correct_answer_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_baseline_check_24" />
     </LinearLayout>
 
 

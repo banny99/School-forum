@@ -12,9 +12,7 @@ public interface UserService {
     void addUser(User user);
     void deleteUser(String userId);
     void updateUser(User user);
-
     void getUserById(String uid, UserFirebaseRepository.UserCallBack c);
-
     LiveData<User> getPostAuthor(Post post);
     LiveData<List<User>> getAllUsers();
 }

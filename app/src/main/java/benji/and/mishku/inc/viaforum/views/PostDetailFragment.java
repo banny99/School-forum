@@ -31,6 +31,7 @@ import benji.and.mishku.inc.viaforum.models.Comment;
 import benji.and.mishku.inc.viaforum.viewModels.CommentsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SubforumsViewModel;
+import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 
 
 public class PostDetailFragment extends Fragment {
@@ -65,9 +66,9 @@ public class PostDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         commentsViewModel=new ViewModelProvider(requireActivity()).get(CommentsViewModel.class);
-        commentAdapter=new CommentAdapter(new ArrayList<>());
         postsViewModel=new ViewModelProvider(requireActivity()).get(PostsViewModel.class);
         subforumsViewModel=new ViewModelProvider(requireActivity()).get(SubforumsViewModel.class);
+        commentAdapter=new CommentAdapter(new ArrayList<>(), new ViewModelProvider(requireActivity()).get(UserViewModel.class),commentsViewModel,postsViewModel);
         commentsViewModel.getCommentsForPost(postsViewModel.getSharedPost().getId()).observe(this, new Observer<List<Comment>>() {
             @Override
             public void onChanged(List<Comment> comments) {

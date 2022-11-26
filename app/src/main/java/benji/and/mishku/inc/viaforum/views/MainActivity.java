@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         View headerView=navDrawer.getHeaderView(0);
         TextView username=headerView.findViewById(R.id.userName);
         TextView email=headerView.findViewById(R.id.userEmail);
-        subforumsViewModel.addSubforum(new Subforum("Administration", "This is a subforum for..."));
         userViewModel.getLoggedUser().observe(this, new Observer<User>() {
             @Override
             public void onChanged(User user) {
