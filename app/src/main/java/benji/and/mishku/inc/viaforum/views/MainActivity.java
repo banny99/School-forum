@@ -146,7 +146,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         if(view.getId()==R.id.addPostButton){
             navController.navigate(R.id.nav_add_post);
-
         }
     }
 }
