@@ -95,11 +95,7 @@ public class PostsFirebaseRepository implements PostsService {
         postsRef.child(post.getId()).setValue(post);
     }
 
-    @Override
-    //ToDo.. do we need this?
-    public LiveData<List<Post>> getPosts(int noOfItems) {
-        return null;
-    }
+
 
     @Override
     public LiveData<List<Post>> getAllPosts() {
@@ -164,7 +160,7 @@ public class PostsFirebaseRepository implements PostsService {
         MutableLiveData<List<Post>> posts=new MutableLiveData<>();
         postsRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<Post> temp = new ArrayList<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
                     Post p = postSnapshot.getValue(Post.class);
@@ -174,10 +170,36 @@ public class PostsFirebaseRepository implements PostsService {
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError error) {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
         return posts;
+    }
+
+    @Override
+    public LiveData<List<Post>> getReportedPosts() {
+        MutableLiveData<List<Post>> reportedPosts=new MutableLiveData<>();
+        postsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<Post> temp = new ArrayList<>();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
+                    Post p = postSnapshot.getValue(Post.class);
+                    assert p != null;
+                    if(p.isFlag()){
+                        temp.add(p);
+                    }
+
+                }
+                reportedPosts.setValue(temp);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+        return reportedPosts;
     }
 }

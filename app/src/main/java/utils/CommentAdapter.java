@@ -10,6 +10,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
+import java.util.Objects;
+
 import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.models.Comment;
 import benji.and.mishku.inc.viaforum.viewModels.CommentsViewModel;
@@ -28,10 +30,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         this.postsViewModel = postsViewModel;
     }
 
-    private CommentAdapter.OnClickListener listener;
-    public void setOnClickListener(CommentAdapter.OnClickListener listener) {
-        this.listener = listener;
-    }
+
 
     @NonNull
     @Override
@@ -45,21 +44,50 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     public void onBindViewHolder(@NonNull CommentAdapter.ViewHolder viewHolder, int position) {
         viewHolder.commentContent.setText(comments.get(position).getContent());
         //ToDo: put author username
-        //viewHolder.commentAuthor.setText(userViewModel.getCommentAuthor(comments.get(position).getUserId()));
-        viewHolder.commentAuthor.setText("some author");
-        //make background of the right answer/comment green
-        if (comments.get(position).isRightAnswer())
-            viewHolder.itemView.setBackgroundResource(R.color.rightanswerbackground);
+        viewHolder.commentAuthor.setText("@"+comments.get(position).getCommentAuthor());
+
+
+
         //if the comment is written by logged user ->make comments options visible
-        if (comments.get(position).getUserId().equals(userViewModel.getLoggedUser().getValue().getUserId()))
-            viewHolder.commentOptionsBar.setVisibility(View.VISIBLE);
+        if (comments.get(position).getUserId().equals(Objects.requireNonNull(userViewModel.getLoggedUser().getValue()).getUserId())){
+            viewHolder.editCommentBtn.setVisibility(View.VISIBLE);
+            viewHolder.deleteCommentBtn.setVisibility(View.VISIBLE);
+        }
         else
-            viewHolder.commentOptionsBar.setVisibility(View.GONE);
-        //if the post is written by logged user ->make 'mark-correct' button visible
-        if (postsViewModel.getSharedPost().getUserId().equals(userViewModel.getLoggedUser().getValue().getUserId()))
-            viewHolder.markCorrectAnswerBtn.setVisibility(View.VISIBLE);
-        else
+        {
+            viewHolder.editCommentBtn.setVisibility(View.GONE);
+            viewHolder.deleteCommentBtn.setVisibility(View.GONE);
+        }
+        if(postsViewModel.getPostById(comments.get(position).getPostId()).getUserId().equals(Objects.requireNonNull(userViewModel.getLoggedUser().getValue().getUserId()))) {
+            if (comments.get(position).isRightAnswer()) {
+                viewHolder.itemView.setBackgroundResource(R.color.rightanswerbackground);
+                viewHolder.markCorrectAnswerBtn.setVisibility(View.GONE);
+                viewHolder.unMarkAnswerBtn.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.itemView.setBackgroundResource(R.color.card_background_color);
+                viewHolder.unMarkAnswerBtn.setVisibility(View.GONE);
+                viewHolder.markCorrectAnswerBtn.setVisibility(View.VISIBLE);
+            }
+            viewHolder.markCorrectAnswerBtn.setOnClickListener(view -> {
+                Toast.makeText(viewHolder.itemView.getContext(), " This comment was marked as correct.", Toast.LENGTH_LONG).show();
+                Toast.makeText(viewHolder.itemView.getContext(), " If you want to undo, click the button again.", Toast.LENGTH_LONG).show();
+                Comment c = comments.get(position);
+                c.setRightAnswer(true);
+                commentsViewModel.updateComment(c);
+                viewHolder.unMarkAnswerBtn.setVisibility(View.GONE);
+            });
+            viewHolder.unMarkAnswerBtn.setOnClickListener(view -> {
+                Toast.makeText(viewHolder.itemView.getContext(), " This comment was unmarked as the right answer.", Toast.LENGTH_LONG).show();
+                Comment c = comments.get(position);
+                c.setRightAnswer(false);
+                commentsViewModel.updateComment(c);
+                viewHolder.markCorrectAnswerBtn.setVisibility(View.VISIBLE);
+            });
+        }
+        else{
             viewHolder.markCorrectAnswerBtn.setVisibility(View.GONE);
+            viewHolder.unMarkAnswerBtn.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -79,10 +107,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         private final TextView commentAuthor;
 
         private LinearLayout commentOptionsBar;
-        private ImageButton editCommentBtn;
-        private ImageButton deleteCommentBtn;
-        private ImageButton markCorrectAnswerBtn;
-
+        private final ImageButton editCommentBtn;
+        private final ImageButton deleteCommentBtn;
+        private final ImageButton markCorrectAnswerBtn;
+        private final ImageButton unMarkAnswerBtn;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             commentAuthor=itemView.findViewById(R.id.commentAuthor);
@@ -99,20 +127,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             });
 
             markCorrectAnswerBtn=itemView.findViewById(R.id.mark_correct_answer_btn);
-            markCorrectAnswerBtn.setOnClickListener(view -> {
-                Toast.makeText(itemView.getContext(), comments.get(getAdapterPosition()).getId()+" -marked as correct", Toast.LENGTH_LONG).show();
-                Comment c = comments.get(getAdapterPosition());
-                c.setRightAnswer(true);
-                commentsViewModel.updateComment(c);
-            });
-            itemView.setOnClickListener(v -> {
-                listener.onClick(comments.get(getAdapterPosition()));
-            });
+            unMarkAnswerBtn=itemView.findViewById(R.id.unMarkCommentButton);
+
         }
     }
 
-    public interface OnClickListener{
-        void onClick(Comment comment);
-    }
+
 
 }

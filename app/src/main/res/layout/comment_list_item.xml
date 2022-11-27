@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:clickable="true"
-    app:cardBackgroundColor="#FFFCFC">
+    app:cardBackgroundColor="@color/card_background_color">
 
     <LinearLayout
         android:layout_width="430dp"
@@ -29,8 +29,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/posted_by_author"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="#0E0101"
-                android:textSize="12sp" />
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/commentContent"
@@ -39,7 +39,8 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="#000000" />
+                android:textColor="#130D0D"
+                android:textSize="20sp" />
 
         </LinearLayout>
 
@@ -67,13 +68,25 @@
                 android:background="#00FFFFFF"
                 android:clickable="true"
                 android:src="@drawable/ic_baseline_delete_24" />
+
+            <ImageButton
+                android:id="@+id/mark_correct_answer_btn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_weight="0"
+                android:background="#00FFFFFF"
+                app:srcCompat="@drawable/ic_baseline_check_24" />
+
+            <ImageButton
+                android:id="@+id/unMarkCommentButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_weight="0"
+                android:background="#00FFFFFF"
+                app:srcCompat="@drawable/ic_baseline_clear_24" />
+
         </LinearLayout>
-        <ImageButton
-            android:id="@+id/mark_correct_answer_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_baseline_check_24" />
+
     </LinearLayout>
 
 

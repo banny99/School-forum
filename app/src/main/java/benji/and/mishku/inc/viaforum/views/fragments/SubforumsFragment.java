@@ -13,11 +13,15 @@ import android.widget.Button;
 import java.util.ArrayList;
 import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.viewModels.SubforumsViewModel;
+import benji.and.mishku.inc.viaforum.viewModels.SubscriptionsViewModel;
+import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 import utils.SubforumAdapter;
 
 public class SubforumsFragment extends Fragment {
 
     private SubforumsViewModel subforumsViewModel;
+    private UserViewModel userViewModel;
+    private SubscriptionsViewModel subscriptionsViewModel;
     private RecyclerView subListRv;
     private SubforumAdapter subforumAdapter;
     private Button button;
@@ -27,8 +31,11 @@ public class SubforumsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        subforumAdapter=new SubforumAdapter(new ArrayList<>());
+
         subforumsViewModel=new ViewModelProvider(requireActivity()).get(SubforumsViewModel.class);
+        subscriptionsViewModel=new ViewModelProvider(requireActivity()).get(SubscriptionsViewModel.class);
+        userViewModel=new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        subforumAdapter=new SubforumAdapter(new ArrayList<>(),userViewModel,subscriptionsViewModel);
        subforumsViewModel.getAllSubforums().observe( this, subforums -> subforumAdapter.setSubforums(subforums));
     }
 

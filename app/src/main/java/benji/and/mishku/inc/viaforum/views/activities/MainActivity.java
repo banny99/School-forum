@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -108,13 +110,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         View headerView=navDrawer.getHeaderView(0);
 
         TextView username=headerView.findViewById(R.id.userName);
-
         userViewModel.getLoggedUser().observe(this, new Observer<User>() {
             @Override
             public void onChanged(@NonNull User user) {
                 username.setText(user.getUsername());
 
             }
+        });
+        ImageButton signOutButton=headerView.findViewById(R.id.signOutButton);
+        signOutButton.setOnClickListener(l->{
+            userViewModel.logOut();
+            FirebaseAuth.getInstance().signOut();
         });
     }
 

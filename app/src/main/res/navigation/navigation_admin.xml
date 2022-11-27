@@ -11,7 +11,7 @@
         tools:layout="@layout/fragment_subforums__admin"/>
     <fragment
         android:id="@+id/nav_reported_posts"
-        android:name="benji.and.mishku.inc.viaforum.views.fragments.Reported_Posts_Admin"
+        android:name="benji.and.mishku.inc.viaforum.views.fragments.ReportedPostsFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_reported__posts__admin"/>
     <fragment
@@ -25,5 +25,11 @@
         android:name="benji.and.mishku.inc.viaforum.views.fragments.AddSubforumFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_add__subforum">
+    </fragment>
+    <fragment
+        android:id="@+id/nav_post_detail"
+        android:name="benji.and.mishku.inc.viaforum.views.fragments.PostDetailFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_post_detail">
     </fragment>
 </navigation>

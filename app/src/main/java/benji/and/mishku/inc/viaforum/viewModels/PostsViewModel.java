@@ -8,6 +8,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import benji.and.mishku.inc.viaforum.contracts.PostsService;
 import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.repositories.PostsFirebaseRepository;
@@ -72,7 +74,7 @@ public class PostsViewModel extends AndroidViewModel {
 
     public List<Post> getSearchedPosts(String searchedPhrase) {
         ArrayList<Post> searchedPosts = new ArrayList<>();
-        for (Post p : allPosts.getValue()){
+        for (Post p : Objects.requireNonNull(allPosts.getValue())){
             if (p.getTitle().contains(searchedPhrase) || p.getPostText().contains(searchedPhrase))
                 searchedPosts.add(p);
         }
@@ -81,5 +83,18 @@ public class PostsViewModel extends AndroidViewModel {
 
     public void removeObserver(){
         postsService.getAllPosts().removeObserver(allPostsObserver);
+    }
+
+    public LiveData<List<Post>> getReportedPosts(){
+        return postsService.getReportedPosts();
+    }
+
+    public Post getPostById(String postId){
+        for (Post p: Objects.requireNonNull(allPosts.getValue())) {
+            if(p.getId().equals(postId)){
+                return p;
+            }
+        }
+        return null;
     }
 }

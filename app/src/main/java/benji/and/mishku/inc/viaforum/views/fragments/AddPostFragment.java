@@ -13,6 +13,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
+
 import com.google.firebase.auth.FirebaseAuth;
 import java.util.List;
 import benji.and.mishku.inc.viaforum.R;
@@ -83,14 +85,24 @@ public class AddPostFragment extends Fragment {
         spinner.setAdapter(arrayAdapter);
         addPostBtn.setOnClickListener(view -> {
             Subforum sub= (Subforum)spinner.getSelectedItem();
-            Post newPost = new Post(postTitle.getText().toString(), postText.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getUid(), sub.getId(),userViewModel.getLoggedUser().getValue().getUsername());
-            postsViewModel.addPost(newPost);
+            if(sub!=null  ) {
+                if(!postTitle.getText().toString().equals("") && !postText.getText().toString().equals("")) {
+                    Post newPost = new Post(postTitle.getText().toString(), postText.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getUid(), sub.getId(), userViewModel.getLoggedUser().getValue().getUsername());
+                    postsViewModel.addPost(newPost);
 
-            postTitle.setText("");
-            postText.setText("");
+                    postTitle.setText("");
+                    postText.setText("");
 
-            postsViewModel.setSharedPost(newPost);
-            Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.nav_post_detail);
+                    postsViewModel.setSharedPost(newPost);
+                    Navigation.findNavController(requireActivity(), R.id.nav_host_fragment).navigate(R.id.nav_post_detail);
+                }
+                else{
+                    Toast.makeText(getContext(), "A post needs a title and some content.", Toast.LENGTH_SHORT).show();
+                }
+            }
+            else {
+                Toast.makeText(getContext(), "You need to subscribe to a subforum first,  you can only post to a subforum.", Toast.LENGTH_SHORT).show();
+            }
         });
         return inflatedView;
     }

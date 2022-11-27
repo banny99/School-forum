@@ -100,10 +100,11 @@ public class DialogGenerator {
 
         builder.setView(popUpView);
 
-        builder.setPositiveButton(R.string.edit, new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Report", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 reportedPost.setFlag(true);
-                reportedPost.setFlagDescription(report.getText().toString());
+                reportedPost.addFlagDescription(report.getText().toString());
+                reportedPost.incrementFlagCount();
                 confirmAction.apply(null);
             }
         });

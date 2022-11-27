@@ -21,10 +21,12 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 
 import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.models.Comment;
+import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.viewModels.CommentsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SubforumsViewModel;
@@ -72,7 +74,8 @@ public class PostDetailFragment extends Fragment {
         commentsViewModel.getCommentsForPost(postsViewModel.getSharedPost().getId()).observe(this, new Observer<List<Comment>>() {
             @Override
             public void onChanged(List<Comment> comments) {
-                commentAdapter.setComments(comments);commentAdapter.notifyDataSetChanged();
+                commentAdapter.setComments(comments);
+                commentAdapter.notifyDataSetChanged();
             }
         });
     }
@@ -92,8 +95,12 @@ public class PostDetailFragment extends Fragment {
         postSubforum.setText(getString(R.string.posted_on) +" "+ subforumsViewModel.getSubforum(postsViewModel.getSharedPost().getSubForumId()));
         postAuthor=inflatedView.findViewById(R.id.singlePostAuthor);
         postAuthor.setText(getString(R.string.posted_by)+" "+ postsViewModel.getSharedPost().getPostAuthor());
-        //edit post btn set-up:
+        deletePostBtn = inflatedView.findViewById(R.id.deletePostButton);
         editPostBtn = inflatedView.findViewById(R.id.editPostButton);
+        if(Objects.requireNonNull(userViewModel.getLoggedUser().getValue()).getUserId().equals(postsViewModel.getSharedPost().getUserId())){
+            editPostBtn.setVisibility(View.GONE);
+            deletePostBtn.setVisibility(View.GONE);
+        }
         editPostBtn.setOnClickListener(view -> {
             DialogGenerator.showPostEditingDialog(postsViewModel.getSharedPost(), getActivity(), editPostConfirmationAction);
         });
@@ -102,7 +109,7 @@ public class PostDetailFragment extends Fragment {
 
             addComment.setOnClickListener((view -> {
                 if(commentText.getText()!=null && !commentText.getText().toString().equals("")){
-                commentsViewModel.addComment(new Comment(commentText.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getUid(),postsViewModel.getSharedPost().getId(),userViewModel.getLoggedUser().getValue().getUsername() ));
+                commentsViewModel.addComment(new Comment(commentText.getText().toString(), Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid(),postsViewModel.getSharedPost().getId(), Objects.requireNonNull(userViewModel.getLoggedUser().getValue()).getUsername() ));
 
                 Toast.makeText(getContext(), "Your comment has been added", Toast.LENGTH_SHORT).show();
                 commentText.setText("");
@@ -111,8 +118,7 @@ public class PostDetailFragment extends Fragment {
 
             }));
 
-        //delete post btn set-up:
-        deletePostBtn = inflatedView.findViewById(R.id.deletePostButton);
+
         deletePostBtn.setOnClickListener(view -> {
             DialogGenerator.showConfirmationDialog("Do you want to delete this post?", "", getActivity(), deletePostConfirmationAction);
         });
@@ -140,8 +146,8 @@ public class PostDetailFragment extends Fragment {
     };
 
     Function reportPostConfirmationAction = e->{
-        postsViewModel.updatePost(postsViewModel.getSharedPost());
-        Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.nav_your_posts);
+
+        Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.nav_host_fragment);
         Toast.makeText(getContext(), "Post-\""+postsViewModel.getSharedPost().getTitle()+"\" was reported, we will review your complaint and let you know.", Toast.LENGTH_LONG).show();
         return null;
     };

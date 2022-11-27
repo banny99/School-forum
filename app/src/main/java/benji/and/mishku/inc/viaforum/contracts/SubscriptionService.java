@@ -10,4 +10,5 @@ public interface SubscriptionService {
     LiveData<List<User>> getUsersSubscribedToSubforum(String subId);
     void subscribeUserToSubforum(User user, Subforum subforum);
     void unSubscribeUserFromSubforum(User user, Subforum subforum);
+
 }

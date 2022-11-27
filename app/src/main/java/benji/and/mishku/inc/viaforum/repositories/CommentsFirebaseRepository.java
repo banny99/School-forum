@@ -15,6 +15,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.locks.ReentrantLock;
 import benji.and.mishku.inc.viaforum.contracts.CommentsService;
 import benji.and.mishku.inc.viaforum.models.Comment;
@@ -65,13 +66,14 @@ public class CommentsFirebaseRepository implements CommentsService {
 
         MutableLiveData<List<Comment>> tempLive = new MutableLiveData<>();
 
-        Query query = commentsRef.orderByChild("postId").equalTo(postId);
-        query.addValueEventListener(new ValueEventListener() {
+        commentsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<Comment> temp = new ArrayList<>();
                 for (DataSnapshot s : snapshot.getChildren()){
-                    temp.add(s.getValue(Comment.class));
+                    if(Objects.requireNonNull(s.getValue(Comment.class)).getPostId().equals(postId)){
+                        temp.add(s.getValue(Comment.class));
+                    }
                 }
                 tempLive.setValue(temp);
             }

@@ -1,5 +1,6 @@
 package benji.and.mishku.inc.viaforum.models;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Post {
@@ -9,8 +10,8 @@ public class Post {
     private String userId;
     private String subForumId;
     private boolean flag;
-    private String flagDescription;
-    private int flagCount;
+    private List<String> flagDescription;
+    private int flagCount=0;
     private DateTime dateTime;
     private String postAuthor;
     public Post() {
@@ -74,12 +75,24 @@ public class Post {
         this.flag = flag;
     }
 
-    public String getFlagDescription() {
+    public List<String> getFlagDescription() {
         return flagDescription;
     }
-
-    public void setFlagDescription(String flagDescription) {
+    public void addFlagDescription(String addedDescription){
+        flagDescription.add(addedDescription);
+    }
+    public void setFlagDescription(List<String> flagDescription) {
         this.flagDescription = flagDescription;
+    }
+
+    public int getFlagCount() {
+        return flagCount;
+    }
+    public void incrementFlagCount(){
+        flagCount++;
+    }
+    public void setFlagCount(int flagCount) {
+        this.flagCount = flagCount;
     }
 
     public DateTime getDateTime() {

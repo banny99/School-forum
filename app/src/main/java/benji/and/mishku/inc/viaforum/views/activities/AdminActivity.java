@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -64,6 +65,11 @@ public class AdminActivity extends AppCompatActivity {
                 username.setText(user.getUsername());
 
             }
+        });
+        ImageButton signOutButton=headerView.findViewById(R.id.signOutButton);
+        signOutButton.setOnClickListener(l->{
+            userViewModel.logOut();
+            firebaseAuth.signOut();
         });
     }
 

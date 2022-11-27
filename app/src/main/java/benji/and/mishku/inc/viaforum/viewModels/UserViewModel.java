@@ -8,9 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicReference;
 
 import benji.and.mishku.inc.viaforum.contracts.UserService;
 import benji.and.mishku.inc.viaforum.models.Post;
@@ -51,12 +49,21 @@ public class UserViewModel extends AndroidViewModel {
     }
 
     public void logOut(){
-        loggedUser = null;
+        loggedUser=null;
     }
-    public boolean isPostSaved(@NonNull Post post){
+    public boolean isPostSavedForCurrentUser(@NonNull Post post){
         for (Post p :
                 Objects.requireNonNull(getLoggedUser().getValue()).getSavedPosts()) {
             if (p.equals(post)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean isCurrentUserSubscribedToSubforum(Subforum subforum) {
+        for (Subforum sub: Objects.requireNonNull(getLoggedUser().getValue()).getSubscriptions() )
+        {
+            if(sub.equals(subforum)){
                 return true;
             }
         }

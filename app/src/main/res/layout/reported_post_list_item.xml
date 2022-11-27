@@ -11,14 +11,14 @@
     app:cardBackgroundColor="#FFFCFC">
 
     <LinearLayout
-        android:layout_width="388dp"
+        android:layout_width="430dp"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <!-- Media -->
 
         <LinearLayout
-            android:layout_width="388dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
@@ -55,7 +55,7 @@
                         android:textAlignment="textStart"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="#070000"
-                        android:textSize="16sp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/postAuthor"
@@ -66,8 +66,8 @@
                         android:text="@string/content"
                         android:textAlignment="center"
                         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                        android:textColor="@color/backgroundColor"
-                        android:textSize="16sp" />
+                        android:textColor="?android:attr/textColorSecondary"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -76,11 +76,9 @@
                 android:id="@+id/postTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:text="@string/title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="#0E0101"
-                android:textSize="24sp" />
+                android:textColor="#0E0101" />
 
             <TextView
                 android:id="@+id/postContent"
@@ -89,54 +87,33 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="#000000"
-                android:textSize="20sp" />
+                android:textColor="#000000" />
 
         </LinearLayout>
 
         <!-- Buttons -->
-
         <LinearLayout
             android:layout_width="382dp"
-            android:layout_height="62dp"
+            android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:elevation="10dp"
             android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0"
-                android:orientation="vertical">
-
-                <ImageButton
-                    android:id="@+id/commentButton"
-                    android:layout_width="48dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0"
-                    android:background="#00404040"
-                    android:clickable="true"
-                    app:srcCompat="@drawable/ic_baseline_comment_24" />
-            </LinearLayout>
+            <ImageButton
+                android:id="@+id/confirm_removal_button"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:background="@color/colorAccent"
+                app:srcCompat="@drawable/ic_baseline_check_24" />
 
             <ImageButton
-                android:id="@+id/saveButton"
-                android:layout_width="48dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0"
-                android:background="#00FFFFFF"
-                android:clickable="true"
-                android:visibility="visible"
-                app:srcCompat="@drawable/ic_baseline_bookmark_add_24" />
-
-            <ImageButton
-                android:id="@+id/unSaveButton"
-                android:layout_width="48dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0"
-                android:background="#00FFFFFF"
-                app:srcCompat="@drawable/ic_baseline_bookmark_added_24" />
-
+                android:id="@+id/deny_removal_button"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:background="#009688"
+                app:srcCompat="@drawable/ic_baseline_clear_24" />
         </LinearLayout>
 
     </LinearLayout>

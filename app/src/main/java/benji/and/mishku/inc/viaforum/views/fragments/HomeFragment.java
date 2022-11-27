@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.models.Post;
+import benji.and.mishku.inc.viaforum.viewModels.CommentsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SavedPostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SubforumsViewModel;
@@ -31,6 +32,7 @@ public class HomeFragment extends Fragment {
     private UserViewModel userViewModel;
     private SubforumsViewModel subforumsViewModel;
     private SavedPostsViewModel savedPostsViewModel;
+    private CommentsViewModel commentsViewModel;
     private RecyclerView postListRV;
     private PostAdapter postAdapter;
 
@@ -53,7 +55,8 @@ public class HomeFragment extends Fragment {
         subforumsViewModel=new ViewModelProvider(requireActivity()).get(SubforumsViewModel.class);
         savedPostsViewModel=new ViewModelProvider(requireActivity()).get(SavedPostsViewModel.class);
         userViewModel=new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        postAdapter = new PostAdapter(new ArrayList<>(),subforumsViewModel,savedPostsViewModel,userViewModel);
+        commentsViewModel=new ViewModelProvider(requireActivity()).get(CommentsViewModel.class);
+        postAdapter = new PostAdapter(new ArrayList<>(),subforumsViewModel,savedPostsViewModel,userViewModel,commentsViewModel);
         postsViewModel.getAllPostsFromSubscribedSubforums(FirebaseAuth.getInstance().getCurrentUser().getUid()).observe(this, new Observer<List<Post>>() {
             @Override
             public void onChanged(List<Post> posts) {

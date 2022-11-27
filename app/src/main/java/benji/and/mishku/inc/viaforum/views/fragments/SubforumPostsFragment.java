@@ -25,6 +25,7 @@ import java.util.Objects;
 import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.models.Subforum;
+import benji.and.mishku.inc.viaforum.viewModels.CommentsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SavedPostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SubforumsViewModel;
@@ -42,6 +43,7 @@ public class SubforumPostsFragment extends Fragment {
     private UserViewModel userViewModel;
     private SubscriptionsViewModel subscriptionsViewModel;
     private SavedPostsViewModel savedPostsViewModel;
+    private CommentsViewModel commentsViewModel;
     private Subforum currentSubforum;
     private Button subscribeButton;
     private TextView title;
@@ -54,7 +56,8 @@ public class SubforumPostsFragment extends Fragment {
         subscriptionsViewModel=new ViewModelProvider(requireActivity()).get(SubscriptionsViewModel.class);
         savedPostsViewModel=new ViewModelProvider(requireActivity()).get(SavedPostsViewModel.class);
         userViewModel=new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        postAdapter = new PostAdapter(new ArrayList<>(),subforumsViewModel,savedPostsViewModel,userViewModel);
+        commentsViewModel=new ViewModelProvider(requireActivity()).get(CommentsViewModel.class);
+        postAdapter = new PostAdapter(new ArrayList<>(),subforumsViewModel,savedPostsViewModel,userViewModel,commentsViewModel);
         currentSubforum=subforumsViewModel.getSharedSubforum();
         postsViewModel.getPostsBySubforum(currentSubforum.getId()).observe(this, new Observer<List<Post>>() {
             @Override

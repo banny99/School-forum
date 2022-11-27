@@ -40,8 +40,8 @@ public class SubforumsViewModel extends AndroidViewModel {
     }
     public Subforum getSubforum(String subforumId){
         List<Subforum> subforums=subforumsService.getSubforums().getValue();
-        for (Subforum s:
-             subforums) {
+        assert subforums != null;
+        for (Subforum s: subforums) {
             if(Objects.equals(s.getId(), subforumId)){
                 return s;
             }

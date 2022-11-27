@@ -1,12 +1,12 @@
 package benji.and.mishku.inc.viaforum.models;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Subforum {
     private String id;
     private String name;
     private String description;
-    private List<User> users;
     public Subforum() {
         //required by firebase
     }
@@ -43,5 +43,18 @@ public class Subforum {
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Subforum)) return false;
+        Subforum subforum = (Subforum) o;
+        return id.equals(subforum.id) && name.equals(subforum.name) && description.equals(subforum.description) ;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, description);
     }
 }
