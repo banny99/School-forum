@@ -6,7 +6,7 @@ public class Comment {
     private String userId;
     private String postId;
     private boolean isRightAnswer;
-
+    private String commentAuthor="";
     public Comment() {
     }
 
@@ -16,7 +16,13 @@ public class Comment {
         this.postId = postId;
         isRightAnswer = false;
     }
-
+    public Comment(String content, String userId, String postId, String commentAuthor) {
+        this.content = content;
+        this.userId = userId;
+        this.postId = postId;
+        this.commentAuthor=commentAuthor;
+        isRightAnswer = false;
+    }
     public String getId() {
         return id;
     }
@@ -55,5 +61,13 @@ public class Comment {
 
     public void setRightAnswer(boolean rightAnswer) {
         isRightAnswer = rightAnswer;
+    }
+
+    public String getCommentAuthor() {
+        return commentAuthor;
+    }
+
+    public void setCommentAuthor(String commentAuthor) {
+        this.commentAuthor = commentAuthor;
     }
 }

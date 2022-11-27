@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".views.SubforumPostsFragment"
+    tools:context=".views.fragments.SubforumPostsFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.card.MaterialCardView
@@ -17,18 +17,25 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/subForumSingleName"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0"
-                android:text="Title"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                android:translationX="15dp"></TextView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="67dp"
+                android:background="#62B8BC">
+
+                <TextView
+                    android:id="@+id/subForumSingleName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:text="Title"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:translationX="15dp"></TextView>
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/subscribeButton"
@@ -37,10 +44,14 @@
                 android:layout_weight="0"
                 android:text="Subscribe"
                 android:translationX="150dp" />
+
         </LinearLayout>
+
     </com.google.android.material.card.MaterialCardView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPostsOnSubforum"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp" />
 </LinearLayout>

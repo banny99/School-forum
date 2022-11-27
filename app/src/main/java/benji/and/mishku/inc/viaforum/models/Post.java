@@ -10,6 +10,7 @@ public class Post {
     private String subForumId;
     private boolean flag;
     private String flagDescription;
+    private int flagCount;
     private DateTime dateTime;
     private String postAuthor;
     public Post() {

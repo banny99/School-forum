@@ -115,7 +115,16 @@
                 android:layout_weight="0"
                 android:background="#00FFFFFF"
                 android:clickable="true"
+                android:visibility="visible"
                 app:srcCompat="@drawable/ic_baseline_bookmark_add_24" />
+
+            <ImageButton
+                android:id="@+id/unSaveButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_weight="0"
+                android:background="#00FFFFFF"
+                app:srcCompat="@drawable/ic_baseline_bookmark_added_24" />
 
         </LinearLayout>
 

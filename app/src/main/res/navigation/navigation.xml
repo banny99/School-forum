@@ -6,48 +6,48 @@
     app:startDestination="@id/nav_home">
     <fragment
         android:id="@+id/nav_home"
-        android:name="benji.and.mishku.inc.viaforum.views.HomeFragment"
+        android:name="benji.and.mishku.inc.viaforum.views.fragments.HomeFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_home"/>
     <fragment
         android:id="@+id/nav_sub_forums"
-        android:name="benji.and.mishku.inc.viaforum.views.SubforumsFragment"
+        android:name="benji.and.mishku.inc.viaforum.views.fragments.SubforumsFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_subforums"/>
     <fragment
         android:id="@+id/nav_saved_posts"
-        android:name="benji.and.mishku.inc.viaforum.views.SavedPostsFragment"
+        android:name="benji.and.mishku.inc.viaforum.views.fragments.SavedPostsFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_saved_posts"/>
     <fragment
         android:id="@+id/nav_your_posts"
-        android:name="benji.and.mishku.inc.viaforum.views.YourPostsFragment"
+        android:name="benji.and.mishku.inc.viaforum.views.fragments.YourPostsFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_your_posts"/>
     <fragment
         android:id="@+id/nav_profile"
-        android:name="benji.and.mishku.inc.viaforum.views.ProfileFragment"
+        android:name="benji.and.mishku.inc.viaforum.views.fragments.ProfileFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_profile"/>
     <fragment
         android:id="@+id/nav_help"
-        android:name="benji.and.mishku.inc.viaforum.views.HelpFragment"
+        android:name="benji.and.mishku.inc.viaforum.views.fragments.HelpFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_help"/>
     <fragment
         android:id="@+id/nav_add_post"
-        android:name="benji.and.mishku.inc.viaforum.views.AddPostFragment"
+        android:name="benji.and.mishku.inc.viaforum.views.fragments.AddPostFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_add_post"/>
     <fragment
         android:id="@+id/nav_post_detail"
-        android:name="benji.and.mishku.inc.viaforum.views.PostDetailFragment"
+        android:name="benji.and.mishku.inc.viaforum.views.fragments.PostDetailFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_post_detail">
     </fragment>
     <fragment
         android:id="@+id/nav_subforum_posts"
-        android:name="benji.and.mishku.inc.viaforum.views.SubforumPostsFragment"
+        android:name="benji.and.mishku.inc.viaforum.views.fragments.SubforumPostsFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_subforum_posts">
     </fragment>

@@ -29,10 +29,13 @@ public class UserViewModel extends AndroidViewModel {
     }
 
     public LiveData<User> getLoggedUser(){
-        if (loggedUser.getValue() == null)
-            userService.getUserById(FirebaseAuth.getInstance().getCurrentUser().getUid(), user -> {
-                loggedUser.setValue(user);
-            });
+        if (loggedUser.getValue() == null) {
+            if(FirebaseAuth.getInstance().getCurrentUser()!=null) {
+                userService.getUserById(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid(), user -> {
+                    loggedUser.setValue(user);
+                });
+            }
+        }
         return loggedUser;
     }
 
@@ -50,17 +53,13 @@ public class UserViewModel extends AndroidViewModel {
     public void logOut(){
         loggedUser = null;
     }
-    public User getPostAuthor(Post post){
-        List<User> allUsers=userService.getAllUsers().getValue();
-        User user=null;
-        assert allUsers != null;
-        for (User u:
-             allUsers) {
-            if(u.getUserId().equals(post.getUserId())){
-                user=u;
-                break;
+    public boolean isPostSaved(@NonNull Post post){
+        for (Post p :
+                Objects.requireNonNull(getLoggedUser().getValue()).getSavedPosts()) {
+            if (p.equals(post)) {
+                return true;
             }
         }
-        return user;
+        return false;
     }
 }

@@ -25,5 +25,4 @@ public class SubscriptionsViewModel extends AndroidViewModel {
         return subscriptionService.getSubscriptionsForUser(user);
     }
 
-
 }

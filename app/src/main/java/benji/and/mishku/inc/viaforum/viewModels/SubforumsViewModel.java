@@ -28,6 +28,9 @@ public class SubforumsViewModel extends AndroidViewModel {
         return subforumsService.getSubforums();
     }
 
+
+
+
     public Subforum getSharedSubforum() {
         return sharedSubforum;
     }

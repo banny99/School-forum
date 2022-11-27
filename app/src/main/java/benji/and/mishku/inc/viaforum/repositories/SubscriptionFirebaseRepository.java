@@ -25,9 +25,11 @@ public class SubscriptionFirebaseRepository implements SubscriptionService {
     private final static ReentrantLock lock=new ReentrantLock();
 
     private final DatabaseReference usersRef;
+    private final DatabaseReference subforumsRef;
 
     private SubscriptionFirebaseRepository(){
         usersRef = FirebaseDatabase.getInstance().getReference("users");
+        subforumsRef = FirebaseDatabase.getInstance().getReference("subforums");
     }
 
     public static SubscriptionFirebaseRepository getInstance(){
@@ -78,7 +80,17 @@ public class SubscriptionFirebaseRepository implements SubscriptionService {
         ArrayList<User> tempUsers = new ArrayList<>();
         for (String userId : userIDs){
             Query q2 = FirebaseDatabase.getInstance().getReference("users").orderByChild("userId").equalTo(userId);
+            q2.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         }
 
         return null;
