@@ -1,13 +1,11 @@
 package benji.and.mishku.inc.viaforum.views.activities;
 
 import static android.content.ContentValues.TAG;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -20,14 +18,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-
 import java.util.Arrays;
 import java.util.List;
-
 import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.models.User;
 import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
-import benji.and.mishku.inc.viaforum.views.activities.MainActivity;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -75,7 +70,7 @@ public class SignInActivity extends AppCompatActivity {
         Intent signInIntent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
-                .setLogo(R.mipmap.via)
+                .setLogo(R.mipmap.ic_via_logo)
                 .build();
 
         activityResultLauncher.launch(signInIntent);

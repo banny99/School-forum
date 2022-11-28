@@ -97,7 +97,7 @@ public class PostDetailFragment extends Fragment {
         postAuthor.setText(getString(R.string.posted_by)+" "+ postsViewModel.getSharedPost().getPostAuthor());
         deletePostBtn = inflatedView.findViewById(R.id.deletePostButton);
         editPostBtn = inflatedView.findViewById(R.id.editPostButton);
-        if(Objects.requireNonNull(userViewModel.getLoggedUser().getValue()).getUserId().equals(postsViewModel.getSharedPost().getUserId())){
+        if(!Objects.requireNonNull(userViewModel.getLoggedUser().getValue()).getUserId().equals(postsViewModel.getSharedPost().getUserId())){
             editPostBtn.setVisibility(View.GONE);
             deletePostBtn.setVisibility(View.GONE);
         }

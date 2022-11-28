@@ -11,14 +11,14 @@
     app:cardBackgroundColor="#FFFCFC">
 
     <LinearLayout
-        android:layout_width="388dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <!-- Media -->
 
         <LinearLayout
-            android:layout_width="388dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">

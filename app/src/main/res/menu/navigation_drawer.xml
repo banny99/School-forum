@@ -19,7 +19,7 @@
         <item
             android:id="@+id/nav_your_posts"
             android:icon="@drawable/ic_baseline_saved_posts__24"
-            android:title="@string/menu_your_posts" />
+            android:title="@string/my_posts" />
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_baseline_person_24"
