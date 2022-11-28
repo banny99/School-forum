@@ -146,8 +146,7 @@ public class PostDetailFragment extends Fragment {
     };
 
     Function reportPostConfirmationAction = e->{
-
-        Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.nav_host_fragment);
+        postsViewModel.updatePost(postsViewModel.getSharedPost());
         Toast.makeText(getContext(), "Post-\""+postsViewModel.getSharedPost().getTitle()+"\" was reported, we will review your complaint and let you know.", Toast.LENGTH_LONG).show();
         return null;
     };

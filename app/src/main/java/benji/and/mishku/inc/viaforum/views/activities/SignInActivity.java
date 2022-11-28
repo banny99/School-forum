@@ -75,8 +75,7 @@ public class SignInActivity extends AppCompatActivity {
         Intent signInIntent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
-                //ToDo: set sign-in view Logo
-//                .setLogo(R.drawable.logo)
+                .setLogo(R.mipmap.via)
                 .build();
 
         activityResultLauncher.launch(signInIntent);

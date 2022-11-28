@@ -1,5 +1,6 @@
 package benji.and.mishku.inc.viaforum.models;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,7 +11,7 @@ public class Post {
     private String userId;
     private String subForumId;
     private boolean flag;
-    private List<String> flagDescription;
+    private List<String> flagDescription=new ArrayList<>();
     private int flagCount=0;
     private DateTime dateTime;
     private String postAuthor;

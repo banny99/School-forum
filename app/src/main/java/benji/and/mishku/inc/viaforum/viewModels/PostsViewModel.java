@@ -75,7 +75,7 @@ public class PostsViewModel extends AndroidViewModel {
     public List<Post> getSearchedPosts(String searchedPhrase) {
         ArrayList<Post> searchedPosts = new ArrayList<>();
         for (Post p : Objects.requireNonNull(allPosts.getValue())){
-            if (p.getTitle().contains(searchedPhrase) || p.getPostText().contains(searchedPhrase))
+            if (p.getTitle().toLowerCase().contains(searchedPhrase.toLowerCase()) || p.getPostText().toLowerCase().contains(searchedPhrase.toLowerCase()))
                 searchedPosts.add(p);
         }
         return searchedPosts;
