@@ -71,6 +71,7 @@ public class SignInActivity extends AppCompatActivity {
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
                 .setLogo(R.mipmap.ic_via_logo)
+                .setIsSmartLockEnabled(false)
                 .build();
 
         activityResultLauncher.launch(signInIntent);

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.core.view.GravityCompat;
@@ -21,10 +20,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import java.util.Objects;
-
 import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.models.User;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
@@ -53,8 +48,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initViews();
 
         firebaseAuth = FirebaseAuth.getInstance();
-        //get curr user:
-            //set user-listener
         fireAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -63,11 +56,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     startActivity(new Intent(MainActivity.this, SignInActivity.class));
                     finish();
                 }
-                else if(Objects.equals(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail(), "admin@forumvia.dk")){
+                //if currUser is not null and is admin
+                else if(firebaseAuth.getCurrentUser().getEmail().equals("admin@forumvia.dk")){
                     startActivity(new Intent(MainActivity.this, AdminActivity.class));
                     finish();
                 }
-
             }
         };
 
@@ -75,8 +68,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         actionButton=findViewById(R.id.addPostButton);
         actionButton.setOnClickListener(view -> navController.navigate(R.id.nav_add_post));
-
-
     }
 
     @Override
@@ -120,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ImageButton signOutButton=headerView.findViewById(R.id.signOutButton);
         signOutButton.setOnClickListener(l->{
             userViewModel.logOut();
-            FirebaseAuth.getInstance().signOut();
+            firebaseAuth.signOut();
         });
     }
 

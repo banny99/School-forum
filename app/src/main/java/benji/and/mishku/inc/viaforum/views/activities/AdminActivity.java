@@ -12,6 +12,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,14 +24,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
+
 import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.models.User;
 import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
 
 public class AdminActivity extends AppCompatActivity {
-    private FirebaseAuth firebaseAuth;
-    private FirebaseAuth.AuthStateListener fireAuthListener;
-    private User currentUser;
     private UserViewModel userViewModel;
 
     NavigationView navDrawer;
@@ -39,16 +39,30 @@ public class AdminActivity extends AppCompatActivity {
     AppBarConfiguration appBarConfiguration;
     FloatingActionButton actionButton;
     Toolbar toolbarBottom;
+    FirebaseAuth firebaseAuth;
+    FirebaseAuth.AuthStateListener fireAuthListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
+        initViews();
 
         firebaseAuth = FirebaseAuth.getInstance();
-        initViews();
-        navSetup();
+        fireAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser() == null) {
+                    //user not login
+                    startActivity(new Intent(AdminActivity.this, SignInActivity.class));
+                    finish();
+                }
+            }
+        };
 
+        navSetup();
     }
+
     private void initViews() {
         drawerLayout = findViewById(R.id.drawer_layout_admin);
         navDrawer = findViewById(R.id.navigation_drawer_admin);
@@ -63,9 +77,9 @@ public class AdminActivity extends AppCompatActivity {
             @Override
             public void onChanged(@NonNull User user) {
                 username.setText(user.getUsername());
-
             }
         });
+
         ImageButton signOutButton=headerView.findViewById(R.id.signOutButton);
         signOutButton.setOnClickListener(l->{
             userViewModel.logOut();
@@ -80,10 +94,12 @@ public class AdminActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navDrawer, navController);
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.bottom_app_bar_admin, menu);
@@ -100,5 +116,19 @@ public class AdminActivity extends AppCompatActivity {
             drawerLayout.closeDrawer(GravityCompat.START);
         else
             super.onBackPressed();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseAuth.addAuthStateListener(fireAuthListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(fireAuthListener != null){
+            firebaseAuth.removeAuthStateListener(fireAuthListener);
+        }
     }
 }
