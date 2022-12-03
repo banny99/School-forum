@@ -22,7 +22,7 @@ The motivation behind it stems from the unorganized manner in which questions ar
 - [x]  As a user, I want to mark the right answer to my question , in order for others to know which answer is right.
 - [x]  As an admin, I want to delete inappropriate/spam posts, in order to keep the forum clean.
 - [x] As an admin, I want to review reported posts/comments, in order to see if the reports are justified.
-- [ ]  As a user, I want to have a profile, where I can access an overview of the posts/comments I wrote/tracked, in order to keep track of it.
+- [x]  As a user, I want to have a profile, where I can access an overview of the posts/comments I wrote/tracked, in order to keep track of it.
 
 ### Low
 - [ ]  As a user, I want to be able to post anonymously, in case the topic is sensible or I want to keep my identity enclosed.
