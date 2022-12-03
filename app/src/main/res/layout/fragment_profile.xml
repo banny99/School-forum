@@ -71,4 +71,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_change_username_btn" />
 
+
+    <EditText
+        android:padding="10dp"
+        android:id="@+id/your_posts_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:background="#FFFFFF"
+        android:editable="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/profile_change_password_btn"
+        app:layout_constraintTop_toBottomOf="@+id/profile_change_password_btn" />
+
+    <EditText
+        android:padding="10dp"
+        android:id="@+id/saved_posts_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="#FFFFFF"
+        android:editable="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/profile_change_password_btn"
+        app:layout_constraintTop_toBottomOf="@+id/your_posts_info" />
+
+    <EditText
+        android:padding="10dp"
+        android:background="#FFFFFF"
+        android:editable="false"
+        android:id="@+id/your_subscriptions_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/profile_change_password_btn"
+        app:layout_constraintTop_toBottomOf="@+id/saved_posts_info" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
