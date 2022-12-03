@@ -3,6 +3,7 @@ package utils;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -181,7 +182,6 @@ public class DialogGenerator {
                 oldPassword.setInputType(129);
                 showOldPassBtn.setImageResource(R.drawable.ic_baseline_hide_password_24);
             }
-
         });
 
         EditText newPassword = popUpView.findViewById(R.id.new_password);
@@ -198,15 +198,26 @@ public class DialogGenerator {
         });
 
         builder.setView(popUpView);
-
         builder.setPositiveButton("Change", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 final String email = currentUser.getEmail();
                 final String oldPass = oldPassword.getText().toString();
                 final String newPass = newPassword.getText().toString();
 
-                AuthCredential credential = EmailAuthProvider.getCredential(email,oldPass);
+                if (TextUtils.isEmpty(email)) {
+                    showToast(activity, "Enter email address!");
+                    return;
+                }
+                if(TextUtils.isEmpty(newPass)){
+                    showToast(activity,"Enter Password!");
+                    return;
+                }
+                if(newPassword.length() < 6){
+                    showToast(activity,"Password too short, enter minimum 6 characters");
+                    return;
+                }
 
+                AuthCredential credential = EmailAuthProvider.getCredential(email,oldPass);
                 currentUser.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -215,16 +226,16 @@ public class DialogGenerator {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(!task.isSuccessful()){
-                                        Toast.makeText(activity,"Failed to change your password",Toast.LENGTH_LONG).show();
+                                        showToast(activity, "Failed to change your password");
                                     }
                                     else {
-                                        Toast.makeText(activity,"Password Successfully Modified",Toast.LENGTH_LONG).show();
+                                        showToast(activity, "Password Successfully Modified");
                                     }
                                 }
                             });
                         }
                         else {
-                            Toast.makeText(activity,"Authentication Failed",Toast.LENGTH_LONG).show();
+                            showToast(activity,"Authentication Failed");
                         }
                     }
                 });
@@ -238,5 +249,9 @@ public class DialogGenerator {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private static void showToast(Activity activity, String s) {
+        Toast.makeText(activity,s,Toast.LENGTH_LONG).show();
     }
 }
