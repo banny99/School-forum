@@ -28,3 +28,10 @@ The motivation behind it stems from the unorganized manner in which questions ar
 - [ ]  As a user, I want to be able to post anonymously, in case the topic is sensible or I want to keep my identity enclosed.
 - [ ]  As an admin, I want to be able to mute users, in case they show disrespectful/erratic behaviour.
 - [ ]  As a user, I want to be able to set a profile picture, in order to have a unique identity.
+
+
+##Log in as admin instructions
+
+In case you want to sign in as an admin,you will have to use the following credentials:
+username: admin@forumvia.dk
+password: via123
