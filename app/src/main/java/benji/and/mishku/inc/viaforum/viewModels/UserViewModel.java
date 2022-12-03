@@ -40,8 +40,8 @@ public class UserViewModel extends AndroidViewModel {
     public void addUser(User user){
         userService.addUser(user);
     }
-    public void updateUser(User user){
-        userService.updateUser(user);
+    public void updateUser(){
+        userService.updateUser(loggedUser.getValue());
     }
     public void deleteUser(User user){
         loggedUser = null;

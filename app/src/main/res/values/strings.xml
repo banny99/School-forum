@@ -60,4 +60,13 @@
     <string name="reported_posts">Reported Posts</string>
     <string name="valeriu">\@valeriu</string>
     <string name="my_posts">My posts</string>
+    <string name="show">show</string>
+    <string name="change">change</string>
+    <string name="profile">Profile</string>
+    <string name="old_username">Old username</string>
+    <string name="new_username">New Username</string>
+    <string name="change_username">change username</string>
+    <string name="change_password">change password</string>
+    <string name="old_password">old password</string>
+    <string name="new_password">new password</string>
 </resources>

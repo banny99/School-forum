@@ -105,7 +105,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onChanged(@NonNull User user) {
                 username.setText(user.getUsername());
-
             }
         });
         ImageButton signOutButton=headerView.findViewById(R.id.signOutButton);
