@@ -65,7 +65,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         if (posts != null && userViewModel.getLoggedUser().getValue() != null && !posts.isEmpty()) {
             viewHolder.postContent.setText(posts.get(position).getPostText());
             viewHolder.postTitle.setText(posts.get(position).getTitle());
-            viewHolder.postSubforum.setText("posted on " + subforumsViewModel.getSubforum(posts.get(position).getSubForumId()).getName());
+            if (subforumsViewModel.getSubforum(posts.get(position).getSubForumId()) != null)
+                viewHolder.postSubforum.setText("posted on " + subforumsViewModel.getSubforum(posts.get(position).getSubForumId()).getName());
+            else
+                viewHolder.postSubforum.setVisibility(View.GONE);
             viewHolder.postAuthor.setText("posted by " + posts.get(position).getPostAuthor());
 
             boolean isPostSaved=userViewModel.isPostSavedForCurrentUser(posts.get(position));
