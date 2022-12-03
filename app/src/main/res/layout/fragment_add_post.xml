@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".views.fragments.AddPostFragment"
     android:orientation="vertical">
 
@@ -19,7 +19,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:clickable="true"
         app:cardBackgroundColor="#FFFCFC">
@@ -84,13 +84,15 @@
                     android:id="@+id/newPostTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Post Title" />
+                    android:hint="Post Title"
+                    android:textColor="#0D1211" />
 
                 <EditText
                     android:id="@+id/newPostText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Post text" />
+                    android:hint="Post text"
+                    android:textColor="#150D0D" />
 
                 <ImageButton
                     android:id="@+id/addNewPostButton"

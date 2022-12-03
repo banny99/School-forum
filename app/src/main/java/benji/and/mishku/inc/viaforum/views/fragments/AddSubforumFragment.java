@@ -13,10 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import benji.and.mishku.inc.viaforum.R;
-import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.models.Subforum;
 import benji.and.mishku.inc.viaforum.viewModels.SubforumsViewModel;
 
@@ -44,7 +41,7 @@ public class AddSubforumFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View inflatedView = inflater.inflate(R.layout.fragment_add__subforum, container, false);
+        View inflatedView = inflater.inflate(R.layout.fragment_add_subforum, container, false);
 
         //Initialize objects ...
         subforumTitle = inflatedView.findViewById(R.id.newSubforumTitle);

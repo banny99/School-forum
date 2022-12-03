@@ -14,19 +14,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.viewModels.PostsViewModel;
-import benji.and.mishku.inc.viaforum.viewModels.SavedPostsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.SubforumsViewModel;
 import benji.and.mishku.inc.viaforum.viewModels.UserViewModel;
-import utils.PostAdapter;
 import utils.ReportedPostAdapter;
 
 
@@ -63,7 +58,7 @@ public class ReportedPostsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View inflatedView = inflater.inflate(R.layout.fragment_reported__posts__admin, container, false);;
+        View inflatedView = inflater.inflate(R.layout.fragment_reported_posts_admin, container, false);;
 
         //Initialize objects ...
         postListRV = inflatedView.findViewById(R.id.rvReportedPosts);
@@ -73,10 +68,9 @@ public class ReportedPostsFragment extends Fragment {
         //on list-item clicked
         postAdapter.setOnClickListener(post -> {
             postsViewModel.setSharedPost(post);
-            Navigation.findNavController(inflatedView).navigate(R.id.nav_post_detail);
+            Navigation.findNavController(inflatedView).navigate(R.id.nav_reported_post_detail);
         });
         postListRV.setAdapter(postAdapter);
-
 
 
         return inflatedView;

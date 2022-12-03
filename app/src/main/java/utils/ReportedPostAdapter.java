@@ -68,6 +68,8 @@ public class ReportedPostAdapter extends RecyclerView.Adapter<ReportedPostAdapte
                 Toast.makeText(viewHolder.itemView.getContext(), "You deemed this post unfit for the forum.\n The post is now deleted.", Toast.LENGTH_LONG).show();
             });
             viewHolder.denyButton.setOnClickListener(v->{
+                posts.get(position).setFlag(false);
+                postsViewModel.updatePost(posts.get(position));
                 posts.remove(position);
                 Toast.makeText(viewHolder.itemView.getContext(), "You deemed this post fit for the forum. \n The post will remain and not be deleted.", Toast.LENGTH_SHORT).show();
             });
