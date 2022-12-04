@@ -30,8 +30,11 @@ The motivation behind it stems from the unorganized manner in which questions ar
 - [ ]  As a user, I want to be able to set a profile picture, in order to have a unique identity.
 
 
-##Log in as admin instructions
-
+## Log in as admin instructions:
 In case you want to sign in as an admin,you will have to use the following credentials:
 username: admin@forumvia.dk
 password: via123
+
+### Code refferences:
+login - https://github.com/KasperKnop/GoogleServicesExample
+changing password - https://stackoverflow.com/a/41636728
