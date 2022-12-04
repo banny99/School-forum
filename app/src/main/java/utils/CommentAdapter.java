@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import java.util.Objects;
-
 import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.models.Comment;
 import benji.and.mishku.inc.viaforum.viewModels.CommentsViewModel;
@@ -30,8 +29,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         this.postsViewModel = postsViewModel;
     }
 
-
-
     @NonNull
     @Override
     public CommentAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,10 +40,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull CommentAdapter.ViewHolder viewHolder, int position) {
         viewHolder.commentContent.setText(comments.get(position).getContent());
-        //ToDo: put author username
         viewHolder.commentAuthor.setText("@"+comments.get(position).getCommentAuthor());
-
-
 
         //if the comment is written by logged user ->make comments options visible
         if (comments.get(position).getUserId().equals(Objects.requireNonNull(userViewModel.getLoggedUser().getValue()).getUserId())){
@@ -128,7 +122,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
             markCorrectAnswerBtn=itemView.findViewById(R.id.mark_correct_answer_btn);
             unMarkAnswerBtn=itemView.findViewById(R.id.unMarkCommentButton);
-
         }
     }
 
