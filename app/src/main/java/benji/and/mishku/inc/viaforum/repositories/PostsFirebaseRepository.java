@@ -65,7 +65,6 @@ public class PostsFirebaseRepository implements PostsService {
         });
     }
 
-    //Todo: do we need this to be singleton/protected ? isn't getReference() thread-safe ?
     public static PostsFirebaseRepository getInstance(){
         if(instance==null){
             synchronized (lock){
@@ -94,7 +93,6 @@ public class PostsFirebaseRepository implements PostsService {
     public void updatePost(Post post) {
         postsRef.child(post.getId()).setValue(post);
     }
-
 
 
     @Override
@@ -149,7 +147,6 @@ public class PostsFirebaseRepository implements PostsService {
     }
 
     @Override
-    //ToDo: I dont think we will keep this ...
     public void removeAllPosts() {
         postsRef.setValue(null);
     }

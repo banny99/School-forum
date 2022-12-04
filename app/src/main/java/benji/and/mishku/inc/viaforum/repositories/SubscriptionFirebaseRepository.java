@@ -68,7 +68,6 @@ public class SubscriptionFirebaseRepository implements SubscriptionService {
     }
 
     @Override
-    //ToDo: not finished ...
     public LiveData<List<User>> getUsersSubscribedToSubforum(String subforumId) {
         //get userIDs from subscriptions:
         ArrayList<String> userIDs= new ArrayList<>();

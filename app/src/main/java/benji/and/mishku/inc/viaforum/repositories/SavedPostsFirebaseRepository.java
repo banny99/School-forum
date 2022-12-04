@@ -44,8 +44,6 @@ public class SavedPostsFirebaseRepository implements SavedPostService {
         return instance;
     }
 
-    //ToDo: implement with firebase
-
     @Override
     public LiveData<List<Post>> getSavedPostsForUser(User user) {
         MutableLiveData<List<Post>> savedPosts=new MutableLiveData<>();
