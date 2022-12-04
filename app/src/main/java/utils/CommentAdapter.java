@@ -1,5 +1,7 @@
 package utils;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 
 import benji.and.mishku.inc.viaforum.R;
 import benji.and.mishku.inc.viaforum.models.Comment;
@@ -43,11 +46,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull CommentAdapter.ViewHolder viewHolder, int position) {
         viewHolder.commentContent.setText(comments.get(position).getContent());
-        //ToDo: put author username
         viewHolder.commentAuthor.setText("@"+comments.get(position).getCommentAuthor());
-
-
-
         //if the comment is written by logged user ->make comments options visible
         if (comments.get(position).getUserId().equals(Objects.requireNonNull(userViewModel.getLoggedUser().getValue()).getUserId())){
             viewHolder.editCommentBtn.setVisibility(View.VISIBLE);
@@ -88,6 +87,24 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             viewHolder.markCorrectAnswerBtn.setVisibility(View.GONE);
             viewHolder.unMarkAnswerBtn.setVisibility(View.GONE);
         }
+
+        Function editCommentConfirmationAction = e->{
+            commentsViewModel.updateComment(comments.get(position));
+            Toast.makeText(viewHolder.itemView.getContext(), "Your comment was EDITED", Toast.LENGTH_LONG).show();
+            return null;
+        };
+        Function deleteCommentConfirmationAction = s -> {
+            commentsViewModel.deleteComment(comments.get(position).getId());
+            Toast.makeText(viewHolder.itemView.getContext(), "Your comment was DELETED", Toast.LENGTH_LONG).show();
+            return null;
+        };
+        viewHolder.editCommentBtn.setOnClickListener(l->{
+            DialogGenerator.showCommentEditingDialog(comments.get(position),(Activity) viewHolder.itemView.getContext(), editCommentConfirmationAction);
+        });
+        viewHolder.deleteCommentBtn.setOnClickListener(view -> {
+            DialogGenerator.showConfirmationDialog("Are you sure you want to delete this comment?","",(Activity) viewHolder.itemView.getContext(), deleteCommentConfirmationAction);
+        });
+
     }
 
     @Override
@@ -118,13 +135,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
             commentOptionsBar=itemView.findViewById(R.id.comment_options_bar);
             editCommentBtn=itemView.findViewById(R.id.editCommentButton);
-            editCommentBtn.setOnClickListener(view -> {
-                //ToDo: on edit-comment Btn pressed.
-            });
             deleteCommentBtn=itemView.findViewById(R.id.deleteCommentButton);
-            deleteCommentBtn.setOnClickListener(view -> {
-                commentsViewModel.deleteComment(comments.get(getAdapterPosition()).getId());
-            });
 
             markCorrectAnswerBtn=itemView.findViewById(R.id.mark_correct_answer_btn);
             unMarkAnswerBtn=itemView.findViewById(R.id.unMarkCommentButton);

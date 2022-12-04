@@ -67,7 +67,6 @@ public class PostsViewModel extends AndroidViewModel {
     public LiveData<List<Post>> getPostsBySubforum(String subforumId){
         return postsService.getPostsBySubforum(subforumId);
     }
-    //TODO observe data forever here and extract posts on subscribed subforums
     public LiveData<List<Post>> getAllPostsFromSubscribedSubforums(String userId) {
         return postsService.getAllPostsFromSubscribedSubforums(userId);
     }

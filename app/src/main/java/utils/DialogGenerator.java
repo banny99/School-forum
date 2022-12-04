@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.function.Function;
 
 import benji.and.mishku.inc.viaforum.R;
+import benji.and.mishku.inc.viaforum.models.Comment;
 import benji.and.mishku.inc.viaforum.models.Post;
 import benji.and.mishku.inc.viaforum.models.Subforum;
 import benji.and.mishku.inc.viaforum.models.User;
@@ -68,6 +69,31 @@ public class DialogGenerator {
             public void onClick(DialogInterface dialog, int id) {
                 editedPost.setTitle(title.getText().toString());
                 editedPost.setPostText(text.getText().toString());
+                confirmAction.apply(null);
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User cancelled the dialog
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+    public static void showCommentEditingDialog(Comment editedComment, Activity activity, Function confirmAction){
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+
+        View popUpView = activity.getLayoutInflater().inflate(R.layout.edit_comment_popup, null);
+        EditText content = popUpView.findViewById(R.id.editCommentText);
+        content.setText(editedComment.getContent());
+
+        builder.setView(popUpView);
+
+        // Add the buttons
+        builder.setPositiveButton(R.string.edit, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                editedComment.setContent(content.getText().toString());
                 confirmAction.apply(null);
             }
         });
