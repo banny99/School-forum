@@ -10,7 +10,6 @@ The motivation behind it stems from the unorganized manner in which questions ar
 - [x]  As a user, I want to comment on a post, in case I know the answer to it or want to extend the question.
 - [x]  As a user, I want to modify a post, in case I want to add something to it or I made a mistake.
 - [x]  As a user, I want to search through posts and comments, in order to find something specific that I'm looking for.
-- [x]  As a user, I want to sort my search results, based on different criteria (subforum, time, upvotes, etc.) , in order to have a narrower pool of results.
 - [x]  As a user, I would like to log in for the purpose of accessing the application.
 - [x]  As a user, I want to be able to report posts , if I find them in violation of the posting rules.
 - [x]  As a user, I want to save a post, in case I need the information later.
@@ -23,7 +22,7 @@ The motivation behind it stems from the unorganized manner in which questions ar
 - [x]  As an admin, I want to delete inappropriate/spam posts, in order to keep the forum clean.
 - [x] As an admin, I want to review reported posts/comments, in order to see if the reports are justified.
 - [x]  As a user, I want to have a profile, where I can access an overview of the posts/comments I wrote/tracked, in order to keep track of it.
-
+- [ ]  As a user, I want to sort my search results, based on different criteria (subforum, time, upvotes, etc.) , in order to have a narrower pool of results.
 ### Low
 - [ ]  As a user, I want to be able to post anonymously, in case the topic is sensible or I want to keep my identity enclosed.
 - [ ]  As an admin, I want to be able to mute users, in case they show disrespectful/erratic behaviour.
@@ -31,10 +30,10 @@ The motivation behind it stems from the unorganized manner in which questions ar
 
 
 ## Log in as admin instructions:
-In case you want to sign in as an admin,you will have to use the following credentials:
-username: admin@forumvia.dk
-password: via123
+In case you want to sign in as an admin,you will have to use the following credentials:  
+username: admin@forumvia.dk  
+password: via123  
 
-### Code refferences:
-login - https://github.com/KasperKnop/GoogleServicesExample
-changing password - https://stackoverflow.com/a/41636728
+## Code references:
+- login - https://github.com/KasperKnop/GoogleServicesExample
+- changing password - https://stackoverflow.com/a/41636728
